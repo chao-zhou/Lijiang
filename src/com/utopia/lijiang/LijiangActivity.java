@@ -6,8 +6,6 @@ import com.utopia.lijiang.alarm.AlarmManager;
 import com.utopia.lijiang.alarm.SimpleLocationAlarm;
 import com.utopia.lijiang.global.Status;
 import com.utopia.lijiang.location.LocationUtil;
-import com.utopia.lijiang.service.LocationService;
-import com.utopia.lijiang.util.NotificationUtil;
 
 
 import android.app.Activity;
@@ -21,7 +19,6 @@ import android.content.Intent;
 public class LijiangActivity extends Activity {
 	
 	private static LijiangActivity instance = null;
-	
 	private AlarmListener alarmListener = null;
 	
 	public static LijiangActivity getLatestInstance(){
@@ -36,60 +33,58 @@ public class LijiangActivity extends Activity {
     	super.onCreate(savedInstanceState);     	
     	setContentView(R.layout.main);
     	
-    	initial();
+    	AppInitializer.doWork(this);
+    	
+    	initialVariables();
     	bindToAlarmManager();
-    	getLastKnownLocation();
-        startLocationService();
+    	showLocation();
     }    
+    
     @Override
     public void onDestroy(){
     	Log.d(getString(R.string.debug_tag),"Destroy LijiangActivity");
     	unbindFromAlarmManager();
     	super.onDestroy();
     }     
+    
     public void setText(String text){
     	TextView txtView = (TextView)findViewById(R.id.helloTxt);
     	txtView.setText(text);
     }  
+    
     public void btnMapClickHandler(View target){
     	this.startActivity(new Intent(this,LijiangMapActivity.class));
     }
     
-    private void initial(){
-    	instance = this;
-    	
-    	Location testLoaction = LocationUtil.createLijingLocation(38, -112, 0, 0);
-    	AlarmManager.getInstance().addAlarm(new SimpleLocationAlarm(testLoaction));
-    	
-    	NotificationUtil.setIcon(R.drawable.ic_launcher);
-    	NotificationUtil.setTickerText(getString(R.string.app_name));
-    }
+    //Have no relative with UI
+    
     private void bindToAlarmManager(){
-    	alarmListener = new AlarmListener(){
-			@Override
-			public void onAlarm(Alarm alarm) {
-				String msg = alarm.getMessage();
-				setText(msg);
-			}
-    	};
-    	
-    	AlarmManager.getInstance().addAlarmListener(alarmListener);	
-    } 
-   
-    private void unbindFromAlarmManager(){
-    	AlarmManager.getInstance().removeAlarm(alarmListener);
-    	alarmListener = null;
+	    alarmListener = new AlarmListener(){
+				@Override
+		public void onAlarm(Alarm alarm) {
+					String msg = alarm.getMessage();
+					setText(msg);
+				}
+	    };
+	    	
+	   AlarmManager.getInstance().addAlarmListener(alarmListener);	
+	} 
+	 
+    private void initialVariables(){
+    	instance = this;
+    	Location testLoaction = LocationUtil.createLijingLocation(38, -112, 0, 0);
+    	AlarmManager.getInstance().addAlarm(new SimpleLocationAlarm(testLoaction));	
     }
-
-    private void getLastKnownLocation(){
-    	Location loc = LocationUtil.getBestLastKnowLocation(this);	
+    
+	private void unbindFromAlarmManager(){
+	    	AlarmManager.getInstance().removeAlarm(alarmListener);
+	    	alarmListener = null;
+	}
+	
+	private void showLocation(){
+    	Location loc = Status.getCurrentStatus().getLocation();	
     	if(loc!=null){
-    		Status.getCurrentStatus().setLocation(loc);
     		setText(loc.toString());
     	}
-    }
-    private void startLocationService(){
-    	Intent intent = new Intent(this,LocationService.class);
-        startService(intent);  
-    }
+	}
 }
