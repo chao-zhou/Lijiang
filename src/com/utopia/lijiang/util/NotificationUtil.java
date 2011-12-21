@@ -25,7 +25,6 @@ public class NotificationUtil {
 	public static void setTickerText(CharSequence tickerText) {
 		NotificationUtil.tickerText = tickerText;
 	}
-
 	
 	public static Notification createDefualtNotification(){
 		long when = System.currentTimeMillis();
