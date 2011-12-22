@@ -39,6 +39,8 @@ public class AlarmManager {
 	}
 	
 	public int addAlarmListener(AlarmListener al){
+		Log.d("lijiang","add AlarmListener");
+		
 		boolean isAdded = alListeners.add(al);
 		
 		if(isAdded){
@@ -67,7 +69,7 @@ public class AlarmManager {
 					alarm(alarm);
 					count++;
 				}catch(Exception ex){
-					Log.d("lijiang","Create LocationService");
+					Log.d("lijiang","Error Message:"+ex.getMessage());
 				}
 			}
 		}
