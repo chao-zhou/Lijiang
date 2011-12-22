@@ -80,7 +80,11 @@ public class AlarmManager {
 		Iterator<AlarmListener> it = alListeners.iterator();
 		while(it.hasNext()){
 			AlarmListener al = it.next();
-			al.onAlarm(alarm);
+			try{
+				al.onAlarm(alarm);
+			}catch(Exception ex){
+				Log.d("lijiang","Error Message:"+ex.getMessage());
+			}
 		}
 	}
 	
