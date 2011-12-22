@@ -52,7 +52,7 @@ public class LocationService extends Service {
 		Log.d(getString(R.string.debug_tag),"Start LocationService");
 		
 		String msg = "No Location Info"; 
-		Location lastLocation = Status.getCurrentStatus().getLastLocation();
+		Location lastLocation = Status.getCurrentStatus().getLocation();
 	    if(lastLocation != null){
 	    	msg = LocationUtil.getLocationMessage(lastLocation);
 	    }
