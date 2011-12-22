@@ -32,13 +32,18 @@ public class LijiangActivity extends Activity {
     	
     	super.onCreate(savedInstanceState);     	
     	setContentView(R.layout.main);
-    	
-    	AppInitializer.doWork(this);
-    	
+	
+    	AppInitializer.doWork(this);    	
     	initialVariables();
     	bindToAlarmManager();
-    	showLocation();
+    
     }    
+    
+    @Override
+    public void onStart(){
+    	super.onStart();
+    	showLocation();
+    }
     
     @Override
     public void onDestroy(){
