@@ -1,94 +1,71 @@
 package com.utopia.lijiang.alarm;
 
-import java.util.Date;
+import com.utopia.lijiang.global.Status;
 
 import android.location.Location;
 
-import com.utopia.lijiang.global.Status;
-import com.utopia.lijiang.location.InOut;
-
-public class LocationAlarm implements Alarm {
-
-	boolean sound = true;
-	boolean shake = true;
-	boolean notification = true;
-	Location location = null;
-	InOut	inOut = InOut.Both;
-	Date beginDate = null;
-	Date endDate = null;
+public class LocationAlarm implements Alarm{
+	public static float Range = 200; //200 meters
 	
-	public InOut getInOut() {
-		return inOut;
+	private int id = 0;
+	private double longitude = 0;
+	private double latitude = 0;
+	private String message = null;
+	
+	public LocationAlarm(Location location){
+		initial(location.getLongitude(),location.getLatitude());
 	}
 
-	public void setInOut(InOut inOut) {
-		this.inOut = inOut;
-	}
-
-	public Date getBeginDate() {
-		return beginDate;
-	}
-
-	public void setBeginDate(Date beginDate) {
-		this.beginDate = beginDate;
-	}
-
-	public Date getEndDate() {
-		return endDate;
-	}
-
-	public void setEndDate(Date endDate) {
-		this.endDate = endDate;
-	}
-
-	public void setSound(boolean sound) {
-		this.sound = sound;
-	}
-
-	public void setShake(boolean shake) {
-		this.shake = shake;
-	}
-
-	public void setNotification(boolean notification) {
-		this.notification = notification;
+	public LocationAlarm(double longitude,double latitude){
+		initial(longitude,latitude);
 	}
 	
-	public LocationAlarm(Location location,InOut inOut,Date beginDate,Date endDate){
-		this.location = location;
-		this.inOut = inOut;
-		this.beginDate = beginDate;
-		this.endDate = endDate;
-	} 
+	protected void initial(double longitude,double latitude){
+		this.longitude = longitude;
+		this.latitude = latitude;
+	}
+	
+	protected boolean isNear(double longitude2,double latitude2){
+		double distance  = getDistance(longitude2,latitude2);
+		
+		if (distance <= Range){
+			setMessage("Near Longitude:"+longitude+" Latidude:"+latitude);
+			return true;
+		}else{
+			return false;
+		}
+	}
+
+	protected double getDistance(double longitude2,double latitude2){
+		double longDistance = longitude - longitude2;
+		double latiDistance = latitude - latitude2;
+		double distance =
+				Math.sqrt(Math.pow(longDistance,2.0) + Math.pow(latiDistance,2.0));
+		
+		return distance;
+	}
 	
 	
-	@Override
-	public boolean isSound() {
-		// TODO Auto-generated method stub
-		return sound;
-	}
-
-	@Override
-	public boolean isShake() {
-		// TODO Auto-generated method stub
-		return shake;
-	}
-
-	@Override
-	public boolean isNotification() {
-		// TODO Auto-generated method stub
-		return notification;
-	}
-
 	@Override
 	public String getMessage() {
 		// TODO Auto-generated method stub
-		return null;
+		return message;
+	}
+
+	public void setMessage(String msg){
+		message = msg;
+	}
+	
+	@Override
+	public int getId() {
+		// TODO Auto-generated method stub
+		return id;
 	}
 
 	@Override
 	public boolean shouldAlarm(Status status) {
 		// TODO Auto-generated method stub
-		return false;
+		Location loc = status.getLocation();
+		return isNear(loc.getLongitude(),loc.getLatitude());
 	}
-
 }

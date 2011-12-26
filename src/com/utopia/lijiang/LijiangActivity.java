@@ -3,7 +3,7 @@ package com.utopia.lijiang;
 import com.utopia.lijiang.alarm.Alarm;
 import com.utopia.lijiang.alarm.AlarmListener;
 import com.utopia.lijiang.alarm.AlarmManager;
-import com.utopia.lijiang.alarm.SimpleLocationAlarm;
+import com.utopia.lijiang.alarm.LocationAlarm;
 import com.utopia.lijiang.global.Status;
 import com.utopia.lijiang.location.LocationUtil;
 
@@ -78,7 +78,7 @@ public class LijiangActivity extends Activity {
     private void initialVariables(){
     	instance = this;
     	Location testLoaction = LocationUtil.createLijingLocation(38, -112, 0, 0);
-    	AlarmManager.getInstance().addAlarm(new SimpleLocationAlarm(testLoaction));	
+    	AlarmManager.getInstance().addAlarm(new LocationAlarm(testLoaction));	
     }
     
 	private void unbindFromAlarmManager(){

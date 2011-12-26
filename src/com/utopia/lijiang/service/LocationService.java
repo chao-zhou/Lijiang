@@ -114,19 +114,7 @@ public class LocationService extends Service {
 		alarmListener = new AlarmListener(){
 			@Override
 			public void onAlarm(Alarm alarm){
-				if(alarm.isNotification()){
-					updateNotification(alarm.getMessage());
-				}
-				
-				if(alarm.isSound()){
-					
-				}
-				
-				if(alarm.isSound()){
-					
-				}
-				
-			
+				updateNotification(alarm.getMessage());
 			}
 		};
 		
