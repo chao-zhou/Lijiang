@@ -1,18 +1,32 @@
 package com.utopia.lijiang.alarm;
 
+import com.j256.ormlite.field.DatabaseField;
+import com.j256.ormlite.table.DatabaseTable;
 import com.utopia.lijiang.global.Status;
 
 import android.location.Location;
 
+@DatabaseTable
 public class LocationAlarm implements Alarm{
 	public static float Range = 200; //200 meters
 	
+	@DatabaseField(id = true)
 	private int id = 0;
+	
+	@DatabaseField
 	private double longitude = 0;
+	
+	@DatabaseField
 	private double latitude = 0;
+	
+	@DatabaseField
 	private String message = null;
 	
-	public LocationAlarm(Location location){
+	public LocationAlarm(){
+		
+	};
+	
+ 	public LocationAlarm(Location location){
 		initial(location.getLongitude(),location.getLatitude());
 	}
 
