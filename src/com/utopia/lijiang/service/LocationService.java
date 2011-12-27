@@ -1,6 +1,5 @@
 package com.utopia.lijiang.service;
 
-import com.utopia.lijiang.LijiangActivity;
 import com.utopia.lijiang.R;
 import com.utopia.lijiang.alarm.Alarm;
 import com.utopia.lijiang.alarm.AlarmListener;
@@ -8,18 +7,14 @@ import com.utopia.lijiang.alarm.AlarmManager;
 import com.utopia.lijiang.global.Status;
 import com.utopia.lijiang.location.LocationListener;
 import com.utopia.lijiang.location.LocationUtil;
-import com.utopia.lijiang.util.NotificationUtil;
 
-import android.app.Notification;
-import android.app.PendingIntent;
-import android.app.Service;
 import android.content.Intent;
 import android.location.Location;
 import android.location.LocationManager;
 import android.os.IBinder;
 import android.util.Log;
 
-public class LocationService extends Service {
+public class LocationService extends NotificationService {
 
 	static LocationService instance = null;
 	static int minTime = 15*1000;
@@ -64,42 +59,30 @@ public class LocationService extends Service {
 	
 	@Override
 	public void onDestroy(){
-		locationManager.removeUpdates(gpsListener);
-		locationManager.removeUpdates(networkListener);
-		AlarmManager.getInstance().removeAlarmListener(alarmListener);
-
-		toBackground();
 		
+		unbindNetLocationListener();
+		unbindGPSLocationListener();
+		
+		AlarmManager.getInstance().removeAlarmListener(alarmListener);
+		toBackground();	
 		Log.d(getString(R.string.debug_tag),"Destroy LocationService");
 	}
+
 	
-	
-	
-	public void updateNotification(String msg){
-		Log.d(getString(R.string.debug_tag),"Update Notification Message:"+msg);
-			
-		Notification notification = createNotification(msg);
-		NotificationUtil.updateNotification(this, R.string.foreground, notification);
+	public void bindNetLocationListener(){
+		 locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER,minTime,minMeters,networkListener);
 	}
 	
-	private PendingIntent getContentIntent(){
-		 Intent i = new Intent(this,LijiangActivity.class); 
-	     PendingIntent contentIntent = PendingIntent.getActivity(this,0,i,PendingIntent.FLAG_CANCEL_CURRENT);
-	     return contentIntent;
+	public void bindGPSLocationListener(){
+		 locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER,minTime,minMeters,gpsListener);
 	}
 	
-	private Notification createNotification(String msg){
-		PendingIntent contentIntent = getContentIntent();	
-		return	NotificationUtil.createNotification(this,getText(R.string.foreground),msg,contentIntent);
+	public void unbindNetLocationListener(){
+		locationManager.removeUpdates(networkListener);
 	}
 	
-	private void toForegroud(String msg){
-		Notification notification = createNotification(msg);
-		startForeground(R.string.foreground,notification);
-	}
-	
-	private void toBackground(){
-		this.stopForeground(true);
+	public void  unbindGPSLocationListener(){
+		locationManager.removeUpdates(gpsListener);
 	}
 	
 	private void initialVariables(){
@@ -118,10 +101,11 @@ public class LocationService extends Service {
 			}
 		};
 		
-		AlarmManager.getInstance().addAlarmListener(alarmListener);	
-	    locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER,minTime,minMeters,gpsListener);
-	    locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER,minTime,minMeters,networkListener);
-	    
+		AlarmManager.getInstance().addAlarmListener(alarmListener);
+		
+		//Read perefernces and to decide which locatin listener to bind
+		bindNetLocationListener();
+		bindGPSLocationListener();
 	}
 	 
 }
