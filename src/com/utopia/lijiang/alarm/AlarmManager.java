@@ -26,6 +26,10 @@ public class AlarmManager {
 		alListeners = new ArrayList<AlarmListener>();
 	}
 	
+	public List<Alarm> getAllAlarm(){
+		return alarms;
+	} 
+	
 	public void addAlarm(Alarm alarm){
 		alarms.add(alarm);
 	}
