@@ -14,6 +14,9 @@ public class LocationAlarm implements Alarm{
 	private int id = 0;
 	
 	@DatabaseField
+	private String title = null;
+	
+	@DatabaseField
 	private double longitude = 0;
 	
 	@DatabaseField
@@ -22,19 +25,22 @@ public class LocationAlarm implements Alarm{
 	@DatabaseField
 	private String message = null;
 	
+	
+	
 	public LocationAlarm(){
 		
 	};
 	
- 	public LocationAlarm(Location location){
-		initial(location.getLongitude(),location.getLatitude());
+ 	public LocationAlarm(String title,Location location){
+		initial(title,location.getLongitude(),location.getLatitude());
 	}
 
-	public LocationAlarm(double longitude,double latitude){
-		initial(longitude,latitude);
+	public LocationAlarm(String title,double longitude,double latitude){
+		initial(title,longitude,latitude);
 	}
 	
-	protected void initial(double longitude,double latitude){
+	protected void initial(String title,double longitude,double latitude){
+		this.title = title;
 		this.longitude = longitude;
 		this.latitude = latitude;
 	}
@@ -81,5 +87,11 @@ public class LocationAlarm implements Alarm{
 		// TODO Auto-generated method stub
 		Location loc = status.getLocation();
 		return isNear(loc.getLongitude(),loc.getLatitude());
+	}
+
+	@Override
+	public String getTitle() {
+		// TODO Auto-generated method stub
+		return title;
 	}
 }

@@ -78,7 +78,7 @@ public class LijiangActivity extends Activity {
     private void initialVariables(){
     	instance = this;
     	Location testLoaction = LocationUtil.createLijingLocation(38, -112, 0, 0);
-    	AlarmManager.getInstance().addAlarm(new LocationAlarm(testLoaction));	
+    	AlarmManager.getInstance().addAlarm(new LocationAlarm("Test Alarm",testLoaction));	
     }
     
 	private void unbindFromAlarmManager(){
