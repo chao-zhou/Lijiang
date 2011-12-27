@@ -25,7 +25,8 @@ public class LocationAlarm implements Alarm{
 	@DatabaseField
 	private String message = null;
 	
-	
+	@DatabaseField
+	private boolean active = false;
 	
 	public LocationAlarm(){
 		
@@ -43,6 +44,7 @@ public class LocationAlarm implements Alarm{
 		this.title = title;
 		this.longitude = longitude;
 		this.latitude = latitude;
+		this.active = true;
 	}
 	
 	protected boolean isNear(double longitude2,double latitude2){
@@ -93,5 +95,11 @@ public class LocationAlarm implements Alarm{
 	public String getTitle() {
 		// TODO Auto-generated method stub
 		return title;
+	}
+
+	@Override
+	public boolean isActive() {
+		// TODO Auto-generated method stub
+		return active;
 	}
 }

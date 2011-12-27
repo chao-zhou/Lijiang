@@ -6,6 +6,7 @@ public interface Alarm {
 	public int getId();
 	public String getTitle();
 	public String  getMessage();
+	public boolean isActive();
 	public boolean shouldAlarm(Status status);
 	
 }
