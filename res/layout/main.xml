@@ -3,18 +3,52 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:orientation="vertical" >
-
-    <TextView
-        android:id="@+id/helloTxt"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/hello" />
-
-    <Button
+	<ImageView
+	    android:id="@+id/logo"
+	    android:layout_width="fill_parent"
+        android:layout_height="100px"
+        android:layout_weight="0.0"
+	    />
+	<LinearLayout   
+	    android:layout_width="fill_parent"
+    	android:layout_height="wrap_content"
+    	android:orientation="horizontal"
+    	android:gravity="left">l
+	  	<TextView 
+	  	    android:id="@+id/taskInfo"
+        	android:layout_width="wrap_content"
+        	android:layout_height="fill_parent"
+        	android:text="Task Infomation" 
+        	android:textSize="32px"
+        	android:layout_weight="1.0"
+        	android:layout_marginRight="20px"/>
+	  	<Button
+	        android:id="@+id/btnMap"
+	      	android:layout_width="wrap_content"
+        	android:layout_height="fill_parent"
+	        android:text="NET"
+	        android:layout_weight="0.0"/>
+	  	<Button
+	        android:id="@+id/btnMap"
+	     	android:layout_width="wrap_content"
+        	android:layout_height="fill_parent"
+	        android:text="GPS"
+	        android:layout_weight="0.0" />
+	</LinearLayout>
+	<ListView 
+		android:id="@+id/mainFileList" 
+		android:layout_width="fill_parent" 
+		android:layout_height="wrap_content"
+		android:gravity="center"
+		android:layout_weight="1.0"/>
+	<Button
         android:id="@+id/btnMap"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:onClick="btnMapClickHandler"
-        android:text="Show Map" />
+        android:text="Add a Alarm"
+        android:layout_weight="0.0" 
+        />
+ 
 	
 </LinearLayout>

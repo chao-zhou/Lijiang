@@ -53,7 +53,7 @@ public class LijiangActivity extends Activity {
     }     
     
     public void setText(String text){
-    	TextView txtView = (TextView)findViewById(R.id.helloTxt);
+    	TextView txtView = (TextView)findViewById(R.id.taskInfo);
     	txtView.setText(text);
     }  
     
