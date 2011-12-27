@@ -7,19 +7,25 @@ import com.utopia.lijiang.alarm.LocationAlarm;
 import com.utopia.lijiang.global.Status;
 import com.utopia.lijiang.location.LocationUtil;
 
-
-import android.app.Activity;
+import android.app.ListActivity;
 import android.location.Location;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
+
 import android.widget.TextView;
 import android.content.Intent;
 
-public class LijiangActivity extends Activity {
+public class LijiangActivity extends ListActivity  {
 	
 	private static LijiangActivity instance = null;
+	private TextView taskInfo = null;
+	private Button	networkButton = null;
+	private Button	gpsButton = null;
+	
 	private AlarmListener alarmListener = null;
+	
 	
 	public static LijiangActivity getLatestInstance(){
 		return instance;
@@ -36,7 +42,7 @@ public class LijiangActivity extends Activity {
     	AppInitializer.doWork(this);    	
     	initialVariables();
     	bindToAlarmManager();
-    
+    	bindList();
     }    
     
     @Override
@@ -53,8 +59,7 @@ public class LijiangActivity extends Activity {
     }     
     
     public void setText(String text){
-    	TextView txtView = (TextView)findViewById(R.id.taskInfo);
-    	txtView.setText(text);
+    	 	taskInfo.setText(text);
     }  
     
     public void btnMapClickHandler(View target){
@@ -77,8 +82,15 @@ public class LijiangActivity extends Activity {
 	 
     private void initialVariables(){
     	instance = this;
+    	taskInfo = (TextView)findViewById(R.id.taskInfo);
+    	networkButton = (Button)findViewById(R.id.networkButton);
+    	gpsButton = (Button)findViewById(R.id.gpsButton);
+    	
     	Location testLoaction = LocationUtil.createLijingLocation(38, -112, 0, 0);
-    	AlarmManager.getInstance().addAlarm(new LocationAlarm("Test Alarm",testLoaction));	
+    	for(int i =0; i < 20; i++){
+    	AlarmManager.getInstance().addAlarm(new LocationAlarm("Test Alarm",testLoaction));
+    	}
+    	
     }
     
 	private void unbindFromAlarmManager(){
@@ -92,4 +104,11 @@ public class LijiangActivity extends Activity {
     		setText(loc.toString());
     	}
 	}
+	
+	private void bindList(){ 
+       AlarmAdapter adapter = 
+    		   new AlarmAdapter(this,AlarmManager.getInstance().getAllAlarm());
+       setListAdapter(adapter);
+	}
+	
 }
