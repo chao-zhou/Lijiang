@@ -18,25 +18,25 @@
 	  	    android:id="@+id/taskInfo"
         	android:layout_width="wrap_content"
         	android:layout_height="fill_parent"
-        	android:text="Task Infomation" 
+        	android:text="Alarm Task Infomation" 
         	android:textSize="32px"
         	android:layout_weight="1.0"
         	android:layout_marginRight="20px"/>
 	  	<Button
-	        android:id="@+id/btnMap"
+	        android:id="@+id/networkButton"
 	      	android:layout_width="wrap_content"
         	android:layout_height="fill_parent"
 	        android:text="NET"
 	        android:layout_weight="0.0"/>
 	  	<Button
-	        android:id="@+id/btnMap"
+	        android:id="@+id/gpsButton"
 	     	android:layout_width="wrap_content"
         	android:layout_height="fill_parent"
 	        android:text="GPS"
 	        android:layout_weight="0.0" />
 	</LinearLayout>
 	<ListView 
-		android:id="@+id/mainFileList" 
+		android:id="@+id/alarmList" 
 		android:layout_width="fill_parent" 
 		android:layout_height="wrap_content"
 		android:gravity="center"
