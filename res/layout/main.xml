@@ -7,8 +7,7 @@
 	    android:id="@+id/logo"
 	    android:layout_width="fill_parent"
         android:layout_height="60px"
-        android:layout_weight="0.0"
-	    />
+        android:layout_weight="0.0" />
 	<LinearLayout   
 	    android:layout_width="fill_parent"
     	android:layout_height="80px"
@@ -22,17 +21,19 @@
         	android:textSize="28px"
         	android:layout_weight="1.0"
         	android:layout_marginRight="20px"/>
-	  	<Button
+	  	<ToggleButton
 	        android:id="@+id/networkButton"
 	      	android:layout_width="wrap_content"
         	android:layout_height="wrap_content"
-	        android:text="NET"
+	        android:textOn="NET on"
+	        android:textOff="NET off"
 	        android:layout_weight="0.0"/>
-	  	<Button
+	  	<ToggleButton
 	        android:id="@+id/gpsButton"
 	     	android:layout_width="wrap_content"
         	android:layout_height="wrap_content"
-	        android:text="GPS"
+	        android:textOn="GPS on"
+	        android:textOff="GPS off"
 	        android:layout_weight="0.0" />
 	</LinearLayout>
 	<ListView 
@@ -47,10 +48,7 @@
         android:id="@+id/btnMap"
         android:layout_width="fill_parent"
         android:layout_height="80px"
-        android:onClick="btnMapClickHandler"
         android:text="Add a Alarm"
-        android:layout_weight="0.0" 
-        />
- 
-	
+        android:onClick="showAddAlarmActivity"
+        android:layout_weight="0.0"  />	
 </LinearLayout>

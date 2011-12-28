@@ -42,13 +42,14 @@ public class LijiangActivity extends ListActivity  {
     	AppInitializer.doWork(this);    	
     	initialVariables();
     	bindToAlarmManager();
-    	bindList();
+    	
     }    
     
     @Override
     public void onStart(){
     	super.onStart();
     	showLocation();
+    	bindList();
     }
     
     @Override
@@ -62,8 +63,8 @@ public class LijiangActivity extends ListActivity  {
     	 	taskInfo.setText(text);
     }  
     
-    public void btnMapClickHandler(View target){
-    	this.startActivity(new Intent(this,LijiangMapActivity.class));
+    public void showAddAlarmActivity(View target){
+    	this.startActivity(new Intent(this,AddSimpleAlarmActivity.class));
     }
     
     //Have no relative with UI
@@ -87,7 +88,7 @@ public class LijiangActivity extends ListActivity  {
     	gpsButton = (Button)findViewById(R.id.gpsButton);
     	
     	Location testLoaction = LocationUtil.createLijingLocation(38, -112, 0, 0);
-    	for(int i =0; i < 20; i++){
+    	for(int i =0; i < 3; i++){
     	AlarmManager.getInstance().addAlarm(new LocationAlarm("Test Alarm",testLoaction));
     	}
     	
