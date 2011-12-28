@@ -68,7 +68,8 @@ public class AlarmManager {
 		Iterator<Alarm> it = alarms.iterator();
 		while(it.hasNext()){
 			Alarm alarm = it.next();
-			if(alarm.shouldAlarm(Status.getCurrentStatus())){
+			if(alarm.isActive()
+			&& alarm.shouldAlarm(Status.getCurrentStatus())){
 				try{
 					alarm(alarm);
 					count++;

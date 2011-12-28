@@ -88,10 +88,8 @@ public class LijiangActivity extends ListActivity  {
     	gpsButton = (Button)findViewById(R.id.gpsButton);
     	
     	Location testLoaction = LocationUtil.createLijingLocation(38, -112, 0, 0);
-    	for(int i =0; i < 3; i++){
-    	AlarmManager.getInstance().addAlarm(new LocationAlarm("Test Alarm",testLoaction));
-    	}
     	
+    	AlarmManager.getInstance().addAlarm(new LocationAlarm("Test Alarm",testLoaction));
     }
     
 	private void unbindFromAlarmManager(){
