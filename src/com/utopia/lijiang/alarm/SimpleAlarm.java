@@ -44,4 +44,22 @@ public class SimpleAlarm implements Alarm {
 		return true;
 	}
 
+	@Override
+	public void setTitle(String title) {
+		// TODO Auto-generated method stub
+		this.title = title;
+	}
+
+	@Override
+	public void setMessage(String message) {
+		// TODO Auto-generated method stub
+		this.message = message;
+	}
+
+	@Override
+	public void setActive(boolean active) {
+		// TODO Auto-generated method stub
+		this.active = active;
+	}
+
 }

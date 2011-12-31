@@ -33,6 +33,14 @@ public class AlarmManager {
 	public void addAlarm(Alarm alarm){
 		alarms.add(alarm);
 	}
+		
+	public int getLocation(Alarm alarm){
+		return alarms.indexOf(alarm);
+	}
+	
+	public Alarm getAlarm(int location){
+		return alarms.get(location);
+	}
 	
 	public Alarm removeAlarm(int location){
 		 return alarms.remove(location);

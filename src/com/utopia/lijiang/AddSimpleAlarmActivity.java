@@ -5,6 +5,7 @@ import com.utopia.lijiang.alarm.AlarmManager;
 import com.utopia.lijiang.alarm.SimpleAlarm;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.CheckBox;
@@ -12,6 +13,8 @@ import android.widget.EditText;
 
 public class AddSimpleAlarmActivity extends Activity {
 
+	 public static String ALARM_LOCATION = "alarm_location";
+	
 	 private EditText alarmTitle = null;
 	 private EditText alarmMessage = null;
 	 private CheckBox alarmActive = null;
@@ -26,6 +29,36 @@ public class AddSimpleAlarmActivity extends Activity {
 	    	alarmMessage = (EditText)findViewById(R.id.addAlarmMsg);
 	    	alarmActive = (CheckBox)findViewById(R.id.addAlarmActive);
 	    }  
+	 
+	 @Override
+	 public void onStart(){
+		 super.onStart();
+		 Intent intent = this.getIntent();
+		 Alarm alarm = getAlarmFromIntent(intent);
+		 
+		 viewAlarm(alarm);
+	 }
+	 
+	 private Alarm getAlarmFromIntent(Intent intent){
+		 int location = intent.getIntExtra(ALARM_LOCATION, -1);
+		 
+		 if(location < 0){
+			 return null;
+		 }
+		 
+		 return AlarmManager.getInstance().getAlarm(location);
+	 }
+	 
+	 private void viewAlarm(Alarm alarm){
+		 if(alarm == null){
+			 return;
+		 }
+		 
+		 alarmTitle.setText(alarm.getTitle());
+		 alarmMessage.setText(alarm.getMessage());
+		 alarmActive.setChecked(alarm.isActive());
+		 
+	 }
 	 
 	 public void addAlarm(View target){
 		 String title = alarmTitle.getText().toString();

@@ -102,4 +102,17 @@ public class LocationAlarm implements Alarm{
 		// TODO Auto-generated method stub
 		return active;
 	}
+
+	@Override
+	public void setTitle(String title) {
+		// TODO Auto-generated method stub
+		this.title = title;
+	}
+
+	@Override
+	public void setActive(boolean active) {
+		// TODO Auto-generated method stub
+		this.active = active;
+	}
+
 }
