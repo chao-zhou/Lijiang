@@ -1,29 +1,33 @@
 package com.utopia.lijiang.db;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.Callable;
 
-import android.database.sqlite.SQLiteOpenHelper;
+import android.content.Context;
+import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteDatabase.CursorFactory;
 
 import com.j256.ormlite.android.AndroidConnectionSource;
+import com.j256.ormlite.android.apptools.OrmLiteSqliteOpenHelper;
 import com.j256.ormlite.dao.Dao;
 import com.j256.ormlite.dao.DaoManager;
 import com.j256.ormlite.misc.TransactionManager;
 import com.j256.ormlite.support.ConnectionSource;
 import com.j256.ormlite.table.TableUtils;
+import com.utopia.lijiang.R;
 
-public class DBHelper {
+public class DBHelper extends OrmLiteSqliteOpenHelper {
 
-	private SQLiteOpenHelper sqliteOpenHelper = null;
 	private ConnectionSource connectionSource = null;
 	
-	public DBHelper(SQLiteOpenHelper sqliteOpenHelper){
-		this.sqliteOpenHelper = sqliteOpenHelper;
+	public DBHelper(Context context,CursorFactory factory,int version){
+		super(context, context.getString(R.string.app_name), factory, 0);
 	}
 	
 	public void openConnectionSource(){
-		connectionSource = new AndroidConnectionSource(sqliteOpenHelper);
+		connectionSource = new AndroidConnectionSource(this);
 	} 
 	
 	public void closeConnection() throws SQLException{
@@ -36,6 +40,12 @@ public class DBHelper {
 		Dao<T,ID> dao =
 			     DaoManager.createDao(connectionSource, clazz);
 		return dao;
+	}
+	
+	public <T,ID> void Save(T object,Class<T> clazz)throws SQLException{
+		List<T> list = new ArrayList<T>();
+		list.add(object);
+		this.Save(list, clazz);
 	}
 	
 	public <T,ID> void Save(List<T> list,Class<T> clazz) throws SQLException{	
@@ -69,5 +79,18 @@ public class DBHelper {
 		 	dao.createOrUpdate(data);
 		}
 	
+	}
+
+	@Override
+	public void onCreate(SQLiteDatabase arg0, ConnectionSource arg1) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void onUpgrade(SQLiteDatabase arg0, ConnectionSource arg1, int arg2,
+			int arg3) {
+		// TODO Auto-generated method stub
+		
 	}
 }

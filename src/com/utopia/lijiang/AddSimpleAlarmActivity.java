@@ -13,7 +13,7 @@ import android.widget.EditText;
 
 public class AddSimpleAlarmActivity extends Activity {
 
-	 public static String ALARM_LOCATION = "alarm_location";
+	 public final static String ALARM_LOCATION = "alarm_location";
 	
 	 private EditText alarmTitle = null;
 	 private EditText alarmMessage = null;
@@ -67,6 +67,7 @@ public class AddSimpleAlarmActivity extends Activity {
 		 
 		 Alarm alarm = new SimpleAlarm(title,message,active);
 		 AlarmManager.getInstance().addAlarm(alarm);
+		 AlarmManager.getInstance().save2DB(this);
 		 this.finish();
 	 }
 	 

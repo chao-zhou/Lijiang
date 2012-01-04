@@ -1,11 +1,15 @@
 package com.utopia.lijiang.alarm;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+import android.content.Context;
 import android.util.Log;
 
+import com.utopia.lijiang.R;
+import com.utopia.lijiang.db.DBHelper;
 import com.utopia.lijiang.global.Status;
 
 public class AlarmManager {
@@ -101,4 +105,14 @@ public class AlarmManager {
 		}
 	}
 	
+	public void save2DB(Context context){
+		String dbVersion = context.getString(R.string.database_version);
+		DBHelper helper = new DBHelper(context,null,Integer.parseInt(dbVersion));
+		try {
+			helper.Save(alarms, Alarm.class);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
 }
