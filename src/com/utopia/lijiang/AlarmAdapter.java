@@ -7,6 +7,7 @@ import com.utopia.lijiang.alarm.AlarmManager;
 
 import android.content.Context;
 import android.content.Intent;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -46,11 +47,17 @@ public class AlarmAdapter extends BaseAdapter {
 
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
-        if (convertView == null) {  
-            convertView = layoutInflater.inflate(R.layout.alarm_listitem, null); 
-        }  
-       
+      
+		if(convertView == null){
+			Log.d("lijiang","inflate a new view");
+			convertView = layoutInflater.inflate(R.layout.alarm_listitem, null);
+		}
+		
         Alarm item = (Alarm)getItem(position);
+        
+        String msg = "getView :"+ String.valueOf(item.getId()) + String.valueOf(item.isActive());
+		Log.d("lijiang",msg);
+        
         setText(item,convertView);
         setTitle(item,convertView);
         setMessage(item,convertView);
@@ -87,15 +94,21 @@ public class AlarmAdapter extends BaseAdapter {
 		msg.setText(item.getMessage());
 	}
 	
-	private void setActive(final Alarm item, View convertView){
+	private void setActive(final Alarm item, final View convertView){
+		
 		CheckBox active = (CheckBox)convertView.findViewById(R.id.alarmActive);
+		
+		active.setOnCheckedChangeListener(null); //Clear old listener, because the view will be reused
 		active.setChecked(item.isActive());	
 		active.setOnCheckedChangeListener(new OnCheckedChangeListener() {
-
 			@Override
 			public void onCheckedChanged(CompoundButton buttonView,
 					boolean isChecked) {
+				
+				String msg = "onCheckedChanged :"+ String.valueOf(item.getId()) + String.valueOf(item.isActive());
+				Log.d("lijiang",msg);
 				item.setActive(isChecked);
+				AlarmManager.getInstance().save2DB(convertView.getContext());
 			}
 			
 		});
