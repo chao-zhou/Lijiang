@@ -7,6 +7,7 @@ import com.utopia.lijiang.alarm.SimpleAlarm;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.EditText;
@@ -18,7 +19,8 @@ public class AddSimpleAlarmActivity extends Activity {
 	 private EditText alarmTitle = null;
 	 private EditText alarmMessage = null;
 	 private CheckBox alarmActive = null;
-	
+	 private Alarm alarm = null;
+	 
 	 @Override
 	 public void onCreate(Bundle savedInstanceState) {
 	    	
@@ -34,19 +36,19 @@ public class AddSimpleAlarmActivity extends Activity {
 	 public void onStart(){
 		 super.onStart();
 		 Intent intent = this.getIntent();
-		 Alarm alarm = getAlarmFromIntent(intent);
+		 getAlarmFromIntent(intent);
 		 
 		 viewAlarm(alarm);
 	 }
 	 
-	 private Alarm getAlarmFromIntent(Intent intent){
+	 private void getAlarmFromIntent(Intent intent){
 		 int location = intent.getIntExtra(ALARM_LOCATION, -1);
 		 
 		 if(location < 0){
-			 return null;
+			 return;
 		 }
 		 
-		 return AlarmManager.getInstance().getAlarm(location);
+		 alarm = AlarmManager.getInstance().getAlarm(location);
 	 }
 	 
 	 private void viewAlarm(Alarm alarm){
@@ -60,13 +62,23 @@ public class AddSimpleAlarmActivity extends Activity {
 		 
 	 }
 	 
-	 public void addAlarm(View target){
+	 public void saveAlarm(View target){
+		
 		 String title = alarmTitle.getText().toString();
 		 String message = alarmMessage.getText().toString();
 		 boolean active = alarmActive.isChecked();
 		 
-		 Alarm alarm = new SimpleAlarm(title,message,active);
-		 AlarmManager.getInstance().addAlarm(alarm);
+		 if(alarm == null){
+			 Log.d("lijiang","add alarm");
+			 alarm = new SimpleAlarm(title,message,active);
+			 AlarmManager.getInstance().addAlarm(alarm);
+		 }else{
+			 Log.d("lijiang","update alarm");
+			 alarm.setTitle(title);
+			 alarm.setMessage(message);
+			 alarm.setActive(active);
+		 }
+		 
 		 AlarmManager.getInstance().save2DB(this);
 		 this.finish();
 	 }

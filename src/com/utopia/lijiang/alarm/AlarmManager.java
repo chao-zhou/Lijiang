@@ -105,14 +105,49 @@ public class AlarmManager {
 		}
 	}
 	
-	public void save2DB(Context context){
+	public void reset(){
+		alarms.clear();
+	}
+	
+	public <T extends Alarm> void load4DB(Context context, Class<T> clazz){
 		String dbVersion = context.getString(R.string.database_version);
+		Log.d("lijiang","DB Ver:"+dbVersion);
+		
+		int count = 0;
 		DBHelper helper = new DBHelper(context,null,Integer.parseInt(dbVersion));
 		try {
-			helper.Save(alarms, Alarm.class);
+			helper.openConnectionSource();
+			Iterator<T> iterator = helper.Read(clazz);
+			while(iterator.hasNext()){
+				this.addAlarm(iterator.next());
+				count++;
+			}
+			
+			Log.d("lijiang","load "+String.valueOf(count)+"records");
+			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		}finally{
+			helper.closeConnection();
+		}
+	}
+	
+	public void save2DB(Context context){
+		String dbVersion = context.getString(R.string.database_version);
+		Log.d("lijiang",dbVersion);
+		DBHelper helper = new DBHelper(context,null,Integer.parseInt(dbVersion));
+		try {
+			helper.openConnectionSource();
+			
+			for(Alarm item : alarms){
+				helper.save(item);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally{
+			helper.closeConnection();
 		}
 	}
 }

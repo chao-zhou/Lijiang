@@ -1,12 +1,25 @@
 package com.utopia.lijiang.alarm;
 
+import com.j256.ormlite.field.DatabaseField;
 import com.utopia.lijiang.global.Status;
 
 public class SimpleAlarm implements Alarm {
 
+	@DatabaseField(generatedId = true)
+	private int id = 0;
+	
+	@DatabaseField
 	private String title = null;
+	
+	@DatabaseField
 	private String message = null;
+	
+	@DatabaseField
 	private boolean active = false;
+	
+	public SimpleAlarm(){
+		
+	}
 	
 	public SimpleAlarm(String title,String message,boolean active){
 		this.title = title;
@@ -17,7 +30,7 @@ public class SimpleAlarm implements Alarm {
 	@Override
 	public int getId() {
 		// TODO Auto-generated method stub
-		return 0;
+		return id;
 	}
 
 	@Override

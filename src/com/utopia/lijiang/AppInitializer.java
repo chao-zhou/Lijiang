@@ -4,6 +4,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.location.Location;
 
+import com.utopia.lijiang.alarm.AlarmManager;
+import com.utopia.lijiang.alarm.SimpleAlarm;
 import com.utopia.lijiang.global.Status;
 import com.utopia.lijiang.location.LocationUtil;
 import com.utopia.lijiang.service.LocationService;
@@ -25,9 +27,15 @@ public class AppInitializer {
  	private void doWork(){
 		configNotification();
 		configLastKnownLocation();
+		loadAlarm();
 		startLocationService();
 	}
-	  
+	
+ 	private void loadAlarm(){
+ 		AlarmManager.getInstance().reset();
+ 		AlarmManager.getInstance().load4DB(ctx, SimpleAlarm.class);
+ 	}
+ 	
 	private void configNotification(){
 	    	NotificationUtil.setIcon(R.drawable.ic_launcher);
 	    	NotificationUtil.setTickerText(ctx.getString(R.string.app_name));
@@ -43,4 +51,6 @@ public class AppInitializer {
 	    	Intent intent = new Intent(ctx,LocationService.class);
 	    	ctx.startService(intent);  
 	}
+	
+	
 }

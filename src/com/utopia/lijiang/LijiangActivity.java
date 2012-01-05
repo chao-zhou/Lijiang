@@ -47,6 +47,7 @@ public class LijiangActivity extends ListActivity  {
     
     @Override
     public void onStart(){
+    	Log.d(getString(R.string.debug_tag),"Start LijiangActivity ");
     	super.onStart();
     	showLocation();
     	bindList();
@@ -87,9 +88,8 @@ public class LijiangActivity extends ListActivity  {
     	networkButton = (Button)findViewById(R.id.networkButton);
     	gpsButton = (Button)findViewById(R.id.gpsButton);
     	
-    	Location testLoaction = LocationUtil.createLijingLocation(38, -112, 0, 0);
-    	
-    	AlarmManager.getInstance().addAlarm(new LocationAlarm("Test Alarm",testLoaction));
+    	//Location testLoaction = LocationUtil.createLijingLocation(38, -112, 0, 0);	
+    	//AlarmManager.getInstance().addAlarm(new LocationAlarm("Test Alarm",testLoaction));
     }
     
 	private void unbindFromAlarmManager(){

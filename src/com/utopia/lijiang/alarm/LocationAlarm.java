@@ -10,7 +10,7 @@ import android.location.Location;
 public class LocationAlarm implements Alarm{
 	public static float Range = 200; //200 meters
 	
-	@DatabaseField(id = true)
+	@DatabaseField(generatedId = true)
 	private int id = 0;
 	
 	@DatabaseField
