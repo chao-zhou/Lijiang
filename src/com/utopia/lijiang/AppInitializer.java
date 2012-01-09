@@ -30,7 +30,7 @@ public class AppInitializer {
 	/**Constructor
 	 * @param First loaded context
 	 * */
-	public AppInitializer(Context context){
+	private AppInitializer(Context context){
 		ctx = context;
 	}
 	
