@@ -14,6 +14,12 @@ import android.location.LocationManager;
 import android.os.IBinder;
 import android.util.Log;
 
+/**Foreground service for listening location's modification.
+ * Location update's work is done by LocatinoListener
+ * The works is done by itself is:
+ * 	1. bind and unbind notification listener.
+ *  2. send notifications when one alarm alarm.
+ * */
 public class LocationService extends NotificationService {
 
 	static LocationService instance = null;
@@ -103,7 +109,7 @@ public class LocationService extends NotificationService {
 		
 		AlarmManager.getInstance().addAlarmListener(alarmListener);
 		
-		//Read perefernces and to decide which locatin listener to bind
+		//Read preferences and to decide which locating listener to bind
 		bindNetLocationListener();
 		bindGPSLocationListener();
 	}

@@ -13,7 +13,10 @@ import android.widget.TextView;
 import com.google.android.maps.GeoPoint;
 import com.google.android.maps.MapActivity;
 import com.google.android.maps.MapView;
-
+/** The activity for show map and add address
+ * @author chao_zhou
+ * @version 1.0.0.0
+ * */
 public class LijiangMapActivity extends MapActivity {
 
 	MapView mapView = null;

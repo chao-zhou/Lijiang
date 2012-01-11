@@ -11,7 +11,11 @@ import android.util.Log;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.EditText;
-
+/** The activity for add and view SimpleAlarm
+ * Should be removed in release version
+ * @author chao_zhou
+ * @version 1.0.0.0
+ * */
 public class AddSimpleAlarmActivity extends Activity {
 
 	 public final static String ALARM_LOCATION = "alarm_location";

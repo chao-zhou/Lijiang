@@ -2,6 +2,10 @@ package com.utopia.lijiang.global;
 
 import android.location.Location;
 
+/**Singleton instance for saving properties. 
+ * @author chao_zhou
+ * @version 1.0.0.0
+ * */
 public class Status {
 
 	private static Status currentStatus = null;

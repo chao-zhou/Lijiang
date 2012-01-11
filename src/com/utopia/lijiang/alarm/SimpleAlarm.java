@@ -3,6 +3,11 @@ package com.utopia.lijiang.alarm;
 import com.j256.ormlite.field.DatabaseField;
 import com.utopia.lijiang.global.Status;
 
+/** The activity for add and view SimpleAlarm
+ * Should be removed in release version
+ * @author chao_zhou
+ * @version 1.0.0.0
+ * */
 public class SimpleAlarm implements Alarm {
 
 	@DatabaseField(generatedId = true)

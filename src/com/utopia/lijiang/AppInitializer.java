@@ -28,7 +28,7 @@ public class AppInitializer {
 	}
 	
 	/**Constructor
-	 * @param First loaded context
+	 * @param context First loaded context
 	 * */
 	private AppInitializer(Context context){
 		ctx = context;

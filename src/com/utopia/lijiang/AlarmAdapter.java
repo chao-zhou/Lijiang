@@ -18,13 +18,20 @@ import android.widget.CompoundButton;
 import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-
+/** Adapter for show Alarm list
+ *  This activity is bound with alarm_listitem.xml
+ * @author chao_zhou
+ * @version 1.0.0.0
+ * */
 public class AlarmAdapter extends BaseAdapter {
 
 	private List<Alarm> data = null;
 	private LayoutInflater layoutInflater; 
 	
-	
+	/**Constructor
+	 * @param context Current context
+	 * @param data Alarm list
+	 * */
 	public AlarmAdapter(Context context,List<Alarm> data){
 		this.data = data;
 		this.layoutInflater = LayoutInflater.from(context); 
@@ -40,6 +47,7 @@ public class AlarmAdapter extends BaseAdapter {
 		return data.get(position);
 	}
 
+	
 	@Override
 	public long getItemId(int position) {
 		return data.get(position).getId();
@@ -66,6 +74,9 @@ public class AlarmAdapter extends BaseAdapter {
 		return convertView;
 	}	
 	
+	/**Set each alarm's text area
+	 * Add a click listener to launch alarm details activity
+	 * */
 	private void setText(final Alarm item, View convertView){
 		LinearLayout text = (LinearLayout)convertView.findViewById(R.id.alarmText);
 		text.setOnClickListener(new OnClickListener(){
@@ -84,16 +95,23 @@ public class AlarmAdapter extends BaseAdapter {
 		});
 	}
 	
+	/**Set each alarm's title
+	 * */
 	private void setTitle(Alarm item, View convertView){
 		TextView title = (TextView)convertView.findViewById(R.id.alarmTitle);
 		title.setText(item.getTitle());
 	}
 	
+	/**Set each alarm's message
+	 * */
 	private void setMessage(Alarm item, View convertView){
 		TextView msg = (TextView)convertView.findViewById(R.id.alarmMsg);
 		msg.setText(item.getMessage());
 	}
 	
+	/**Set each alarm's active
+	 * and add a listener to enable/disable active
+	 * */
 	private void setActive(final Alarm item, final View convertView){
 		
 		CheckBox active = (CheckBox)convertView.findViewById(R.id.alarmActive);

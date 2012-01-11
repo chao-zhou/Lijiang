@@ -11,6 +11,8 @@ import android.content.Intent;
 import android.os.IBinder;
 import android.util.Log;
 
+/** A service contain method for send notification
+ * */
 public class NotificationService extends Service {
 
 	@Override

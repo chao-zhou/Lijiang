@@ -30,8 +30,6 @@ public class LijiangActivity extends ListActivity  {
 	
 	private static LijiangActivity instance = null;
 	private TextView taskInfo = null;
-	private Button	networkButton = null;
-	private Button	gpsButton = null;
 	
 	private AlarmListener alarmListener = null;
 	
@@ -75,14 +73,14 @@ public class LijiangActivity extends ListActivity  {
     }     
     
     /** Set All Running Task's Information.
-     * @param Task's Information
+     * @param text Task's Information
      * */
     public void setTaskInfoText(String text){
     	 	taskInfo.setText(text);
     }  
     
     /** Do work after showAddAlarm button is clicked
-     * @param trigger
+     * @param target trigger
      * */
     public void showAddAlarmActivity(View target){
     	this.startActivity(new Intent(this,AddSimpleAlarmActivity.class));
@@ -101,8 +99,6 @@ public class LijiangActivity extends ListActivity  {
     private void initialVariables(){
     	instance = this;
     	taskInfo = (TextView)findViewById(R.id.taskInfo);
-    	networkButton = (Button)findViewById(R.id.networkButton);
-    	gpsButton = (Button)findViewById(R.id.gpsButton);
     	
     	//Location testLoaction = LocationUtil.createLijingLocation(38, -112, 0, 0);	
     	//AlarmManager.getInstance().addAlarm(new LocationAlarm("Test Alarm",testLoaction));

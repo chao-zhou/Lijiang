@@ -12,6 +12,9 @@ import com.utopia.lijiang.R;
 import com.utopia.lijiang.db.DBHelper;
 import com.utopia.lijiang.global.Status;
 
+/**
+ * 
+ * */
 public class AlarmManager {
 	
 	private static AlarmManager instance = null;
