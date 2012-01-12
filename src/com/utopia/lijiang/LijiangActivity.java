@@ -61,6 +61,10 @@ public class LijiangActivity extends ListActivity  {
     	super.onStart();
     	showLocation();
     	bindList();
+    	
+    	 //Just test Map 
+		 Intent i = new Intent(this,BaiduMapDemoActivity.class);
+		 this.startActivity(i);
     }
     
     /**Called when the activity is finished*/
