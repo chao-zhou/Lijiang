@@ -1,8 +1,7 @@
+/**
+ * 
+ */
 package com.utopia.lijiang;
-
-import android.content.Context;
-import android.content.Intent;
-import android.location.Location;
 
 import com.utopia.lijiang.alarm.AlarmManager;
 import com.utopia.lijiang.alarm.SimpleAlarm;
@@ -10,40 +9,47 @@ import com.utopia.lijiang.global.Status;
 import com.utopia.lijiang.location.LocationUtil;
 import com.utopia.lijiang.service.LocationService;
 import com.utopia.lijiang.util.NotificationUtil;
-/** Initial global variables in this application. 
+
+import android.app.Application;
+import android.content.Context;
+import android.content.Intent;
+import android.location.Location;
+
+/**Initial global variables in this application. 
  * Like starting services, reading data from SQLite, configuring settings
  * @author chao_zhou
  * @version 1.0.0.0
- * */
-public class AppInitializer {
+ */
+public class LijiangApp extends Application {
 
 	private Context ctx = null;
 	
-	/**Run all initial works
-	 * @param First loaded context
-	 * */
-	public static void doWork(Context context){
-		AppInitializer instance = new AppInitializer(context);
-		instance.doWork();
+	/**
+	 * 
+	 */
+	public LijiangApp() {
+		// TODO Auto-generated constructor stub
 	}
+
+	@Override
+    public void onCreate() {
 	
-	/**Constructor
-	 * @param context First loaded context
-	 * */
-	private AppInitializer(Context context){
-		ctx = context;
-	}
-	
-	/**Run all initial works*/
- 	private void doWork(){
+		ctx = getApplicationContext();
+		
 		configNotification();
 		getLastKnownLocation();
-		loadAlarm();
+		getAlarmsFromDB();
 		startLocationService();
+		
+		super.onCreate();
 	}
-	
+	@Override
+	public void onTerminate() {
+		super.onTerminate();
+	}
+
  	/**Reload Alarm Information from SQLite */
- 	private void loadAlarm(){
+ 	private void getAlarmsFromDB(){
  		AlarmManager.getInstance().reset();
  		AlarmManager.getInstance().load4DB(ctx, SimpleAlarm.class);
  	}
@@ -66,6 +72,4 @@ public class AppInitializer {
 	    	Intent intent = new Intent(ctx,LocationService.class);
 	    	ctx.startService(intent);  
 	}
-	
-	
 }

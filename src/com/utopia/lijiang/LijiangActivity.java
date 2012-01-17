@@ -49,7 +49,6 @@ public class LijiangActivity extends ListActivity  {
     	super.onCreate(savedInstanceState);     	
     	setContentView(R.layout.main);
 	
-    	AppInitializer.doWork(this);    	
     	this.initialVariables();
     	bindToAlarmManager();//Just for developing, should be removed in release version
     	
