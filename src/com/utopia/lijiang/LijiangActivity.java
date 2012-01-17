@@ -45,14 +45,12 @@ public class LijiangActivity extends ListActivity  {
     	
     }    
     
-    
     /**Called when the activity is active*/
     @Override
     public void onStart(){
     	Log.d(getString(R.string.debug_tag),"Start LijiangActivity ");
     	super.onStart();
-
-    	initialAlarmList();
+    	showAlarms(null);
     }
     
     /**Called when the activity is finished*/
@@ -78,18 +76,6 @@ public class LijiangActivity extends ListActivity  {
     public void showHistory(View target){
     	List<Alarm> alarms = getHistoryAlarms();
     	bindList(alarms);
-    }
-    
-    private void showEmptyUI(){
-    	
-    }
-    
-    private void initialAlarmList(){
-    	if(getActiveAlarms().size()>0){
-    		showAlarms(null);
-    	}else{
-    		showEmptyUI();
-    	}
     }
     
     /**Fill Data into Task List*/
