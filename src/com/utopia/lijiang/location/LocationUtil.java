@@ -73,7 +73,7 @@ public class LocationUtil {
   	
   	public static String getLocationMessage(Location location){
 		if(location !=null){
-			return location.toString();
+			return String.valueOf(location.getLongitude())+":"+String.valueOf(location.getLatitude());
 		}else{
 			return "No Location Info";
 		}				

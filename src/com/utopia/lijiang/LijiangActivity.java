@@ -4,6 +4,7 @@ import com.utopia.lijiang.alarm.Alarm;
 import com.utopia.lijiang.alarm.AlarmListener;
 import com.utopia.lijiang.alarm.AlarmManager;
 import com.utopia.lijiang.global.Status;
+import com.utopia.lijiang.location.LocationUtil;
 
 import android.app.ListActivity;
 import android.location.Location;
@@ -54,7 +55,8 @@ public class LijiangActivity extends ListActivity  {
     	
     }    
     
-    /**Called when the activity is active*/
+    
+    /**Called when the activity is active*//*
     @Override
     public void onStart(){
     	Log.d(getString(R.string.debug_tag),"Start LijiangActivity ");
@@ -62,9 +64,7 @@ public class LijiangActivity extends ListActivity  {
     	showLocation();
     	bindList();
     	
-    	 //Just test Map 
-		 Intent i = new Intent(this,BaiduMapDemoActivity.class);
-		 this.startActivity(i);
+    
     }
     
     /**Called when the activity is finished*/
@@ -73,7 +73,7 @@ public class LijiangActivity extends ListActivity  {
     	Log.d(getString(R.string.debug_tag),"Destroy LijiangActivity");
     	unbindFromAlarmManager();
     	super.onDestroy();
-    }     
+    }   
     
     /** Set All Running Task's Information.
      * @param text Task's Information
@@ -86,7 +86,10 @@ public class LijiangActivity extends ListActivity  {
      * @param target trigger
      * */
     public void showAddAlarmActivity(View target){
-    	this.startActivity(new Intent(this,AddSimpleAlarmActivity.class));
+   	 //Just test Map 
+		 Intent i = new Intent(this,BaiduMapDemoActivity.class);
+		 this.startActivity(i);
+    	//this.startActivity(new Intent(this,AddSimpleAlarmActivity.class));
     }
     
     /**Fill Data into Task List*/
@@ -139,7 +142,7 @@ public class LijiangActivity extends ListActivity  {
 	private void showLocation(){
     	Location loc = Status.getCurrentStatus().getLocation();	
     	if(loc!=null){
-    		setTaskInfoText(loc.toString());
+    		setTaskInfoText(LocationUtil.getLocationMessage(loc));
     	}
 	}
 	
