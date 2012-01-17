@@ -7,7 +7,12 @@ import android.app.ListActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.ContextMenu;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.TextView;
 
 import com.utopia.lijiang.alarm.Alarm;
 import com.utopia.lijiang.alarm.AlarmManager;
@@ -24,8 +29,10 @@ import com.utopia.lijiang.alarm.AlarmManager;
  * @version 1.0.0.0
  * */
 public class LijiangActivity extends ListActivity  {
-	
+		
 	private static LijiangActivity instance = null;
+	protected final int CMENU_DELETE = 1;
+	protected final int CMENU_ACTIVE = 2;
 
 	/**
 	 * Singleton method, this will be update after this activity is launched
@@ -43,6 +50,7 @@ public class LijiangActivity extends ListActivity  {
     	super.onCreate(savedInstanceState);     	
     	setContentView(R.layout.main);
     	
+    	registerForContextMenu(this.getListView());
     }    
     
     /**Called when the activity is active*/
@@ -60,6 +68,31 @@ public class LijiangActivity extends ListActivity  {
     	super.onDestroy();
     }   
      
+    
+    @Override
+    public boolean onContextItemSelected(MenuItem item)
+    {
+     	
+    	AdapterView.AdapterContextMenuInfo menuInfo 
+	     					= (AdapterView.AdapterContextMenuInfo)item.getMenuInfo();
+	     		
+	    TextView tv = (TextView)menuInfo.targetView.findViewById(R.id.alarmTitle);
+	    String title = (String) tv.getText();
+	    Log.d(getString(R.string.debug_tag),"onContextItemSelected:"+title);
+	    return true;
+    }
+   
+    @Override
+    public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo)
+    {
+    	menu.setHeaderTitle("Open File");
+    	menu.add(0, CMENU_DELETE,Menu.NONE, "Delete");
+    	menu.add(0, CMENU_ACTIVE,Menu.NONE, "Active");
+    	
+    	/*MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.context_menu, menu);*/
+    }
+   
     /** Do work after showAddAlarm button is clicked
      * @param target trigger
      * */
