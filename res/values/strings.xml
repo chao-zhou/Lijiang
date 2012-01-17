@@ -1,10 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-
     <string name="hello">Hello World, LijiangActivity2!</string>
     <string name="app_name">Lijiang</string>
     <string name="debug_tag">lijiang</string>
     <string name="foreground">lijiang_foreground</string>
     <string name="database_version">1</string>
 	<string name="baidu_key">DBC116220F2040B76081BF632757104D2960CF1A</string>
+	<string name="btnLocate">定位</string>
+	<string name="btnAlarms">任务列表</string>
+	<string name="btnHistory">历史记录</string>
+	<string name="btnFirstLocate">开始我的初次定位</string>
+	<string name="guide">如何定位\n方法1.在地图上搜索\n方法2.长按地图上的某个地点\n\n然后点击选定目标即可\n</string>
 </resources>

@@ -1,19 +1,16 @@
 package com.utopia.lijiang;
 
-import com.utopia.lijiang.alarm.Alarm;
-import com.utopia.lijiang.alarm.AlarmListener;
-import com.utopia.lijiang.alarm.AlarmManager;
-import com.utopia.lijiang.global.Status;
-import com.utopia.lijiang.location.LocationUtil;
+import java.util.ArrayList;
+import java.util.List;
 
 import android.app.ListActivity;
-import android.location.Location;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 
-import android.widget.TextView;
-import android.content.Intent;
+import com.utopia.lijiang.alarm.Alarm;
+import com.utopia.lijiang.alarm.AlarmManager;
 /** Main Activity of the application.
  * When this activity is created, the application's global variables will be initialed.
  * And a location service will be started. 
@@ -29,10 +26,7 @@ import android.content.Intent;
 public class LijiangActivity extends ListActivity  {
 	
 	private static LijiangActivity instance = null;
-	private TextView taskInfo = null;
-	
-	private AlarmListener alarmListener = null;
-	
+
 	/**
 	 * Singleton method, this will be update after this activity is launched
 	 * @return The Latest showed LijiangActivity
@@ -48,39 +42,26 @@ public class LijiangActivity extends ListActivity  {
     	
     	super.onCreate(savedInstanceState);     	
     	setContentView(R.layout.main);
-	
-    	this.initialVariables();
-    	bindToAlarmManager();//Just for developing, should be removed in release version
     	
     }    
     
     
-    /**Called when the activity is active*//*
+    /**Called when the activity is active*/
     @Override
     public void onStart(){
     	Log.d(getString(R.string.debug_tag),"Start LijiangActivity ");
     	super.onStart();
-    	showLocation();
-    	bindList();
-    	
-    
+
+    	initialAlarmList();
     }
     
     /**Called when the activity is finished*/
     @Override
     public void onDestroy(){
     	Log.d(getString(R.string.debug_tag),"Destroy LijiangActivity");
-    	unbindFromAlarmManager();
     	super.onDestroy();
     }   
-    
-    /** Set All Running Task's Information.
-     * @param text Task's Information
-     * */
-    public void setTaskInfoText(String text){
-    	 	taskInfo.setText(text);
-    }  
-    
+     
     /** Do work after showAddAlarm button is clicked
      * @param target trigger
      * */
@@ -91,60 +72,55 @@ public class LijiangActivity extends ListActivity  {
     	//this.startActivity(new Intent(this,AddSimpleAlarmActivity.class));
     }
     
+    public void showAlarms(View target){
+    	List<Alarm> alarms = getActiveAlarms();
+    	bindList(alarms);
+    }
+    
+    public void showHistory(View target){
+    	List<Alarm> alarms = getHistoryAlarms();
+    	bindList(alarms);
+    }
+    
+    private void showEmptyUI(){
+    	
+    }
+    
+    private void initialAlarmList(){
+    	if(getActiveAlarms().size()>0){
+    		showAlarms(null);
+    	}else{
+    		showEmptyUI();
+    	}
+    }
+    
     /**Fill Data into Task List*/
-	private void bindList(){ 
+	private void bindList(List<Alarm> alarms){ 
 	       AlarmAdapter adapter = 
-	    		   new AlarmAdapter(this,AlarmManager.getInstance().getAllAlarm());
+	    		   new AlarmAdapter(this,alarms);
 	       setListAdapter(adapter);
 	}
-    
-    //Have no relative with UI
 	
-	/**Initial Variables used in this activity*/
-    private void initialVariables(){
-    	instance = this;
-    	taskInfo = (TextView)findViewById(R.id.taskInfo);
-    	
-    	//Location testLoaction = LocationUtil.createLijingLocation(38, -112, 0, 0);	
-    	//AlarmManager.getInstance().addAlarm(new LocationAlarm("Test Alarm",testLoaction));
-    }
-	
-	
-    /**Bind listener to all alarms. 
-     * Just for developing, should be removed in release version
-     * */
-    private void bindToAlarmManager(){
-	    alarmListener = new AlarmListener(){
-				@Override
-		public void onAlarm(Alarm alarm) {
-					String msg = alarm.getMessage();
-					setTaskInfoText(msg);
-				}
-	    };
-	    	
-	   AlarmManager.getInstance().addAlarmListener(alarmListener);	
-	} 
-	
-  
-    
-    /** Unbind listener to all alarms 
-     * Just for developing, should be removed in release version
-     * */
-	private void unbindFromAlarmManager(){
-	    	AlarmManager.getInstance().removeAlarm(alarmListener);
-	    	alarmListener = null;
+	private List<Alarm> getActiveAlarms(){
+		List<Alarm> alarms = AlarmManager.getInstance().getAllAlarm();
+		ArrayList<Alarm> ret = new ArrayList<Alarm>();
+		for(Alarm alarm : alarms){
+			if(alarm.isActive()){
+				ret.add(alarm);
+			}
+		}
+		return ret;
 	}
 	
-	/** Show location information in task info view
-	 * Just for developing, should be removed in release version
-	 * */
-	private void showLocation(){
-    	Location loc = Status.getCurrentStatus().getLocation();	
-    	if(loc!=null){
-    		setTaskInfoText(LocationUtil.getLocationMessage(loc));
-    	}
+	private List<Alarm> getHistoryAlarms(){
+		List<Alarm> alarms = AlarmManager.getInstance().getAllAlarm();
+		ArrayList<Alarm> ret = new ArrayList<Alarm>();
+		for(Alarm alarm : alarms){
+			if(!alarm.isActive()){
+				ret.add(alarm);
+			}
+		}
+		return ret;
 	}
-	
-
 	
 }
