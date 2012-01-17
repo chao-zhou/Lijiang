@@ -67,9 +67,7 @@ public class LijiangActivity extends ListActivity  {
      * */
     public void showAddAlarmActivity(View target){
    	 //Just test Map 
-		 Intent i = new Intent(this,BaiduMapDemoActivity.class);
-		 this.startActivity(i);
-    	//this.startActivity(new Intent(this,AddSimpleAlarmActivity.class));
+     this.startActivity(new Intent(this,AddSimpleAlarmActivity.class));
     }
     
     public void showAlarms(View target){
