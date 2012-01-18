@@ -3,6 +3,7 @@ package com.utopia.lijiang;
 import java.util.ArrayList;
 import java.util.List;
 
+import android.app.Activity;
 import android.app.ListActivity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -11,8 +12,11 @@ import android.view.ContextMenu;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.ToggleButton;
 
 import com.utopia.lijiang.alarm.Alarm;
 import com.utopia.lijiang.alarm.AlarmManager;
@@ -28,9 +32,19 @@ import com.utopia.lijiang.alarm.AlarmManager;
  * @author chao_zhou
  * @version 1.0.0.0
  * */
-public class LijiangActivity extends ListActivity  {
-		
+public class LijiangActivity extends Activity  {
+	
+	
 	private static LijiangActivity instance = null;
+	
+	private final int STATE_ALARMS = 1;
+	private final int STATE_HISTORY = 2;
+	
+	private ListView listView = null;
+	private ToggleButton btnAlarms = null;
+	private ToggleButton btnHistory = null;
+	private View emptyView = null;
+	
 	protected final int CMENU_DELETE = 1;
 	protected final int CMENU_ACTIVE = 2;
 
@@ -50,7 +64,16 @@ public class LijiangActivity extends ListActivity  {
     	super.onCreate(savedInstanceState);     	
     	setContentView(R.layout.main);
     	
-    	registerForContextMenu(this.getListView());
+    	listView = (ListView)this.findViewById(R.id.alarmList);
+    	btnAlarms = (ToggleButton)this.findViewById(R.id.btnAlarms);
+    	btnHistory = (ToggleButton)this.findViewById(R.id.btnHistory);
+    	
+    	//You should save that empty view. 
+    	//By default, android will setVisible(View.GONE) to that empty view,
+    	//so you cannot use "this.findViewById()" to get that view any longer.
+    	emptyView = (View)this.findViewById(R.id.alarmListEmpty);
+    	
+    	registerForContextMenu(listView);
     }    
     
     /**Called when the activity is active*/
@@ -72,7 +95,6 @@ public class LijiangActivity extends ListActivity  {
     @Override
     public boolean onContextItemSelected(MenuItem item)
     {
-     	
     	AdapterView.AdapterContextMenuInfo menuInfo 
 	     					= (AdapterView.AdapterContextMenuInfo)item.getMenuInfo();
 	     		
@@ -103,11 +125,15 @@ public class LijiangActivity extends ListActivity  {
     
     public void showAlarms(View target){
     	List<Alarm> alarms = getActiveAlarms();
+    	
+    	changeViewState(STATE_ALARMS);
     	bindList(alarms);
     }
     
     public void showHistory(View target){
-    	List<Alarm> alarms = getHistoryAlarms();
+    	List<Alarm> alarms = getHistoryAlarms();    	
+    	
+    	changeViewState(STATE_HISTORY);
     	bindList(alarms);
     }
     
@@ -115,7 +141,8 @@ public class LijiangActivity extends ListActivity  {
 	private void bindList(List<Alarm> alarms){ 
 	       AlarmAdapter adapter = 
 	    		   new AlarmAdapter(this,alarms);
-	       setListAdapter(adapter);
+	       
+	       listView.setAdapter(adapter);  
 	}
 	
 	private List<Alarm> getActiveAlarms(){
@@ -139,5 +166,35 @@ public class LijiangActivity extends ListActivity  {
 		}
 		return ret;
 	}
+	
+	private void changeViewState(int stateNum){
+		switch(stateNum){
+			case STATE_ALARMS: 
+				btnHistory.setChecked(false);	
+				setEmptyView(emptyView);
+				break;
+			case STATE_HISTORY:
+				btnAlarms.setChecked(false);
+				setEmptyView(null);
+				break;
+		}
+	}
+	
+	
+	private void setEmptyView(View view){
+		Log.d(getString(R.string.debug_tag),"setEmptyView");
+		
+		View originView = listView.getEmptyView();	
+		
+		//Because we change the emptyView,
+		//we should let that layout gone manually
+		if(originView !=null 
+		&& originView.getVisibility() != View.GONE){
+			originView.setVisibility(View.GONE);
+		}
+		
+		listView.setEmptyView(view);
+	}
+	
 	
 }

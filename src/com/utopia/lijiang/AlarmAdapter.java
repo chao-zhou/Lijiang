@@ -46,7 +46,6 @@ public class AlarmAdapter extends BaseAdapter {
 	public Object getItem(int position) {
 		return data.get(position);
 	}
-
 	
 	@Override
 	public long getItemId(int position) {
