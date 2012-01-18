@@ -10,6 +10,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:layout_weight="1.0"
+    android:background="@drawable/alarm_item"
     android:longClickable="true">
 	<TextView
 	    android:id="@+id/alarmTitle" 
@@ -17,13 +18,16 @@
 	    android:layout_height="wrap_content"
 	    android:text="Alarm Title"
 	    android:layout_weight="1.0"
+	    android:textColor="@color/alarm_item"
 	    android:textSize="32px"/>
 	<TextView
 	    android:id="@+id/alarmMsg" 
 	    android:layout_width="match_parent"
 	    android:layout_height="wrap_content"
 	    android:text="Alarm Status"
-	    android:layout_weight="1.0"/>
+	    android:textColor="@color/alarm_item"
+	    android:layout_weight="1.0"
+	    android:visibility="gone"/>
 </LinearLayout>    
 <CheckBox 
     android:id="@+id/alarmActive"
