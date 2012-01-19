@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.ContextMenu;
 import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
@@ -90,8 +91,7 @@ public class LijiangActivity extends Activity  {
     	Log.d(getString(R.string.debug_tag),"Destroy LijiangActivity");
     	super.onDestroy();
     }   
-     
-    
+        
     @Override
     public boolean onContextItemSelected(MenuItem item)
     {
@@ -107,14 +107,15 @@ public class LijiangActivity extends Activity  {
     @Override
     public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo)
     {
-    	menu.setHeaderTitle("Open File");
-    	menu.add(0, CMENU_DELETE,Menu.NONE, "Delete");
-    	menu.add(0, CMENU_ACTIVE,Menu.NONE, "Active");
+    	Alarm alarm = getLongClickedAlarm(menuInfo);
     	
-    	/*MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.context_menu, menu);*/
+    	if(alarm.isActive()){	
+    		createAlarmContextMenu(menu,alarm.getTitle());
+    	}else{	
+    		createHistoryContextMenu(menu,alarm.getTitle());
+    	}	
     }
-   
+    
     /** Do work after showAddAlarm button is clicked
      * @param target trigger
      * */
@@ -136,6 +137,10 @@ public class LijiangActivity extends Activity  {
     	changeViewState(STATE_HISTORY);
     	bindList(alarms);
     }
+    
+    
+    
+    
     
     /**Fill Data into Task List*/
 	private void bindList(List<Alarm> alarms){ 
@@ -180,7 +185,6 @@ public class LijiangActivity extends Activity  {
 		}
 	}
 	
-	
 	private void setEmptyView(View view){
 		Log.d(getString(R.string.debug_tag),"setEmptyView");
 		
@@ -195,6 +199,26 @@ public class LijiangActivity extends Activity  {
 		
 		listView.setEmptyView(view);
 	}
+		
+	private void createAlarmContextMenu(ContextMenu menu,String title){
+		createContextMenu(menu,title,R.menu.alarmcontext);
+	}
 	
+	private void createHistoryContextMenu(ContextMenu menu,String title){     
+        createContextMenu(menu,title,R.menu.historycontext);
+	}
 	
+	private void createContextMenu(ContextMenu menu,String title,int resouceID){
+		menu.setHeaderTitle(title); 	
+		
+		MenuInflater inflater = getMenuInflater();
+		inflater = getMenuInflater();
+        inflater.inflate(resouceID, menu);
+	}
+	
+	private Alarm getLongClickedAlarm(ContextMenu.ContextMenuInfo menuInfo){
+	    	 AdapterView.AdapterContextMenuInfo info =
+	    	            (AdapterView.AdapterContextMenuInfo) menuInfo;
+	    	return (Alarm)info.targetView.getTag();
+	    }
 }
