@@ -3,20 +3,15 @@ package com.utopia.lijiang;
 import java.util.List;
 
 import com.utopia.lijiang.alarm.Alarm;
-import com.utopia.lijiang.alarm.AlarmManager;
 
-import android.content.Context;
-import android.content.Intent;
+import android.app.Activity;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.CheckBox;
-import android.widget.CompoundButton;
-import android.widget.CompoundButton.OnCheckedChangeListener;
-import android.widget.LinearLayout;
+import android.widget.Button;
 import android.widget.TextView;
 /** Adapter for show Alarm list
  *  This activity is bound with alarm_listitem.xml
@@ -26,15 +21,17 @@ import android.widget.TextView;
 public class AlarmAdapter extends BaseAdapter {
 
 	private List<Alarm> data = null;
+	private Activity activity = null;
 	private LayoutInflater layoutInflater; 
 	
 	/**Constructor
 	 * @param context Current context
 	 * @param data Alarm list
 	 * */
-	public AlarmAdapter(Context context,List<Alarm> data){
+	public AlarmAdapter(Activity activity,List<Alarm> data){
 		this.data = data;
-		this.layoutInflater = LayoutInflater.from(context); 
+		this.activity = activity;
+		this.layoutInflater = LayoutInflater.from(activity); 
 	}
 	
 	@Override
@@ -61,40 +58,13 @@ public class AlarmAdapter extends BaseAdapter {
 		}
 		
         Alarm item = (Alarm)getItem(position);
-        
-        String msg = "getView :"+ String.valueOf(item.getId()) + String.valueOf(item.isActive());
-		Log.d("lijiang",msg);
-        
-        //setText(item,convertView);
-        setTitle(item,convertView);
-        setMessage(item,convertView);
-        setActive(item,convertView);
-
         convertView.setTag(item);
         
+        setTitle(item,convertView);
+        setOpenContexMenu(convertView);
+ 
 		return convertView;
 	}	
-	
-	/**Set each alarm's text area
-	 * Add a click listener to launch alarm details activity
-	 * */
-	private void setText(final Alarm item, View convertView){
-		LinearLayout text = (LinearLayout)convertView.findViewById(R.id.alarmText);
-		text.setOnClickListener(new OnClickListener(){
-
-			@Override
-			public void onClick(View arg0) {
-				// TODO Auto-generated method stub
-				Context ctx = arg0.getContext();
-				Intent intent = new Intent(ctx,AddSimpleAlarmActivity.class);
-				intent.putExtra(
-						AddSimpleAlarmActivity.ALARM_LOCATION, 
-						AlarmManager.getInstance().getLocation(item));
-				ctx.startActivity(intent);
-			}
-			
-		});
-	}
 	
 	/**Set each alarm's title
 	 * */
@@ -103,31 +73,17 @@ public class AlarmAdapter extends BaseAdapter {
 		title.setText(item.getTitle());
 	}
 	
-	/**Set each alarm's message
-	 * */
-	private void setMessage(Alarm item, View convertView){
-		TextView msg = (TextView)convertView.findViewById(R.id.alarmMsg);
-		msg.setText(item.getMessage());
-	}
-	
 	/**Set each alarm's active
 	 * and add a listener to enable/disable active
 	 * */
-	private void setActive(final Alarm item, final View convertView){
-		
-		CheckBox active = (CheckBox)convertView.findViewById(R.id.alarmActive);
-		
-		active.setOnCheckedChangeListener(null); //Clear old listener, because the view will be reused
-		active.setChecked(item.isActive());	
-		active.setOnCheckedChangeListener(new OnCheckedChangeListener() {
+	private void setOpenContexMenu(final View convertView){
+		Button btnShowContexMenu = (Button)convertView.findViewById(R.id.alarmShowContexMenu);
+		btnShowContexMenu.setOnClickListener(new OnClickListener(){
+
 			@Override
-			public void onCheckedChanged(CompoundButton buttonView,
-					boolean isChecked) {
-				
-				String msg = "onCheckedChanged :"+ String.valueOf(item.getId()) + String.valueOf(item.isActive());
-				Log.d("lijiang",msg);
-				item.setActive(isChecked);
-				AlarmManager.getInstance().save2DB(convertView.getContext());
+			public void onClick(View arg0) {
+				// TODO Auto-generated method stub
+				activity.openContextMenu(convertView);
 			}
 			
 		});
