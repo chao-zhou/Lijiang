@@ -70,6 +70,8 @@ public class AlarmAdapter extends BaseAdapter {
         setMessage(item,convertView);
         setActive(item,convertView);
 
+        convertView.setTag(item);
+        
 		return convertView;
 	}	
 	
