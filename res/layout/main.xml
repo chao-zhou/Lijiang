@@ -48,7 +48,6 @@
 	        android:textOn="@string/btnAlarms"
 	        android:textOff="@string/btnAlarms" 
 	        android:onClick="showAlarms"/>
-		
 		<ToggleButton
 	        android:id="@+id/btnHistory" 
 	        android:layout_width="120px"

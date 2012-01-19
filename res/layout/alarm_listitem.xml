@@ -2,30 +2,25 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="60px"
-    android:orientation="horizontal" 
-    android:longClickable="true">
+    android:orientation="horizontal">
 <LinearLayout
     android:id="@+id/alarmText"
     android:layout_width="wrap_content"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:layout_weight="1.0"
-    android:background="@drawable/alarm_item"
-    android:longClickable="true">
+    android:layout_weight="1.0">
 	<TextView
 	    android:id="@+id/alarmTitle" 
 	    android:layout_width="match_parent"
 	    android:layout_height="wrap_content"
 	    android:text="Alarm Title"
 	    android:layout_weight="1.0"
-	    android:textColor="@color/alarm_item"
 	    android:textSize="32px"/>
 	<TextView
 	    android:id="@+id/alarmMsg" 
 	    android:layout_width="match_parent"
 	    android:layout_height="wrap_content"
 	    android:text="Alarm Status"
-	    android:textColor="@color/alarm_item"
 	    android:layout_weight="1.0"
 	    android:visibility="gone"/>
 </LinearLayout>    

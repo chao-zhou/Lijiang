@@ -65,7 +65,7 @@ public class AlarmAdapter extends BaseAdapter {
         String msg = "getView :"+ String.valueOf(item.getId()) + String.valueOf(item.isActive());
 		Log.d("lijiang",msg);
         
-        setText(item,convertView);
+        //setText(item,convertView);
         setTitle(item,convertView);
         setMessage(item,convertView);
         setActive(item,convertView);
