@@ -26,16 +26,36 @@ public class AlarmManager {
 	}
 	
 	private List<Alarm> alarms = null;
+	private List<Alarm> activeAlarms = null;
+	private List<Alarm> historyAlarms = null;
 	private List<AlarmListener> alListeners = null;
 	
 	public AlarmManager(){
 		alarms = new ArrayList<Alarm>();
+		activeAlarms = new ArrayList<Alarm>();
+		historyAlarms = new ArrayList<Alarm>();
 		alListeners = new ArrayList<AlarmListener>();
 	}
+
+	public List<Alarm> getActiveAlarms(){
+		activeAlarms.clear();
+		for(Alarm alarm : alarms){
+			if(alarm.isActive()){
+				activeAlarms.add(alarm);
+			}
+		}
+		return activeAlarms;
+	}
 	
-	public List<Alarm> getAllAlarm(){
-		return alarms;
-	} 
+	public List<Alarm> getHistoryAlarms(){
+		historyAlarms.clear();
+		for(Alarm alarm : alarms){
+			if(!alarm.isActive()){
+				historyAlarms.add(alarm);
+			}
+		}
+		return historyAlarms;
+	}
 	
 	public void addAlarm(Alarm alarm){
 		alarms.add(alarm);

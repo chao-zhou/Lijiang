@@ -42,6 +42,7 @@ public class LijiangActivity extends Activity  {
 	private ToggleButton btnAlarms = null;
 	private ToggleButton btnHistory = null;
 	private View emptyView = null;
+	private List<Alarm> alarms  = null;
 	
 	protected final int CMENU_DELETE = 1;
 	protected final int CMENU_ACTIVE = 2;
@@ -79,7 +80,7 @@ public class LijiangActivity extends Activity  {
     public void onStart(){
     	Log.d(getString(R.string.debug_tag),"Start LijiangActivity ");
     	super.onStart();
-    	showAlarms(null);
+    	changeViewState(STATE_ALARMS);
     }
     
     /**Called when the activity is finished*/
@@ -131,22 +132,13 @@ public class LijiangActivity extends Activity  {
     }
     
     public void showAlarms(View target){
-    	List<Alarm> alarms = getActiveAlarms();
-    	
     	changeViewState(STATE_ALARMS);
-    	bindList(alarms);
     }
     
-    public void showHistory(View target){
-    	List<Alarm> alarms = getHistoryAlarms();    	
-    	
+    public void showHistory(View target){  		
     	changeViewState(STATE_HISTORY);
-    	bindList(alarms);
     }
-    
-    
-    
-    
+
     
     /**Fill Data into Task List*/
 	private void bindList(List<Alarm> alarms){ 
@@ -156,37 +148,21 @@ public class LijiangActivity extends Activity  {
 	       listView.setAdapter(adapter);  
 	}
 	
-	private List<Alarm> getActiveAlarms(){
-		List<Alarm> alarms = AlarmManager.getInstance().getAllAlarm();
-		ArrayList<Alarm> ret = new ArrayList<Alarm>();
-		for(Alarm alarm : alarms){
-			if(alarm.isActive()){
-				ret.add(alarm);
-			}
-		}
-		return ret;
-	}
-	
-	private List<Alarm> getHistoryAlarms(){
-		List<Alarm> alarms = AlarmManager.getInstance().getAllAlarm();
-		ArrayList<Alarm> ret = new ArrayList<Alarm>();
-		for(Alarm alarm : alarms){
-			if(!alarm.isActive()){
-				ret.add(alarm);
-			}
-		}
-		return ret;
-	}
-	
 	private void changeViewState(int stateNum){
+		
 		switch(stateNum){
 			case STATE_ALARMS: 
+				alarms = AlarmManager.getInstance().getActiveAlarms();
 				btnHistory.setChecked(false);	
 				setEmptyView(emptyView);
+				bindList(alarms);
 				break;
+				
 			case STATE_HISTORY:
+				alarms = AlarmManager.getInstance().getHistoryAlarms();
 				btnAlarms.setChecked(false);
 				setEmptyView(null);
+				bindList(alarms);
 				break;
 		}
 	}
