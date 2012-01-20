@@ -80,7 +80,7 @@ public class LijiangActivity extends Activity  {
     public void onStart(){
     	Log.d(getString(R.string.debug_tag),"Start LijiangActivity ");
     	super.onStart();
-    	changeViewState(STATE_ALARMS);
+    	setListViewState(STATE_ALARMS);
     }
     
     /**Called when the activity is finished*/
@@ -132,11 +132,11 @@ public class LijiangActivity extends Activity  {
     }
     
     public void showAlarms(View target){
-    	changeViewState(STATE_ALARMS);
+    	setListViewState(STATE_ALARMS);
     }
     
     public void showHistory(View target){  		
-    	changeViewState(STATE_HISTORY);
+    	setListViewState(STATE_HISTORY);
     }
 
     
@@ -148,7 +148,7 @@ public class LijiangActivity extends Activity  {
 	       listView.setAdapter(adapter);  
 	}
 	
-	private void changeViewState(int stateNum){
+	private void setListViewState(int stateNum){
 		
 		switch(stateNum){
 			case STATE_ALARMS: 
