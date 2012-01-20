@@ -4,16 +4,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 import android.app.Activity;
-import android.app.ListActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.ContextMenu;
-import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -95,19 +92,28 @@ public class LijiangActivity extends Activity  {
     @Override
     public boolean onContextItemSelected(MenuItem item)
     {
-    	AdapterView.AdapterContextMenuInfo menuInfo 
-	     					= (AdapterView.AdapterContextMenuInfo)item.getMenuInfo();
-	     		
-	    TextView tv = (TextView)menuInfo.targetView.findViewById(R.id.alarmTitle);
-	    String title = (String) tv.getText();
-	    Log.d(getString(R.string.debug_tag),"onContextItemSelected:"+title);
+    	int menuId = item.getItemId();
+    	Alarm alarm = getAlarmFromListView(item.getMenuInfo());
+      
+    	switch(menuId){
+    		case R.id.deleteAlarm:
+    			AlarmManager.getInstance().removeAlarm(alarm);
+    			break;
+    		case R.id.deleteHistory:
+    			AlarmManager.getInstance().removeAlarm(alarm);
+    			break;
+    		case R.id.renewHistory:
+    			alarm.setActive(true);
+    			break;
+    	}
+	  
 	    return true;
     }
    
     @Override
     public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo)
     {
-    	Alarm alarm = getLongClickedAlarm(menuInfo);
+    	Alarm alarm = getAlarmFromListView(menuInfo);
     	
     	if(alarm.isActive()){	
     		createAlarmContextMenu(menu,alarm.getTitle());
@@ -216,9 +222,10 @@ public class LijiangActivity extends Activity  {
         inflater.inflate(resouceID, menu);
 	}
 	
-	private Alarm getLongClickedAlarm(ContextMenu.ContextMenuInfo menuInfo){
-	    	 AdapterView.AdapterContextMenuInfo info =
+	private Alarm getAlarmFromListView(ContextMenu.ContextMenuInfo menuInfo){
+	    AdapterView.AdapterContextMenuInfo info =
 	    	            (AdapterView.AdapterContextMenuInfo) menuInfo;
-	    	return (Alarm)info.targetView.getTag();
-	    }
+	    return (Alarm)info.targetView.getTag();
+	}
+
 }
