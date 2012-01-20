@@ -140,7 +140,7 @@ public class AlarmManager {
 		DBHelper helper = new DBHelper(context,null,Integer.parseInt(dbVersion));
 		try {
 			helper.openConnectionSource();
-			Iterator<T> iterator = helper.Read(clazz);
+			Iterator<T> iterator = helper.read(clazz);
 			while(iterator.hasNext()){
 				this.addAlarm(iterator.next());
 				count++;

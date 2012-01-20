@@ -50,7 +50,7 @@ public class DBHelper extends OrmLiteSqliteOpenHelper {
 		return dao;
 	}
 	
-	public <T,ID> Iterator<T> Read(Class<T> clazz) throws SQLException{
+	public <T,ID> Iterator<T> read(Class<T> clazz) throws SQLException{
 		createTableIfNotExists(clazz);
 		Dao<T,ID> dao = createDao(clazz);
 		CloseableWrappedIterable<T> iterator = dao.getWrappedIterable();
@@ -75,6 +75,15 @@ public class DBHelper extends OrmLiteSqliteOpenHelper {
 		closeConnection();
 	}
 	
+	public <T,ID> int delete(T object) throws SQLException{
+		@SuppressWarnings("unchecked")
+		Class<T> clazz = (Class<T>) object.getClass();
+		Dao<T,ID> dao = createDao(clazz);
+		return dao.delete(object);
+	}
+	
+	
+
 	private <T> void createTableIfNotExists(Class<T> clazz) throws SQLException{
 		TableUtils.createTableIfNotExists(connectionSource, clazz);
 	}
