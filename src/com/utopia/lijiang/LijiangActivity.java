@@ -1,6 +1,5 @@
 package com.utopia.lijiang;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import android.app.Activity;
@@ -13,7 +12,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
-import android.widget.TextView;
 import android.widget.ToggleButton;
 
 import com.utopia.lijiang.alarm.Alarm;
@@ -95,16 +93,22 @@ public class LijiangActivity extends Activity  {
     {
     	int menuId = item.getItemId();
     	Alarm alarm = getAlarmFromListView(item.getMenuInfo());
-      
+    	AlarmManager mgr = AlarmManager.getInstance();
+    	
     	switch(menuId){
     		case R.id.deleteAlarm:
-    			AlarmManager.getInstance().removeAlarm(alarm);
+    			mgr.removeAlarm(alarm);
+    			mgr.delete2DB(this);
+    			setListViewState(STATE_ALARMS);
     			break;
     		case R.id.deleteHistory:
-    			AlarmManager.getInstance().removeAlarm(alarm);
+    			mgr.removeAlarm(alarm);
+    			mgr.delete2DB(this);
+    			setListViewState(STATE_HISTORY);
     			break;
     		case R.id.renewHistory:
     			alarm.setActive(true);
+    			setListViewState(STATE_HISTORY);
     			break;
     	}
 	  

@@ -28,12 +28,14 @@ public class AlarmManager {
 	private List<Alarm> alarms = null;
 	private List<Alarm> activeAlarms = null;
 	private List<Alarm> historyAlarms = null;
+	private List<Alarm> removedAlarms = null;
 	private List<AlarmListener> alListeners = null;
 	
 	public AlarmManager(){
 		alarms = new ArrayList<Alarm>();
 		activeAlarms = new ArrayList<Alarm>();
 		historyAlarms = new ArrayList<Alarm>();
+		removedAlarms = new ArrayList<Alarm>();
 		alListeners = new ArrayList<AlarmListener>();
 	}
 
@@ -70,10 +72,13 @@ public class AlarmManager {
 	}
 	
 	public Alarm removeAlarm(int location){
-		 return alarms.remove(location);
+		 Alarm alarm = alarms.remove(location);
+		 removedAlarms.add(alarm);
+		 return alarm;
 	}
 	
 	public boolean removeAlarm(Object object){
+		removedAlarms.add((Alarm) object);
 		return alarms.remove(object);
 	}
 	
@@ -133,11 +138,10 @@ public class AlarmManager {
 	}
 	
 	public <T extends Alarm> void load4DB(Context context, Class<T> clazz){
-		String dbVersion = context.getString(R.string.database_version);
-		Log.d("lijiang","DB Ver:"+dbVersion);
+		DBHelper helper = getDBHelper(context);		
+		clearAll();
 		
 		int count = 0;
-		DBHelper helper = new DBHelper(context,null,Integer.parseInt(dbVersion));
 		try {
 			helper.openConnectionSource();
 			Iterator<T> iterator = helper.read(clazz);
@@ -145,7 +149,6 @@ public class AlarmManager {
 				this.addAlarm(iterator.next());
 				count++;
 			}
-			
 			Log.d("lijiang","load "+String.valueOf(count)+"records");
 			
 		} catch (SQLException e) {
@@ -157,20 +160,54 @@ public class AlarmManager {
 	}
 	
 	public void save2DB(Context context){
-		String dbVersion = context.getString(R.string.database_version);
-		Log.d("lijiang",dbVersion);
-		DBHelper helper = new DBHelper(context,null,Integer.parseInt(dbVersion));
+		DBHelper helper = getDBHelper(context);
 		try {
-			helper.openConnectionSource();
-			
+			helper.openConnectionSource();	
 			for(Alarm item : alarms){
 				helper.save(item);
 			}
+			
+			for(Alarm item : removedAlarms){
+				helper.delete(item);
+				removedAlarms.remove(item);
+			}
+			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}finally{
 			helper.closeConnection();
 		}
+	}
+	
+	public void delete2DB(Context context){
+		DBHelper helper = getDBHelper(context);
+		try {
+			helper.openConnectionSource();
+			for(Alarm item : removedAlarms){
+				helper.delete(item);
+				removedAlarms.remove(item);
+			}
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally{
+			helper.closeConnection();
+		}
+	}
+	
+	private DBHelper getDBHelper(Context context){
+		String dbVersion = context.getString(R.string.database_version);
+		DBHelper helper = new DBHelper(context,null,Integer.parseInt(dbVersion));
+		Log.d("lijiang",dbVersion);
+		return helper;
+	}
+	
+	private void clearAll(){
+		alarms.clear();
+		activeAlarms.clear();
+		historyAlarms.clear();
+		removedAlarms.clear();
 	}
 }
