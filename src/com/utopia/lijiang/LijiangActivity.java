@@ -41,9 +41,6 @@ public class LijiangActivity extends Activity  {
 	private ToggleButton btnHistory = null;
 	private View emptyView = null;
 	private List<Alarm> alarms  = null;
-	
-	protected final int CMENU_DELETE = 1;
-	protected final int CMENU_ACTIVE = 2;
 
 	/**
 	 * Singleton method, this will be update after this activity is launched
@@ -110,6 +107,8 @@ public class LijiangActivity extends Activity  {
     			alarm.setActive(true);
     			setListViewState(STATE_HISTORY);
     			break;
+    		default:
+    			break;
     	}
 	  
 	    return true;
@@ -132,7 +131,7 @@ public class LijiangActivity extends Activity  {
      * */
     public void showAddAlarmActivity(View target){
    	 //Just test Map 
-     this.startActivity(new Intent(this,AddSimpleAlarmActivity.class));
+     this.startActivity(new Intent(this,LijiangMapActivity.class));
     }
     
     public void showAlarms(View target){
