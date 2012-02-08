@@ -8,6 +8,7 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Point;
+import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 
 import com.baidu.mapapi.GeoPoint;
@@ -71,6 +72,7 @@ public class BaiduItemizedOverlay extends ItemizedOverlay<OverlayItem>{
 			Point point = projection.toPixels(overLayItem.getPoint(), null); 
 
 			Paint paintText = new Paint();
+			paintText.setTypeface(Typeface.DEFAULT_BOLD);
 			paintText.setColor(Color.BLUE);
 			paintText.setTextSize(15);
 			canvas.drawText(title, point.x-5, point.y+15, paintText); 
