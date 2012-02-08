@@ -3,6 +3,7 @@ package com.utopia.lijiang;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.ViewGroup.LayoutParams;
@@ -27,6 +28,7 @@ import com.baidu.mapapi.OverlayItem;
 import com.baidu.mapapi.PoiOverlay;
 import com.utopia.lijiang.R;
 import com.utopia.lijiang.baidu.BaiduItemizedOverlay;
+import com.utopia.lijiang.baidu.BaiduLongPressItemizedOverlay;
 import com.utopia.lijiang.baidu.BaiduMapActivity;
 
 public class LijiangMapActivity extends BaiduMapActivity {
@@ -39,6 +41,9 @@ public class LijiangMapActivity extends BaiduMapActivity {
 	EditText poiNameEditText = null;
 	InputMethodManager imm = null;
 	ProgressDialog progressDialog = null;
+	TextView popName = null;
+	TextView popAddress = null;
+	
 	BaiduItemizedOverlay userOverlay = null;
 	BaiduItemizedOverlay searchOverlay = null;
 	BaiduItemizedOverlay customOverlay = null;
@@ -52,6 +57,10 @@ public class LijiangMapActivity extends BaiduMapActivity {
 		initialMapView();
 	    initialSearchInput();
 	    initialSearch();
+	    
+	    customOverlay = 
+	    		new BaiduLongPressItemizedOverlay(this,this.getResources().getDrawable(R.drawable.marker_rounded_grey));
+	    mMapView.getOverlays().add(customOverlay);
 	}
 
 
@@ -84,6 +93,9 @@ public class LijiangMapActivity extends BaiduMapActivity {
 		mMapView = (MapView)findViewById(R.id.bmapView);
 	    mMapView.setBuiltInZoomControls(true);
 	    mMapView.setDrawOverlayWhenZooming(true);
+	    
+	 
+	    
 	    attachPopView();
 	}
 	
@@ -147,6 +159,9 @@ public class LijiangMapActivity extends BaiduMapActivity {
 	
 	private void attachPopView(){
 		mPopView=super.getLayoutInflater().inflate(R.layout.popview, null);
+		popName = (TextView)mPopView.findViewById(R.id.popName);
+		popAddress = (TextView)mPopView.findViewById(R.id.popAddress);
+		
 		mMapView.addView( mPopView,
                 new MapView.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT,
                 		null, MapView.LayoutParams.TOP_LEFT));
@@ -168,13 +183,16 @@ public class LijiangMapActivity extends BaiduMapActivity {
 	@Override
 	public boolean onTapped(int i, OverlayItem item) {
 		// TODO Auto-generated method stub
+		Log.d("lijiang","onTapped");
+		popName.setText(item.getTitle());
+		popAddress.setText(item.getSnippet());
+		
+		mMapView.getController().setCenter(item.getPoint());
+		
 		LijiangMapActivity.mMapView.updateViewLayout( LijiangMapActivity.mPopView,
                 new MapView.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT,
                 		item.getPoint(), MapView.LayoutParams.BOTTOM_CENTER));
 		LijiangMapActivity.mPopView.setVisibility(View.VISIBLE);
-		
-		mMapView.getController().animateTo(item.getPoint());
-		
 		return true;
 	}
 
@@ -182,6 +200,7 @@ public class LijiangMapActivity extends BaiduMapActivity {
 	@Override
 	public void onTapping(GeoPoint pt, MapView v) {
 		// TODO Auto-generated method stub
+		Log.d("lijiang","onTapping");
 		LijiangMapActivity.mPopView.setVisibility(View.GONE);
 	}
 
