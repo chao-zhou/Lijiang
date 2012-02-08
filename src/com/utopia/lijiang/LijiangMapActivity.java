@@ -113,6 +113,7 @@ public class LijiangMapActivity extends BaiduMapActivity {
 				public void onGetPoiResult(MKPoiResult res, int type, int error) {
 					// TODO Auto-generated method stub
 					if (error != 0 || res == null) {
+						progressDialog.hide();
 						Toast.makeText(LijiangMapActivity.this, "Error or Empty", Toast.LENGTH_LONG).show();
 						return;
 					}
