@@ -191,7 +191,7 @@ public class LijiangMapActivity extends BaiduMapActivity {
 		
 		LijiangMapActivity.mMapView.updateViewLayout( LijiangMapActivity.mPopView,
                 new MapView.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT,
-                		item.getPoint(), MapView.LayoutParams.BOTTOM_CENTER));
+                		item.getPoint(), 0,-30,MapView.LayoutParams.BOTTOM_CENTER));
 		LijiangMapActivity.mPopView.setVisibility(View.VISIBLE);
 		return true;
 	}
