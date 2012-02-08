@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources> 
     <string name="app_name">Lijiang</string>
+    <string name="addLocation">添加此位置</string>
     <string name="baidu_key">DBC116220F2040B76081BF632757104D2960CF1A</string>
 	<string name="btnAlarms">任务列表</string>
 	<string name="btnFirstLocate">开始我的初次定位</string>
