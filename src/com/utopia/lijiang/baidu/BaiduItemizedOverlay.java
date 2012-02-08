@@ -19,9 +19,9 @@ import com.baidu.mapapi.Projection;
 
 public class BaiduItemizedOverlay extends ItemizedOverlay<OverlayItem>{
 
-	private BaiduMapActivity activity = null;
-	private List<OverlayItem> items = null;
-	private Drawable marker;
+	protected BaiduMapActivity activity = null;
+	protected List<OverlayItem> items = null;
+	protected Drawable marker;
 	
 	public BaiduItemizedOverlay(BaiduMapActivity activity,Drawable marker){
 		this(activity,marker,null);
@@ -42,6 +42,13 @@ public class BaiduItemizedOverlay extends ItemizedOverlay<OverlayItem>{
 		populate();  
 	}
 
+	public void setItems(List<OverlayItem> items){
+		this.items = null;
+		this.items = items;
+		populate();
+		
+	}
+	
 	public void setData(List<MKPoiInfo> infos){
 		items.clear();
 		MKPoiInfo info = null;
