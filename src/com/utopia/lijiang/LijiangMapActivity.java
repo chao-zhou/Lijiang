@@ -73,6 +73,60 @@ public class LijiangMapActivity extends BaiduMapActivity implements Observer{
 		}	
 	}
 	
+	
+	@Override
+	protected int getConentViewId() {
+		// TODO Auto-generated method stub
+		return R.layout.baidumap;
+	}
+	
+	@Override
+	public MapView getMapView() {
+		// TODO Auto-generated method stub
+		return mMapView;
+	}
+
+	@Override
+	public boolean onTapped(int i, OverlayItem item) {
+		// TODO Auto-generated method stub
+		Log.d("lijiang","onTapped");
+		popName.setText(item.getTitle());
+		popAddress.setText(item.getSnippet());
+		
+		mMapView.getController().setCenter(item.getPoint());
+		
+		LijiangMapActivity.mMapView.updateViewLayout( LijiangMapActivity.mPopView,
+                new MapView.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT,
+                		item.getPoint(), 0,-30,MapView.LayoutParams.BOTTOM_CENTER));
+		LijiangMapActivity.mPopView.setVisibility(View.VISIBLE);
+		return true;
+	}
+
+	@Override
+	public void onTapping(GeoPoint pt, MapView v) {
+		// TODO Auto-generated method stub
+		Log.d("lijiang","onTapping");
+		LijiangMapActivity.mPopView.setVisibility(View.GONE);
+	}
+
+	@Override
+	public void update(Observable observable, Object data) {
+		// TODO Auto-generated method stub
+		Location loc = Status.getCurrentStatus().getLocation();
+		GeoPoint pt = new GeoPoint((int)loc.getLatitude(), (int)loc.getLongitude());
+		String title = this.getString(R.string.myLocation);
+		String message = pt.getLatitudeE6()+":"+pt.getLongitudeE6();
+		OverlayItem item = new OverlayItem(pt,title,message);
+		
+		List<OverlayItem> items = new ArrayList<OverlayItem>();
+		items.add(item);
+		userOverlay.setItems(items);
+		
+		mMapView.getController().setCenter(item.getPoint());
+	}
+
+	
+	
 	private String getPostionName(){
 		return poiNameEditText.getText().toString().trim();
 	}
@@ -171,58 +225,4 @@ public class LijiangMapActivity extends BaiduMapActivity implements Observer{
 		mPopView.setVisibility(View.GONE);
 	}
 	
-	@Override
-	protected int getConentViewId() {
-		// TODO Auto-generated method stub
-		return R.layout.baidumap;
-	}
-	
-	@Override
-	public MapView getMapView() {
-		// TODO Auto-generated method stub
-		return mMapView;
-	}
-
-	@Override
-	public boolean onTapped(int i, OverlayItem item) {
-		// TODO Auto-generated method stub
-		Log.d("lijiang","onTapped");
-		popName.setText(item.getTitle());
-		popAddress.setText(item.getSnippet());
-		
-		mMapView.getController().setCenter(item.getPoint());
-		
-		LijiangMapActivity.mMapView.updateViewLayout( LijiangMapActivity.mPopView,
-                new MapView.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT,
-                		item.getPoint(), 0,-30,MapView.LayoutParams.BOTTOM_CENTER));
-		LijiangMapActivity.mPopView.setVisibility(View.VISIBLE);
-		return true;
-	}
-
-	@Override
-	public void onTapping(GeoPoint pt, MapView v) {
-		// TODO Auto-generated method stub
-		Log.d("lijiang","onTapping");
-		LijiangMapActivity.mPopView.setVisibility(View.GONE);
-	}
-
-	@Override
-	public void update(Observable observable, Object data) {
-		// TODO Auto-generated method stub
-		Location loc = Status.getCurrentStatus().getLocation();
-		GeoPoint pt = new GeoPoint((int)loc.getLatitude(), (int)loc.getLongitude());
-		String title = this.getString(R.string.myLocation);
-		String message = pt.getLatitudeE6()+":"+pt.getLongitudeE6();
-		OverlayItem item = new OverlayItem(pt,title,message);
-		
-		List<OverlayItem> items = new ArrayList<OverlayItem>();
-		items.add(item);
-		userOverlay.setItems(items);
-		
-		mMapView.getController().setCenter(item.getPoint());
-	}
-
-
-	
-
 }
