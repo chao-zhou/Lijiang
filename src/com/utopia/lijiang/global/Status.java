@@ -3,6 +3,7 @@ package com.utopia.lijiang.global;
 import java.util.Observable;
 
 import android.location.Location;
+import android.util.Log;
 
 /**Singleton instance for saving properties. 
  * @author chao_zhou
@@ -38,6 +39,7 @@ public class Status extends Observable{
 		setLastLocation(location);
 		location = l;
 		
+		Log.d("lijiang","location changed");
 		this.setChanged();
 		this.notifyObservers();
 	}
