@@ -15,6 +15,7 @@ import android.view.View;
 import android.view.ViewGroup.LayoutParams;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.TextView.OnEditorActionListener;
@@ -30,6 +31,9 @@ import com.baidu.mapapi.MKTransitRouteResult;
 import com.baidu.mapapi.MKWalkingRouteResult;
 import com.baidu.mapapi.MapView;
 import com.baidu.mapapi.OverlayItem;
+import com.utopia.lijiang.alarm.Alarm;
+import com.utopia.lijiang.alarm.AlarmManager;
+import com.utopia.lijiang.alarm.LocationAlarm;
 import com.utopia.lijiang.baidu.BaiduItemizedOverlay;
 import com.utopia.lijiang.baidu.BaiduLongPressItemizedOverlay;
 import com.utopia.lijiang.baidu.BaiduMapActivity;
@@ -45,12 +49,15 @@ public class LijiangMapActivity extends BaiduMapActivity implements Observer{
 	EditText poiNameEditText = null;
 	InputMethodManager imm = null;
 	ProgressDialog progressDialog = null;
-	TextView popName = null;
+	EditText popName = null;
 	TextView popAddress = null;
+	Button popSave = null;
 	
 	BaiduItemizedOverlay userOverlay = null;
 	BaiduItemizedOverlay searchOverlay = null;
 	BaiduItemizedOverlay customOverlay = null;
+	
+	GeoPoint latestPoint = null;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -73,7 +80,6 @@ public class LijiangMapActivity extends BaiduMapActivity implements Observer{
 		}	
 	}
 	
-	
 	@Override
 	protected int getConentViewId() {
 		// TODO Auto-generated method stub
@@ -93,8 +99,9 @@ public class LijiangMapActivity extends BaiduMapActivity implements Observer{
 		popName.setText(item.getTitle());
 		popAddress.setText(item.getSnippet());
 		
-		mMapView.getController().setCenter(item.getPoint());
+		latestPoint = item.getPoint();
 		
+		mMapView.getController().setCenter(item.getPoint());	
 		LijiangMapActivity.mMapView.updateViewLayout( LijiangMapActivity.mPopView,
                 new MapView.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT,
                 		item.getPoint(), 0,-30,MapView.LayoutParams.BOTTOM_CENTER));
@@ -122,10 +129,20 @@ public class LijiangMapActivity extends BaiduMapActivity implements Observer{
 		items.add(item);
 		userOverlay.setItems(items);
 		
-		mMapView.getController().setCenter(item.getPoint());
+		//mMapView.getController().setCenter(item.getPoint());
 	}
 
-	
+	public void addAlarm(View target){
+		 String title = popName.getText().toString();
+		 //String message = popAddress.getText().toString();
+		 Alarm alarm = new LocationAlarm(
+				 			title,
+				 			(double)latestPoint.getLongitudeE6(),
+				 			(double)latestPoint.getLatitudeE6());
+		 AlarmManager.getInstance().addAlarm(alarm);
+		 AlarmManager.getInstance().save2DB(this);
+		 this.finish();
+	}
 	
 	private String getPostionName(){
 		return poiNameEditText.getText().toString().trim();
@@ -216,8 +233,8 @@ public class LijiangMapActivity extends BaiduMapActivity implements Observer{
 	
 	private void attachPopView(){
 		mPopView=super.getLayoutInflater().inflate(R.layout.popview, null);
-		popName = (TextView)mPopView.findViewById(R.id.popName);
-		popAddress = (TextView)mPopView.findViewById(R.id.popAddress);
+		popName=(EditText)mPopView.findViewById(R.id.popName);
+		popAddress=(TextView)mPopView.findViewById(R.id.popAddress);
 		
 		mMapView.addView( mPopView,
                 new MapView.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT,

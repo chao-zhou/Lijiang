@@ -15,9 +15,8 @@
      android:id="@+id/popuptext"
 	 android:layout_width="wrap_content" 
 	 android:layout_height="wrap_content">
-	 <TextView 
+	 <EditText 
 	     android:id="@+id/popName" 
-		 android:ellipsize="marquee" 
 		 android:textColor="#000"
 		 android:textSize="12sp"
 		 android:textStyle="bold"
@@ -42,6 +41,7 @@
 	 android:layout_marginBottom="5dp"
 	 android:padding="2dp"
 	 android:gravity="center"
+	 android:onClick="addAlarm"
 	 android:text="@string/addLocation"/>
 </LinearLayout >
     
