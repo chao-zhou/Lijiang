@@ -1,11 +1,10 @@
 package com.utopia.lijiang.location;
 
-import com.utopia.lijiang.alarm.AlarmManager;
-import com.utopia.lijiang.global.Status;
-
 import android.location.Location;
 import android.os.Bundle;
 import android.util.Log;
+
+import com.utopia.lijiang.global.Status;
 
 public class LocationListener implements android.location.LocationListener {
 
@@ -20,7 +19,6 @@ public class LocationListener implements android.location.LocationListener {
 		if(LocationUtil.isBetterLocation(location,oldLocation))
 		{
 			Status.getCurrentStatus().setLocation(location);
-			AlarmManager.getInstance().alarmAllPossible();
 		}
 	}
 
