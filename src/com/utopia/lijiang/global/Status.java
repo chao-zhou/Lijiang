@@ -1,12 +1,16 @@
 package com.utopia.lijiang.global;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Observable;
+
 import android.location.Location;
 
 /**Singleton instance for saving properties. 
  * @author chao_zhou
  * @version 1.0.0.0
  * */
-public class Status {
+public class Status extends Observable{
 
 	private static Status currentStatus = null;
 	
@@ -14,7 +18,6 @@ public class Status {
 		if(currentStatus == null){
 			currentStatus = new Status();
 		}
-			
 		return currentStatus;
 	}
 	
@@ -36,6 +39,9 @@ public class Status {
 	public void setLocation(Location l){
 		setLastLocation(location);
 		location = l;
+		
+		this.setChanged();
+		this.notifyObservers();
 	}
 
 	

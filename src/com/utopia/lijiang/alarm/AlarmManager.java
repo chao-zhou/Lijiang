@@ -4,6 +4,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Observable;
+import java.util.Observer;
 
 import android.content.Context;
 import android.util.Log;
@@ -15,7 +17,7 @@ import com.utopia.lijiang.global.Status;
 /**
  * 
  * */
-public class AlarmManager {
+public class AlarmManager implements Observer {
 	
 	private static AlarmManager instance = null;
 	public static AlarmManager getInstance(){
@@ -102,6 +104,13 @@ public class AlarmManager {
 	public boolean removeAlarmListener(Object object){
 		return alListeners.remove(object);
 	}
+	
+	@Override
+	public void update(Observable observable, Object data) {
+		// TODO Auto-generated method stub
+		alarmAllPossible();	
+	}
+	
 	
 	public int alarmAllPossible(){
 		int count = 0;
@@ -210,4 +219,6 @@ public class AlarmManager {
 		historyAlarms.clear();
 		removedAlarms.clear();
 	}
+
+	
 }

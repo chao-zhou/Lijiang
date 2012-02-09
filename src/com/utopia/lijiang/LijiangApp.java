@@ -37,8 +37,8 @@ public class LijiangApp extends Application {
 		ctx = getApplicationContext();
 		
 		configNotification();
-		getLastKnownLocation();
 		getAlarmsFromDB();
+		getLastKnownLocation();	
 		startLocationService();
 		
 		super.onCreate();
@@ -52,6 +52,7 @@ public class LijiangApp extends Application {
  	private void getAlarmsFromDB(){
  		AlarmManager.getInstance().reset();
  		AlarmManager.getInstance().load4DB(ctx, SimpleAlarm.class);
+ 		Status.getCurrentStatus().addObserver(AlarmManager.getInstance());
  	}
  	
  	/**Configure Notification's setting*/
