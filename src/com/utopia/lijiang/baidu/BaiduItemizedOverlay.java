@@ -73,6 +73,7 @@ public class BaiduItemizedOverlay extends ItemizedOverlay<OverlayItem>{
 
 			Paint paintText = new Paint();
 			paintText.setTypeface(Typeface.DEFAULT_BOLD);
+			paintText.setFakeBoldText(true); 
 			paintText.setColor(Color.BLUE);
 			paintText.setTextSize(15);
 			canvas.drawText(title, point.x-5, point.y+15, paintText); 

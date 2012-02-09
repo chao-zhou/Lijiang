@@ -54,7 +54,7 @@ public class BaiduLongPressItemizedOverlay extends BaiduItemizedOverlay implemen
 		GeoPoint pt = activity.getMapView().getProjection().fromPixels((int) e.getX(),(int) e.getY());
 		
 		String title = activity.getString(R.string.customLocation);
-		String message ="X:"+(int) e.getX()+" Y:"+ (int) e.getY();	
+		String message = pt.getLatitudeE6()+":"+pt.getLongitudeE6();
 		this.items.clear();
 		this.items.add(new OverlayItem(pt,title,message));
 		this.populate();
