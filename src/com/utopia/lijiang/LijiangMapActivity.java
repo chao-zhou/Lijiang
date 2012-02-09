@@ -1,7 +1,13 @@
 package com.utopia.lijiang;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Observable;
+import java.util.Observer;
+
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.location.Location;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.KeyEvent;
@@ -14,7 +20,6 @@ import android.widget.TextView;
 import android.widget.TextView.OnEditorActionListener;
 import android.widget.Toast;
 
-
 import com.baidu.mapapi.GeoPoint;
 import com.baidu.mapapi.MKAddrInfo;
 import com.baidu.mapapi.MKDrivingRouteResult;
@@ -25,13 +30,12 @@ import com.baidu.mapapi.MKTransitRouteResult;
 import com.baidu.mapapi.MKWalkingRouteResult;
 import com.baidu.mapapi.MapView;
 import com.baidu.mapapi.OverlayItem;
-import com.baidu.mapapi.PoiOverlay;
-import com.utopia.lijiang.R;
 import com.utopia.lijiang.baidu.BaiduItemizedOverlay;
 import com.utopia.lijiang.baidu.BaiduLongPressItemizedOverlay;
 import com.utopia.lijiang.baidu.BaiduMapActivity;
+import com.utopia.lijiang.global.Status;
 
-public class LijiangMapActivity extends BaiduMapActivity {
+public class LijiangMapActivity extends BaiduMapActivity implements Observer{
 
 	static String CURRENT_CITY = "";
 	static MapView mMapView = null;
@@ -58,11 +62,8 @@ public class LijiangMapActivity extends BaiduMapActivity {
 	    initialSearchInput();
 	    initialSearch();
 	    
-	    customOverlay = 
-	    		new BaiduLongPressItemizedOverlay(this,this.getResources().getDrawable(R.drawable.marker_rounded_grey));
-	    mMapView.getOverlays().add(customOverlay);
+	    Status.getCurrentStatus().addObserver(this);
 	}
-
 
 	public void searchPosition(View targer){
 		String poiName = getPostionName();
@@ -94,7 +95,16 @@ public class LijiangMapActivity extends BaiduMapActivity {
 	    mMapView.setBuiltInZoomControls(true);
 	    mMapView.setDrawOverlayWhenZooming(true);
 	    
-	 
+	    customOverlay = 
+	    		new BaiduLongPressItemizedOverlay(this,this.getResources().getDrawable(R.drawable.marker_rounded_grey));
+		searchOverlay = 
+				new BaiduItemizedOverlay(LijiangMapActivity.this,getResources().getDrawable(R.drawable.marker_rounded_red));		  
+		userOverlay = 
+				new BaiduItemizedOverlay(LijiangMapActivity.this,getResources().getDrawable(R.drawable.marker_rounded_blue));
+		
+		mMapView.getOverlays().add(customOverlay);
+		mMapView.getOverlays().add(searchOverlay);
+		mMapView.getOverlays().add(userOverlay);
 	    
 	    attachPopView();
 	}
@@ -116,14 +126,6 @@ public class LijiangMapActivity extends BaiduMapActivity {
 						progressDialog.hide();
 						Toast.makeText(LijiangMapActivity.this, "Error or Empty", Toast.LENGTH_LONG).show();
 						return;
-					}
-					
-					if(searchOverlay == null){
-						searchOverlay = 
-									new BaiduItemizedOverlay(
-											LijiangMapActivity.this,
-											getResources().getDrawable(R.drawable.marker_rounded_red));		  
-						mMapView.getOverlays().add(searchOverlay);
 					}
 					
 					searchOverlay.setData(res.getAllPoi());
@@ -197,12 +199,27 @@ public class LijiangMapActivity extends BaiduMapActivity {
 		return true;
 	}
 
-
 	@Override
 	public void onTapping(GeoPoint pt, MapView v) {
 		// TODO Auto-generated method stub
 		Log.d("lijiang","onTapping");
 		LijiangMapActivity.mPopView.setVisibility(View.GONE);
+	}
+
+	@Override
+	public void update(Observable observable, Object data) {
+		// TODO Auto-generated method stub
+		Location loc = Status.getCurrentStatus().getLocation();
+		GeoPoint pt = new GeoPoint((int)loc.getLatitude(), (int)loc.getLongitude());
+		String title = this.getString(R.string.myLocation);
+		String message = pt.getLatitudeE6()+":"+pt.getLongitudeE6();
+		OverlayItem item = new OverlayItem(pt,title,message);
+		
+		List<OverlayItem> items = new ArrayList<OverlayItem>();
+		items.add(item);
+		userOverlay.setItems(items);
+		
+		mMapView.getController().setCenter(item.getPoint());
 	}
 
 
