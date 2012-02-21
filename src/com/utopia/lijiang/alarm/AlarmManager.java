@@ -207,7 +207,7 @@ public class AlarmManager implements Observer {
 	}
 	
 	private DBHelper getDBHelper(Context context){
-		String dbVersion = context.getString(R.string.database_version);
+		String dbVersion = context.getString(R.string.dbVersion);
 		DBHelper helper = new DBHelper(context,null,Integer.parseInt(dbVersion));
 		Log.d("lijiang",dbVersion);
 		return helper;
