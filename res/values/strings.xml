@@ -9,7 +9,6 @@
 	<string name="btnLocate">定位</string>	
 	<string name="cancel">取消</string>
 	<string name="customLocation">我添加的位置</string>
-	<string name="database_version">1</string>
     <string name="debug_tag">lijiang</string>
     <string name="delete">删除</string>
     <string name="foreground">lijiang_foreground</string>
@@ -19,4 +18,5 @@
 	<string name="myLocation">我的当前位置</string>
 	<string name="renew">重新选取</string>
 	<string name="searching">搜索中...</string>
+	<string name="dbVersion">1</string>
 </resources>

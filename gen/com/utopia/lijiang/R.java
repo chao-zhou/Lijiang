@@ -70,15 +70,15 @@ public final class R {
         public static final int btnLocate=0x7f040006;
         public static final int cancel=0x7f040007;
         public static final int customLocation=0x7f040008;
-        public static final int database_version=0x7f040009;
-        public static final int debug_tag=0x7f04000a;
-        public static final int delete=0x7f04000b;
-        public static final int foreground=0x7f04000c;
-        public static final int guide=0x7f04000d;
-        public static final int hello=0x7f04000e;
-        public static final int mapEditTextHint=0x7f04000f;
-        public static final int myLocation=0x7f040010;
-        public static final int renew=0x7f040011;
-        public static final int searching=0x7f040012;
+        public static final int dbVersion=0x7f040012;
+        public static final int debug_tag=0x7f040009;
+        public static final int delete=0x7f04000a;
+        public static final int foreground=0x7f04000b;
+        public static final int guide=0x7f04000c;
+        public static final int hello=0x7f04000d;
+        public static final int mapEditTextHint=0x7f04000e;
+        public static final int myLocation=0x7f04000f;
+        public static final int renew=0x7f040010;
+        public static final int searching=0x7f040011;
     }
 }
