@@ -38,12 +38,14 @@ import com.utopia.lijiang.baidu.BaiduItemizedOverlay;
 import com.utopia.lijiang.baidu.BaiduLongPressItemizedOverlay;
 import com.utopia.lijiang.baidu.BaiduMapActivity;
 import com.utopia.lijiang.global.Status;
+import com.utopia.lijiang.view.SafeProgressDialog;
 
 public class LijiangMapActivity extends BaiduMapActivity implements Observer{
 
 	static String CURRENT_CITY = "";
 	static MapView mMapView = null;
 	static View mPopView = null;	
+	final static int MAX_SEARCHING_SECOND = 1000*5;
 	
 	MKSearch mSearch = null;
 	EditText poiNameEditText = null;
@@ -69,7 +71,17 @@ public class LijiangMapActivity extends BaiduMapActivity implements Observer{
 	    initialSearchInput();
 	    initialSearch();
 	    
+	    //Listen Status' change
 	    Status.getCurrentStatus().addObserver(this);
+	}
+
+	@Override
+	protected void onDestroy() {
+		// TODO Auto-generated method stub
+		super.onDestroy();
+		
+		//Remove Status Listen
+		Status.getCurrentStatus().deleteObserver(this);
 	}
 
 	public void searchPosition(View targer){
@@ -155,7 +167,8 @@ public class LijiangMapActivity extends BaiduMapActivity implements Observer{
 	}
 	
 	private void initialProgressDialog(){
-		progressDialog = new ProgressDialog(this);
+		//progressDialog = new ProgressDialog(this);
+		progressDialog = new SafeProgressDialog(this,MAX_SEARCHING_SECOND);
 		progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
 		progressDialog.setMessage(getString(R.string.searching));
 		progressDialog.setCancelable(false);
@@ -201,7 +214,7 @@ public class LijiangMapActivity extends BaiduMapActivity implements Observer{
 					
 					searchOverlay.setData(res.getAllPoi());
 					mMapView.invalidate();
-					progressDialog.hide();
+					progressDialog.cancel();
 				}
 
 				@Override
