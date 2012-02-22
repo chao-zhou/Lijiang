@@ -7,6 +7,7 @@ import java.util.Observer;
 
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.location.Location;
 import android.os.Bundle;
 import android.util.Log;
@@ -31,9 +32,6 @@ import com.baidu.mapapi.MKTransitRouteResult;
 import com.baidu.mapapi.MKWalkingRouteResult;
 import com.baidu.mapapi.MapView;
 import com.baidu.mapapi.OverlayItem;
-import com.utopia.lijiang.alarm.Alarm;
-import com.utopia.lijiang.alarm.AlarmManager;
-import com.utopia.lijiang.alarm.LocationAlarm;
 import com.utopia.lijiang.baidu.BaiduItemizedOverlay;
 import com.utopia.lijiang.baidu.BaiduLongPressItemizedOverlay;
 import com.utopia.lijiang.baidu.BaiduMapActivity;
@@ -51,7 +49,7 @@ public class LijiangMapActivity extends BaiduMapActivity implements Observer{
 	EditText poiNameEditText = null;
 	InputMethodManager imm = null;
 	ProgressDialog progressDialog = null;
-	EditText popName = null;
+	TextView popName = null;
 	TextView popAddress = null;
 	Button popSave = null;
 	
@@ -146,14 +144,15 @@ public class LijiangMapActivity extends BaiduMapActivity implements Observer{
 
 	public void addAlarm(View target){
 		 String title = popName.getText().toString();
-		 //String message = popAddress.getText().toString();
-		 Alarm alarm = new LocationAlarm(
-				 			title,
-				 			(double)latestPoint.getLongitudeE6(),
-				 			(double)latestPoint.getLatitudeE6());
-		 AlarmManager.getInstance().addAlarm(alarm);
-		 AlarmManager.getInstance().save2DB(this);
-		 this.finish();
+		 String message = popAddress.getText().toString();
+		 
+		 Intent i = new Intent(this,AddAlarmActivity.class);
+		 i.putExtra(AddAlarmActivity.ALARM_TITLE, title);
+		 i.putExtra(AddAlarmActivity.ALARM_MESSAGE, message);
+		 i.putExtra(AddAlarmActivity.ALARM_LONGITUDEE6, latestPoint.getLongitudeE6());
+		 i.putExtra(AddAlarmActivity.ALARM_LATITUDEE6, latestPoint.getLatitudeE6());
+		 
+		 this.startActivity(i);
 	}
 	
 	private String getPostionName(){
@@ -245,13 +244,13 @@ public class LijiangMapActivity extends BaiduMapActivity implements Observer{
 	}
 	
 	private void attachPopView(){
-		mPopView=super.getLayoutInflater().inflate(R.layout.popview, null);
-		popName=(EditText)mPopView.findViewById(R.id.popName);
+		mPopView=super.getLayoutInflater().inflate(R.layout.popview2, null);
+		popName=(TextView)mPopView.findViewById(R.id.popName);
 		popAddress=(TextView)mPopView.findViewById(R.id.popAddress);
 		
 		mMapView.addView( mPopView,
                 new MapView.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT,
-                		null, MapView.LayoutParams.TOP_LEFT));
+                		null, MapView.LayoutParams.BOTTOM_CENTER));
 		mPopView.setVisibility(View.GONE);
 	}
 	

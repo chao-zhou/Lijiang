@@ -33,18 +33,23 @@ public class LocationAlarm implements Alarm{
 	};
 	
  	public LocationAlarm(String title,Location location){
-		initial(title,location.getLongitude(),location.getLatitude());
+		initial(title,null,location.getLongitude(),location.getLatitude());
 	}
 
 	public LocationAlarm(String title,double longitude,double latitude){
-		initial(title,longitude,latitude);
+		initial(title,null,longitude,latitude);
 	}
 	
-	protected void initial(String title,double longitude,double latitude){
+	public LocationAlarm(String title,String message, double longitude,double latitude){
+		initial(title,message,longitude,latitude);
+	}
+	
+	protected void initial(String title,String message,double longitude,double latitude){
 		this.title = title;
 		this.longitude = longitude;
 		this.latitude = latitude;
 		this.active = true;
+		this.message = message;
 	}
 	
 	protected boolean isNear(double longitude2,double latitude2){

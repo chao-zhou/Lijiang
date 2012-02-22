@@ -24,7 +24,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".LijiangMapActivity"></activity>
-        <activity android:name=".AddSimpleAlarmActivity"></activity>
+        <activity android:name=".AddAlarmActivity"></activity>
         <activity android:name=".LijiangMapActivity">
         </activity>
         <service android:name=".service.LocationService"></service>      

@@ -1,28 +1,31 @@
 package com.utopia.lijiang;
 
-import com.utopia.lijiang.alarm.Alarm;
-import com.utopia.lijiang.alarm.AlarmManager;
-import com.utopia.lijiang.alarm.SimpleAlarm;
-
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
-import android.widget.CheckBox;
 import android.widget.EditText;
+
+import com.utopia.lijiang.alarm.Alarm;
+import com.utopia.lijiang.alarm.AlarmManager;
+import com.utopia.lijiang.alarm.LocationAlarm;
 /** The activity for add and view SimpleAlarm
  * Should be removed in release version
  * @author chao_zhou
  * @version 1.0.0.0
  * */
-public class AddSimpleAlarmActivity extends Activity {
+public class AddAlarmActivity extends Activity {
 
-	 public final static String ALARM_LOCATION = "alarm_location";
-	
+	 public final static String ALARM_TITLE = "alarm_title";
+	 public final static String ALARM_MESSAGE = "alarm_message";
+	 public final static String ALARM_LONGITUDEE6 = "alarm_longitude";
+	 public final static String ALARM_LATITUDEE6 = "alarm_latitude";
+	 
 	 private EditText alarmTitle = null;
 	 private EditText alarmMessage = null;
-	 private CheckBox alarmActive = null;
+
+	 private double longitude = -1.0;
+	 private double latidude = -1.0;
 	 private Alarm alarm = null;
 	 
 	 @Override
@@ -33,7 +36,6 @@ public class AddSimpleAlarmActivity extends Activity {
 	    	
 	    	alarmTitle = (EditText)findViewById(R.id.addAlarmTitle);
 	    	alarmMessage = (EditText)findViewById(R.id.addAlarmMsg);
-	    	alarmActive = (CheckBox)findViewById(R.id.addAlarmActive);
 	    }  
 	 
 	 @Override
@@ -46,13 +48,10 @@ public class AddSimpleAlarmActivity extends Activity {
 	 }
 	 
 	 private void getAlarmFromIntent(Intent intent){
-		 int location = intent.getIntExtra(ALARM_LOCATION, -1);
-		 
-		 if(location < 0){
-			 return;
-		 }
-		 
-		 alarm = AlarmManager.getInstance().getAlarm(location);
+		 alarmTitle.setText(intent.getStringExtra(ALARM_TITLE));
+		 alarmMessage.setText(intent.getStringExtra(ALARM_MESSAGE));
+		 longitude = intent.getDoubleExtra(ALARM_LONGITUDEE6, -1.0);
+		 latidude = intent.getDoubleExtra(ALARM_LATITUDEE6, -1.0);
 	 }
 	 
 	 private void viewAlarm(Alarm alarm){
@@ -62,7 +61,6 @@ public class AddSimpleAlarmActivity extends Activity {
 		 
 		 alarmTitle.setText(alarm.getTitle());
 		 alarmMessage.setText(alarm.getMessage());
-		 alarmActive.setChecked(alarm.isActive());
 		 
 	 }
 	 
@@ -70,26 +68,15 @@ public class AddSimpleAlarmActivity extends Activity {
 		
 		 String title = alarmTitle.getText().toString();
 		 String message = alarmMessage.getText().toString();
-		 boolean active = alarmActive.isChecked();
 		 
-		 if(alarm == null){
-			 Log.d("lijiang","add alarm");
-			 alarm = new SimpleAlarm(title,message,active);
-			 AlarmManager.getInstance().addAlarm(alarm);
-		 }else{
-			 Log.d("lijiang","update alarm");
-			 alarm.setTitle(title);
-			 alarm.setMessage(message);
-			 alarm.setActive(active);
-		 }
-		 
+		 alarm = new LocationAlarm(title,message,longitude,latidude);
+		 AlarmManager.getInstance().addAlarm(alarm);
 		 AlarmManager.getInstance().save2DB(this);
+		 
 		 this.finish();
 	 }
 	 
-	 public void clearAlarmInfo(View target){
-		 alarmTitle.setText("");
-		 alarmMessage.setText("");
-		 alarmActive.setChecked(false);
+	 public void cancelAddAlarm(View target){
+		this.finish();
 	 }
 }

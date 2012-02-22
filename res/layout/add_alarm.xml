@@ -29,20 +29,6 @@
 		    android:layout_width="match_parent"
 	    	android:layout_height="wrap_content"
 	    	android:orientation="horizontal">
-	    	<TextView  
-			    android:layout_width="wrap_content"
-			    android:layout_height="wrap_content"
-			    android:text="Active:"/>
-			<CheckBox
-			    android:id="@+id/addAlarmActive"
-			    android:layout_width="match_parent"
-			    android:layout_height="wrap_content"
-			    android:checked="false"/>
-	</LinearLayout>
-	<LinearLayout
-		    android:layout_width="match_parent"
-	    	android:layout_height="wrap_content"
-	    	android:orientation="horizontal">
 	<Button
 	    android:layout_width="wrap_content"
 	    android:layout_height="wrap_content"
@@ -53,7 +39,7 @@
 	    android:layout_width="wrap_content"
 	    android:layout_height="wrap_content"
 	    android:layout_weight="1.0"
-	    android:text="Clear"
-	    android:onClick="clearAlarmInfo"/>
+	    android:text="Cancel"
+	    android:onClick="cancelAddAlarm"/>
 	</LinearLayout>
 </LinearLayout>
