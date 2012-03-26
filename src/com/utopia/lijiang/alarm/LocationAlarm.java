@@ -63,7 +63,7 @@ public class LocationAlarm implements Alarm{
 		}
 	}
 
-	protected double getDistance(double longitude2,double latitude2){
+	public double getDistance(double longitude2,double latitude2){
 		double longDistance = longitude - longitude2;
 		double latiDistance = latitude - latitude2;
 		double distance =
