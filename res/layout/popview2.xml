@@ -5,8 +5,7 @@
  android:paddingLeft="5px"  
  android:paddingTop="5px"  
  android:paddingRight="5px"  
- android:paddingBottom="25px"      
-   >  
+ android:paddingBottom="25px">  
     <TextView android:id="@+id/popName"   
        android:layout_width="140px"   
        android:layout_height="wrap_content"  

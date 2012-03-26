@@ -3,20 +3,47 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="horizontal">
+<RelativeLayout
+     android:layout_width="match_parent"
+	 android:layout_height="match_parent"
+	 android:layout_weight="1.0">
 <TextView
 	    android:id="@+id/alarmTitle" 
 	    android:layout_width="match_parent"
-	    android:layout_height="match_parent"
+	    android:layout_height="wrap_content"
 	    android:text="Alarm Title"
 	    android:layout_weight="1.0"
 	    android:gravity="center_vertical"
-	    android:textSize="42px"/>  
-<Button  
-    android:id="@+id/alarmShowContexMenu"
+	    android:textSize="24sp"/>  
+<TextView
+    android:id="@+id/alarmMessage"
+    android:layout_below="@id/alarmTitle"
+    android:layout_width="match_parent"
+	android:layout_height="wrap_content"
+	android:text= "Alarm message"
+	android:layout_weight="1.0"
+	android:gravity="center_vertical"
+	android:textSize="18sp"/>  
+</RelativeLayout>
+
+<TextView
+    android:id="@+id/alarmDistance"
+ 	android:layout_width="wrap_content"
+    android:layout_height="match_parent"
+	android:text= "~100m"
+	android:layout_weight="0.0"
+	android:gravity="center"
+	android:textSize="18sp"/>    
+    
+<ToggleButton  
+    android:id="@+id/alarmActive"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-	android:layout_margin="8px"
+	android:layout_margin="8dp"
 	android:focusable="false"
 	android:text=" >> "
+	android:textOn="Active"
+	android:textOff="Inactive"	
+	android:textSize="12sp"
     android:layout_weight="0.0"/>
 </LinearLayout>
