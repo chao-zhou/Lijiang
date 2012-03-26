@@ -23,9 +23,22 @@ import android.widget.ToggleButton;
  * */
 public class AlarmAdapter extends BaseAdapter {
 
+	public static int ListAlarmViewState = 0;
+	public static int EditAlarmViewState = 1;
+	
+	
+	private int viewState = AlarmAdapter.ListAlarmViewState;
 	private List<Alarm> data = null;
 	private Activity activity = null;
 	private LayoutInflater layoutInflater; 
+	
+	public int getViewState() {
+		return viewState;
+	}
+
+	public void setViewState(int viewState) {
+		this.viewState = viewState;
+	}
 	
 	/**Constructor
 	 * @param context Current context
@@ -35,6 +48,7 @@ public class AlarmAdapter extends BaseAdapter {
 		this.data = data;
 		this.activity = activity;
 		this.layoutInflater = LayoutInflater.from(activity); 
+		this.viewState = AlarmAdapter.ListAlarmViewState;
 	}
 	
 	@Override
@@ -55,6 +69,21 @@ public class AlarmAdapter extends BaseAdapter {
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
       
+		if(viewState == AlarmAdapter.ListAlarmViewState){
+			return getListView(position,convertView,parent);
+		}
+		else{
+			return getEditView(position,convertView,parent);
+		}
+	}	
+	
+	
+	private View getEditView(int position, View convertView, ViewGroup parent) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	private View getListView(int position, View convertView, ViewGroup parent){
 		if(convertView == null){
 			Log.d("lijiang","inflate a new view");
 			convertView = layoutInflater.inflate(R.layout.alarm_listitem, null);
@@ -68,7 +97,9 @@ public class AlarmAdapter extends BaseAdapter {
         setActiveAction(item,convertView);
  
 		return convertView;
-	}	
+		
+	}
+	
 	
 	/**Set each alarm's title
 	 * */
@@ -93,7 +124,8 @@ public class AlarmAdapter extends BaseAdapter {
 			public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
 				// TODO Auto-generated method stub
 				item.setActive(isChecked);
-			}});
-		
+			}});	
 	}
+	
+	
 }
