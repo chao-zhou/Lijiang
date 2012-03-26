@@ -1,18 +1,15 @@
 package com.utopia.lijiang.service;
 
+import android.content.Intent;
+import android.location.LocationManager;
+import android.os.IBinder;
+import android.util.Log;
+
 import com.utopia.lijiang.R;
 import com.utopia.lijiang.alarm.Alarm;
 import com.utopia.lijiang.alarm.AlarmListener;
 import com.utopia.lijiang.alarm.AlarmManager;
-import com.utopia.lijiang.global.Status;
 import com.utopia.lijiang.location.LocationListener;
-import com.utopia.lijiang.location.LocationUtil;
-
-import android.content.Intent;
-import android.location.Location;
-import android.location.LocationManager;
-import android.os.IBinder;
-import android.util.Log;
 
 /**Foreground service for listening location's modification.
  * Location update's work is done by LocatinoListener
