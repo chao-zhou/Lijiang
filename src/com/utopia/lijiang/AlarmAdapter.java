@@ -1,17 +1,19 @@
 package com.utopia.lijiang;
 
 import java.util.List;
+import java.util.Observable;
+import java.util.Observer;
 
 import com.utopia.lijiang.alarm.Alarm;
+import com.utopia.lijiang.alarm.LocationAlarm;
+import com.utopia.lijiang.global.Status;
 
 import android.app.Activity;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.TextView;
@@ -95,14 +97,11 @@ public class AlarmAdapter extends BaseAdapter {
         setTitle(item,convertView);
         setMessage(item,convertView);
         setActiveAction(item,convertView);
- 
+        setDistance(item,convertView);
 		return convertView;
 		
 	}
 	
-	
-	/**Set each alarm's title
-	 * */
 	private void setTitle(Alarm item, View convertView){
 		TextView title = (TextView)convertView.findViewById(R.id.alarmTitle);
 		title.setText(item.getTitle());
@@ -127,5 +126,32 @@ public class AlarmAdapter extends BaseAdapter {
 			}});	
 	}
 	
+	private void setDistance(Alarm item, View convertView) {
+		// TODO Auto-generated method stub
+		final LocationAlarm locAlarm = (LocationAlarm)item;	
+		final TextView disView = (TextView)convertView.findViewById(R.id.alarmDistance);
+		String disString =getDistanceString(locAlarm.getDistance()); 
+		disView.setText(disString);
+		
+		Status.getCurrentStatus().addObserver(new Observer(){
+
+			@Override
+			public void update(Observable arg0, Object arg1) {
+				// TODO Auto-generated method stub
+				Log.d("lijiang","location changed, recaculate distance");
+				String disString =getDistanceString(locAlarm.getDistance());
+				disView.setText(disString);
+			}});
+	}
+	
+	private String getDistanceString(double meter){
+		if(meter == 0)
+			return "=0";
+		
+		if(meter<1000){return String.format("~%1$.0f", meter);}
+		else if(meter/1000 < 10){return String.format("~%1$.0f", meter/1000);}
+		else {return ">10Km";}
+	}
+
 	
 }
