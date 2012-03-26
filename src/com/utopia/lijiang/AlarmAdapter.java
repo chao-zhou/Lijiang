@@ -146,7 +146,7 @@ public class AlarmAdapter extends BaseAdapter {
 	
 	private String getDistanceString(double meter){
 		if(meter == 0)
-			return "=0";
+			return "???";
 		
 		if(meter<1000){return String.format("~%1$.0f", meter);}
 		else if(meter/1000 < 10){return String.format("~%1$.0f", meter/1000);}
