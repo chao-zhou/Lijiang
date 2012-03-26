@@ -52,13 +52,13 @@ public class LocationService extends NotificationService {
 	public int onStartCommand(Intent intent, int flags, int startId) {
 		Log.d(getString(R.string.debug_tag),"Start LocationService");
 		
-		String msg = "No Location Info"; 
+	/*	String msg = "No Location Info"; 
 		Location lastLocation = Status.getCurrentStatus().getLocation();
 	    if(lastLocation != null){
 	    	msg = LocationUtil.getLocationMessage(lastLocation);
 	    }
 		
-	    toForegroud(msg);
+	    toForegroud(msg);*/
 	    
 	    return START_STICKY;
 	}
