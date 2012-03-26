@@ -20,7 +20,6 @@ import com.baidu.mapapi.MKSearch;
 import com.baidu.mapapi.MKSearchListener;
 import com.baidu.mapapi.MKTransitRouteResult;
 import com.baidu.mapapi.MKWalkingRouteResult;
-import com.utopia.lijiang.global.Status;
 import com.utopia.lijiang.view.SafeProgressDialog;
 
 public class LijiangMapActivity extends LijiangOverlayActivity {
@@ -35,23 +34,8 @@ public class LijiangMapActivity extends LijiangOverlayActivity {
 		super.onCreate(savedInstanceState);
 	    
 		initialProgressDialog();
-		initialMapView();
 	    initialSearchInput();
 	    initialSearch();
-	    
-	    locateCurrentCenter();
-		//Listen Status' change
-	    Status.getCurrentStatus().addObserver(this);
-
-	}
-
-	@Override
-	protected void onDestroy() {
-		// TODO Auto-generated method stub
-		super.onDestroy();
-		
-		//Remove Status Listen
-		Status.getCurrentStatus().deleteObserver(this);
 	}
 
 	public void searchPosition(View targer){
