@@ -3,6 +3,7 @@ package com.utopia.lijiang.alarm;
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
 import com.utopia.lijiang.global.Status;
+import com.utopia.lijiang.location.LocationUtil;
 
 import android.location.Location;
 
@@ -63,13 +64,24 @@ public class LocationAlarm implements Alarm{
 		}
 	}
 
+	public double getDistance(){
+		Location loc = Status.getCurrentStatus().getLocation();
+		if( loc == null){
+			return 0;
+		}	
+		return getDistance(loc.getLongitude(),loc.getLatitude());
+	}
+	
 	public double getDistance(double longitude2,double latitude2){
-		double longDistance = longitude - longitude2;
+		
+		return LocationUtil.CaculateDistance(latitude, longitude, latitude2, longitude2);
+		
+	/*	double longDistance = longitude - longitude2;
 		double latiDistance = latitude - latitude2;
 		double distance =
 				Math.sqrt(Math.pow(longDistance,2.0) + Math.pow(latiDistance,2.0));
 		
-		return distance;
+		return distance;*/
 	}
 	
 	
