@@ -41,6 +41,10 @@ public class AlarmManager implements Observer {
 		alListeners = new ArrayList<AlarmListener>();
 	}
 
+	public List<Alarm> getAllAlarms(){
+		return alarms;
+	}
+	
 	public List<Alarm> getActiveAlarms(){
 		activeAlarms.clear();
 		for(Alarm alarm : alarms){
