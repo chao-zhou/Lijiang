@@ -12,7 +12,10 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.Button;
+import android.widget.CompoundButton;
+import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.TextView;
+import android.widget.ToggleButton;
 /** Adapter for show Alarm list
  *  This activity is bound with alarm_listitem.xml
  * @author chao_zhou
@@ -61,7 +64,8 @@ public class AlarmAdapter extends BaseAdapter {
         convertView.setTag(item);
         
         setTitle(item,convertView);
-        setOpenContexMenu(convertView);
+        setMessage(item,convertView);
+        setActiveAction(item,convertView);
  
 		return convertView;
 	}	
@@ -73,19 +77,23 @@ public class AlarmAdapter extends BaseAdapter {
 		title.setText(item.getTitle());
 	}
 	
-	/**Set each alarm's active
-	 * and add a listener to enable/disable active
-	 * */
-	private void setOpenContexMenu(final View convertView){
-		Button btnShowContexMenu = (Button)convertView.findViewById(R.id.alarmShowContexMenu);
-		btnShowContexMenu.setOnClickListener(new OnClickListener(){
+	private void setMessage(Alarm item, View convertView) {
+		// TODO Auto-generated method stub
+		TextView message = (TextView)convertView.findViewById(R.id.alarmMessage);
+		message.setText(item.getMessage());
+	}
+	
+	private void setActiveAction(final Alarm item, View convertView)
+	{
+		ToggleButton actButton = (ToggleButton)convertView.findViewById(R.id.alarmActive);
+		actButton.setChecked(item.isActive());
+		actButton.setOnCheckedChangeListener(new OnCheckedChangeListener(){
 
 			@Override
-			public void onClick(View arg0) {
+			public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
 				// TODO Auto-generated method stub
-				activity.openContextMenu(convertView);
-			}
-			
-		});
+				item.setActive(isChecked);
+			}});
+		
 	}
 }
