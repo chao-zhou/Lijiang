@@ -105,7 +105,7 @@ public abstract class LijiangOverlayActivity extends BaiduMapActivity implements
 	}
 	
 	protected void initialMapView(){
-		mMapView = (MapView)findViewById(R.id.bmapView);
+		mMapView = (MapView)findViewById(R.id.mapView);
 	    mMapView.setBuiltInZoomControls(true);
 	    mMapView.setDrawOverlayWhenZooming(true);
 	    

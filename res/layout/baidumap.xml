@@ -1,9 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<RelativeLayout
   xmlns:android="http://schemas.android.com/apk/res/android"
   android:layout_width="match_parent"
   android:layout_height="match_parent"
   android:orientation="vertical">
+ <com.baidu.mapapi.MapView 
+    android:id="@+id/mapView"
+	android:layout_width="fill_parent" 
+	android:layout_height="fill_parent" 
+	android:clickable="true" />
  <LinearLayout
    android:layout_width="fill_parent"
    android:layout_height="wrap_content"
@@ -23,9 +28,4 @@
   	 android:layout_weight="0.0"
   	 android:onClick="searchPosition"/>
  </LinearLayout>   
- <com.baidu.mapapi.MapView 
-    android:id="@+id/bmapView"
-	android:layout_width="fill_parent" 
-	android:layout_height="fill_parent" 
-	android:clickable="true" />
-</LinearLayout>
+</RelativeLayout>
