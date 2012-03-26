@@ -56,7 +56,7 @@ public class LijiangActivity extends Activity  {
     	Log.d(getString(R.string.debug_tag),"Create LijiangActivity ");
     	
     	super.onCreate(savedInstanceState);     	
-    	setContentView(R.layout.main);
+    	setContentView(R.layout.main_new);
     	
     	listView = (ListView)this.findViewById(R.id.alarmList);
     	btnAlarms = (ToggleButton)this.findViewById(R.id.btnAlarms);
@@ -155,7 +155,7 @@ public class LijiangActivity extends Activity  {
 		
 		switch(stateNum){
 			case STATE_ALARMS: 
-				alarms = AlarmManager.getInstance().getActiveAlarms();
+				alarms = AlarmManager.getInstance().getAllAlarms();
 				btnHistory.setChecked(false);	
 				setEmptyView(emptyView);
 				bindList(alarms);

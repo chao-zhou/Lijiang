@@ -19,4 +19,7 @@
 	<string name="renew">重新选取</string>
 	<string name="searching">搜索中...</string>
 	<string name="dbVersion">1</string>
+	<string name="btnEditText">编辑</string>
+	<string name="activeOnText">开启</string>
+	<string name="activeOffText">关闭</string>
 </resources>

@@ -42,8 +42,8 @@
 	android:layout_margin="8dp"
 	android:focusable="false"
 	android:text=" >> "
-	android:textOn="Active"
-	android:textOff="Inactive"	
+	android:textOn="@string/activeOffText"
+	android:textOff="@string/activeOnText"	
 	android:textSize="12sp"
     android:layout_weight="0.0"/>
 </LinearLayout>

@@ -3,20 +3,28 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:orientation="vertical" >
-	<TextView
+	<LinearLayout
 	    android:id="@+id/logo"
 	    android:layout_width="fill_parent"
-        android:layout_height="60px"
+        android:layout_height="40dp"
         android:layout_weight="0.0" 
-        android:background="#909090"/>
+        android:background="#909090"
+    	android:orientation="vertical">
+	<Button
+	    android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/btnEditText"
+        android:onClick="showEditView"
+	    />
+	</LinearLayout> 
 	<ListView 
 		android:id="@+id/alarmList"
 		android:layout_width="fill_parent" 
 		android:layout_height="fill_parent"
 		android:gravity="center"
 		android:layout_weight="1.0"
-		android:layout_marginTop="10px"
-		android:layout_marginBottom="10px"
+		android:layout_marginTop="4dp"
+		android:layout_marginBottom="4dp"
 		android:fadeScrollbars="false"/>
 	 <ViewStub 
         android:id="@+id/alarmListEmpty" 
@@ -24,13 +32,13 @@
 		android:layout_height="fill_parent"
 		android:gravity="center"
 		android:layout_weight="1.0"
-		android:layout_marginTop="10px"
-		android:layout_marginBottom="10px"
+		android:layout_marginTop="4dp"
+		android:layout_marginBottom="4dp"
         android:layout="@layout/alarm_empty" 
         android:visibility="gone"/>
 	<LinearLayout
 	    android:layout_width="fill_parent"
-    	android:layout_height="80px"
+    	android:layout_height="56dp"
     	android:orientation="horizontal"
     	android:background="#909090"
     	android:gravity="center" 
