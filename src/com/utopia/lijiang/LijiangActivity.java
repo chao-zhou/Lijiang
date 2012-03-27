@@ -37,7 +37,7 @@ public class LijiangActivity extends Activity  {
 	private int viewState;
 	private ListView listView = null;
 	//private ToggleButton btnAlarms = null;
-	private ToggleButton btnHistory = null;
+	//private ToggleButton btnHistory = null;
 	private View emptyView = null;
 	private List<Alarm> alarms  = null;
 
@@ -59,7 +59,7 @@ public class LijiangActivity extends Activity  {
     	
     	listView = (ListView)this.findViewById(R.id.alarmList);
     	//btnAlarms = (ToggleButton)this.findViewById(R.id.btnAlarms);
-    	btnHistory = (ToggleButton)this.findViewById(R.id.btnHistory);
+    	//btnHistory = (ToggleButton)this.findViewById(R.id.btnHistory);
     	
     	//You should save that empty view. 
     	//By default, android will setVisible(View.GONE) to that empty view,
@@ -170,13 +170,13 @@ public class LijiangActivity extends Activity  {
 		switch(stateNum){
 			case STATE_LIST: 
 				alarms = AlarmManager.getInstance().getAllAlarms();
-				btnHistory.setChecked(false);	
+				//btnHistory.setChecked(false);	
 				setEmptyView(emptyView);
 				bindList(alarms);
 				break;
 			case STATE_EDIT:
 				alarms = AlarmManager.getInstance().getAllAlarms();
-				btnHistory.setChecked(false);	
+				//btnHistory.setChecked(false);	
 				setEmptyView(emptyView);
 				bindList(alarms);
 				break;
