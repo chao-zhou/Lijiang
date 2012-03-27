@@ -6,11 +6,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.ContextMenu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.ToggleButton;
 
@@ -33,11 +29,14 @@ public class LijiangActivity extends Activity  {
 	
 	private static LijiangActivity instance = null;
 	
-	private final int STATE_ALARMS = 1;
-	private final int STATE_HISTORY = 2;
+	private final int STATE_LIST = AlarmAdapter.ListAlarmViewState;
+	private final int STATE_EDIT = AlarmAdapter.EditAlarmViewState;
+	private final int STATE_HISTORY = -1;
 	
+	
+	private int viewState;
 	private ListView listView = null;
-	private ToggleButton btnAlarms = null;
+	//private ToggleButton btnAlarms = null;
 	private ToggleButton btnHistory = null;
 	private View emptyView = null;
 	private List<Alarm> alarms  = null;
@@ -59,7 +58,7 @@ public class LijiangActivity extends Activity  {
     	setContentView(R.layout.main_new);
     	
     	listView = (ListView)this.findViewById(R.id.alarmList);
-    	btnAlarms = (ToggleButton)this.findViewById(R.id.btnAlarms);
+    	//btnAlarms = (ToggleButton)this.findViewById(R.id.btnAlarms);
     	btnHistory = (ToggleButton)this.findViewById(R.id.btnHistory);
     	
     	//You should save that empty view. 
@@ -75,7 +74,7 @@ public class LijiangActivity extends Activity  {
     public void onStart(){
     	Log.d(getString(R.string.debug_tag),"Start LijiangActivity ");
     	super.onStart();
-    	setListViewState(STATE_ALARMS);
+    	setListViewState(STATE_LIST);
     }
     
     /**Called when the activity is finished*/
@@ -85,7 +84,7 @@ public class LijiangActivity extends Activity  {
     	super.onDestroy();
     }   
         
-    @Override
+   /* @Override
     public boolean onContextItemSelected(MenuItem item)
     {
     	int menuId = item.getItemId();
@@ -96,7 +95,7 @@ public class LijiangActivity extends Activity  {
     		case R.id.deleteAlarm:
     			mgr.removeAlarm(alarm);
     			mgr.delete2DB(this);
-    			setListViewState(STATE_ALARMS);
+    			setListViewState(STATE_LIST);
     			break;
     		case R.id.deleteHistory:
     			mgr.removeAlarm(alarm);
@@ -124,7 +123,7 @@ public class LijiangActivity extends Activity  {
     	}else{	
     		createHistoryContextMenu(menu,alarm.getTitle());
     	}	
-    }
+    }*/
     
     /** Do work after showAddAlarm button is clicked
      * @param target trigger
@@ -134,8 +133,19 @@ public class LijiangActivity extends Activity  {
      this.startActivity(new Intent(this,LijiangMapActivity.class));
     }
     
+    public void showEditView(View target){
+    	int viewState = getListViewState();
+    	
+    	if(viewState == STATE_LIST){
+    		setListViewState(STATE_EDIT);
+    		return;
+    	}
+    	
+    	setListViewState(STATE_LIST);
+    }
+    
     public void showAlarms(View target){
-    	setListViewState(STATE_ALARMS);
+    	setListViewState(STATE_LIST);
     }
     
     public void showHistory(View target){  		
@@ -147,26 +157,35 @@ public class LijiangActivity extends Activity  {
 	private void bindList(List<Alarm> alarms){ 
 	       AlarmAdapter adapter = 
 	    		   new AlarmAdapter(this,alarms);
-	       
+	       adapter.setViewState(viewState);
 	       listView.setAdapter(adapter);  
 	}
 	
+	private int getListViewState(){
+		return viewState;
+	}
+	
 	private void setListViewState(int stateNum){
-		
+		viewState = stateNum;
 		switch(stateNum){
-			case STATE_ALARMS: 
+			case STATE_LIST: 
 				alarms = AlarmManager.getInstance().getAllAlarms();
 				btnHistory.setChecked(false);	
 				setEmptyView(emptyView);
 				bindList(alarms);
 				break;
-				
-			case STATE_HISTORY:
+			case STATE_EDIT:
+				alarms = AlarmManager.getInstance().getAllAlarms();
+				btnHistory.setChecked(false);	
+				setEmptyView(emptyView);
+				bindList(alarms);
+				break;
+			/*case STATE_HISTORY:
 				alarms = AlarmManager.getInstance().getHistoryAlarms();
 				btnAlarms.setChecked(false);
 				setEmptyView(null);
 				bindList(alarms);
-				break;
+				break;*/
 		}
 	}
 	
@@ -185,7 +204,7 @@ public class LijiangActivity extends Activity  {
 		listView.setEmptyView(view);
 	}
 		
-	private void createAlarmContextMenu(ContextMenu menu,String title){
+	/*private void createAlarmContextMenu(ContextMenu menu,String title){
 		createContextMenu(menu,title,R.menu.alarmcontext);
 	}
 	
@@ -205,6 +224,6 @@ public class LijiangActivity extends Activity  {
 	    AdapterView.AdapterContextMenuInfo info =
 	    	            (AdapterView.AdapterContextMenuInfo) menuInfo;
 	    return (Alarm)info.targetView.getTag();
-	}
+	}*/
 
 }

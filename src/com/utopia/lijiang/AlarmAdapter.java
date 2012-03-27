@@ -4,20 +4,24 @@ import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
 
-import com.utopia.lijiang.alarm.Alarm;
-import com.utopia.lijiang.alarm.LocationAlarm;
-import com.utopia.lijiang.global.Status;
-
 import android.app.Activity;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.TextView;
 import android.widget.ToggleButton;
+
+import com.utopia.lijiang.alarm.Alarm;
+import com.utopia.lijiang.alarm.AlarmManager;
+import com.utopia.lijiang.alarm.LocationAlarm;
+import com.utopia.lijiang.global.Status;
+
 /** Adapter for show Alarm list
  *  This activity is bound with alarm_listitem.xml
  * @author chao_zhou
@@ -25,8 +29,8 @@ import android.widget.ToggleButton;
  * */
 public class AlarmAdapter extends BaseAdapter {
 
-	public static int ListAlarmViewState = 0;
-	public static int EditAlarmViewState = 1;
+	public final static int ListAlarmViewState = 0;
+	public final static int EditAlarmViewState = 1;
 	
 	
 	private int viewState = AlarmAdapter.ListAlarmViewState;
@@ -81,8 +85,19 @@ public class AlarmAdapter extends BaseAdapter {
 	
 	
 	private View getEditView(int position, View convertView, ViewGroup parent) {
-		// TODO Auto-generated method stub
-		return null;
+		if(convertView == null){
+			Log.d("lijiang","inflate a new view");
+			convertView = layoutInflater.inflate(R.layout.alarm_edititem, null);
+		}
+		
+        Alarm item = (Alarm)getItem(position);
+        convertView.setTag(item);
+        
+        setTitle(item,convertView);
+        setMessage(item,convertView);
+        setDelete(item,convertView);
+        setDistance(item,convertView);
+		return convertView;
 	}
 
 	private View getListView(int position, View convertView, ViewGroup parent){
@@ -100,6 +115,20 @@ public class AlarmAdapter extends BaseAdapter {
         setDistance(item,convertView);
 		return convertView;
 		
+	}
+	
+	private void setDelete(final Alarm item, View convertView){
+		Button delButton = (Button)convertView.findViewById(R.id.alarmDelete);
+		delButton.setOnClickListener(new OnClickListener(){
+			@Override
+			public void onClick(View arg0) {
+				AlarmManager mgr = AlarmManager.getInstance();
+				mgr.removeAlarm(item);
+				mgr.delete2DB(activity);
+				AlarmAdapter.this.notifyDataSetChanged();
+			}
+		
+		});
 	}
 	
 	private void setTitle(Alarm item, View convertView){

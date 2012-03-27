@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="horizontal">
+<Button  
+    android:id="@+id/alarmDelete"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+	android:layout_margin="8dp"
+	android:focusable="false"
+	android:text="Del"	
+	android:textSize="12sp"
+    android:layout_weight="0.0"/>
+<RelativeLayout
+     android:layout_width="match_parent"
+	 android:layout_height="match_parent"
+	 android:layout_weight="1.0">
+<TextView
+	    android:id="@+id/alarmTitle" 
+	    android:layout_width="match_parent"
+	    android:layout_height="wrap_content"
+	    android:text="Alarm Title"
+	    android:layout_weight="1.0"
+	    android:gravity="center_vertical"
+	    android:textSize="24sp"/>  
+<TextView
+    android:id="@+id/alarmMessage"
+    android:layout_below="@id/alarmTitle"
+    android:layout_width="match_parent"
+	android:layout_height="wrap_content"
+	android:text= "Alarm message"
+	android:layout_weight="1.0"
+	android:gravity="center_vertical"
+	android:textSize="18sp"/>  
+</RelativeLayout>
+
+<TextView
+    android:id="@+id/alarmDistance"
+ 	android:layout_width="wrap_content"
+    android:layout_height="match_parent"
+	android:text= "~100m"
+	android:layout_weight="0.0"
+	android:gravity="center"
+	android:textSize="18sp"/>    
+</LinearLayout>
