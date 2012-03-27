@@ -65,6 +65,18 @@ public class LijiangMapActivity extends LijiangOverlayActivity {
 		 this.startActivity(i);
 	}
 
+	public void zoomIn(View target){
+		mMapView.getController().zoomIn();
+	}
+	
+	public void zoomOut(View target){
+		mMapView.getController().zoomOut();
+	}
+	
+	public void showLocationList(View target){
+		
+	}
+	
 	private String getPostionName(){
 		return poiNameEditText.getText().toString().trim();
 	}

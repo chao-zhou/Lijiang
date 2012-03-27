@@ -24,9 +24,10 @@ import com.utopia.lijiang.global.Status;
 public abstract class LijiangOverlayActivity extends BaiduMapActivity implements Observer {
 	
 	protected static String CURRENT_CITY = "";
-	protected static MapView mMapView = null;
-	protected static View mPopView = null;	
 	protected final static int MAX_SEARCHING_SECOND = 1000*5;
+	
+	protected MapView mMapView = null;
+	protected View mPopView = null;	
 	
 	TextView popName = null;
 	TextView popAddress = null;
@@ -90,10 +91,10 @@ public abstract class LijiangOverlayActivity extends BaiduMapActivity implements
 		tappedPoint = item.getPoint();	
 		
 		mMapView.getController().setCenter(item.getPoint());	
-		LijiangMapActivity.mMapView.updateViewLayout( LijiangMapActivity.mPopView,
+		mMapView.updateViewLayout(mPopView,
                 new MapView.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT,
                 		item.getPoint(), 0,-30,MapView.LayoutParams.BOTTOM_CENTER));
-		LijiangMapActivity.mPopView.setVisibility(View.VISIBLE);
+		mPopView.setVisibility(View.VISIBLE);
 		return true;
 	}
 
@@ -101,12 +102,12 @@ public abstract class LijiangOverlayActivity extends BaiduMapActivity implements
 	public void onTapping(GeoPoint pt, MapView v) {
 		// TODO Auto-generated method stub
 		Log.d("lijiang","onTapping");
-		LijiangMapActivity.mPopView.setVisibility(View.GONE);
+		mPopView.setVisibility(View.GONE);
 	}
 	
 	protected void initialMapView(){
-		mMapView = (MapView)findViewById(R.id.mapView);
-	    mMapView.setBuiltInZoomControls(true);
+		mMapView =(MapView)findViewById(R.id.mapView);
+	    mMapView.setBuiltInZoomControls(false);
 	    mMapView.setDrawOverlayWhenZooming(true);
 	    
 	    customOverlay = 
@@ -128,7 +129,7 @@ public abstract class LijiangOverlayActivity extends BaiduMapActivity implements
 		popName=(TextView)mPopView.findViewById(R.id.popName);
 		popAddress=(TextView)mPopView.findViewById(R.id.popAddress);
 		
-		mMapView.addView( mPopView,
+		mMapView.addView(mPopView,
                 new MapView.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT,
                 		null, MapView.LayoutParams.BOTTOM_CENTER));
 		mPopView.setVisibility(View.GONE);
