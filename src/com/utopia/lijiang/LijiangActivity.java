@@ -78,7 +78,7 @@ public class LijiangActivity extends Activity  {
     /** Do work after showAddAlarm button is clicked
      * @param target trigger
      * */
-    public void showAddAlarmActivity(View target){
+    public void showMapActivity(View target){
    	 //Just test Map 
      this.startActivity(new Intent(this,LijiangMapActivity.class));
     }
@@ -97,6 +97,11 @@ public class LijiangActivity extends Activity  {
     public void showAlarms(View target){
     	setListViewState(STATE_LIST);
     }
+    
+    public void showAboutActivity(View target){
+    	this.startActivity(new Intent(this,LijiangAboutActivity.class));
+    }
+    
     
     /**Fill Data into Task List*/
 	private void bindList(List<Alarm> alarms){ 
