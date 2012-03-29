@@ -8,7 +8,6 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.ListView;
-import android.widget.ToggleButton;
 
 import com.utopia.lijiang.alarm.Alarm;
 import com.utopia.lijiang.alarm.AlarmManager;
@@ -31,13 +30,10 @@ public class LijiangActivity extends Activity  {
 	
 	private final int STATE_LIST = AlarmAdapter.ListAlarmViewState;
 	private final int STATE_EDIT = AlarmAdapter.EditAlarmViewState;
-	private final int STATE_HISTORY = -1;
 	
 	
 	private int viewState;
 	private ListView listView = null;
-	//private ToggleButton btnAlarms = null;
-	//private ToggleButton btnHistory = null;
 	private View emptyView = null;
 	private List<Alarm> alarms  = null;
 
@@ -58,12 +54,6 @@ public class LijiangActivity extends Activity  {
     	setContentView(R.layout.main_new);
     	
     	listView = (ListView)this.findViewById(R.id.alarmList);
-    	//btnAlarms = (ToggleButton)this.findViewById(R.id.btnAlarms);
-    	//btnHistory = (ToggleButton)this.findViewById(R.id.btnHistory);
-    	
-    	//You should save that empty view. 
-    	//By default, android will setVisible(View.GONE) to that empty view,
-    	//so you cannot use "this.findViewById()" to get that view any longer.
     	emptyView = (View)this.findViewById(R.id.alarmListEmpty);
     	
     	registerForContextMenu(listView);
@@ -84,46 +74,6 @@ public class LijiangActivity extends Activity  {
     	super.onDestroy();
     }   
         
-   /* @Override
-    public boolean onContextItemSelected(MenuItem item)
-    {
-    	int menuId = item.getItemId();
-    	Alarm alarm = getAlarmFromListView(item.getMenuInfo());
-    	AlarmManager mgr = AlarmManager.getInstance();
-    	
-    	switch(menuId){
-    		case R.id.deleteAlarm:
-    			mgr.removeAlarm(alarm);
-    			mgr.delete2DB(this);
-    			setListViewState(STATE_LIST);
-    			break;
-    		case R.id.deleteHistory:
-    			mgr.removeAlarm(alarm);
-    			mgr.delete2DB(this);
-    			setListViewState(STATE_HISTORY);
-    			break;
-    		case R.id.renewHistory:
-    			alarm.setActive(true);
-    			setListViewState(STATE_HISTORY);
-    			break;
-    		default:
-    			break;
-    	}
-	  
-	    return true;
-    }
-   
-    @Override
-    public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo)
-    {
-    	Alarm alarm = getAlarmFromListView(menuInfo);
-    	
-    	if(alarm.isActive()){	
-    		createAlarmContextMenu(menu,alarm.getTitle());
-    	}else{	
-    		createHistoryContextMenu(menu,alarm.getTitle());
-    	}	
-    }*/
     
     /** Do work after showAddAlarm button is clicked
      * @param target trigger
@@ -148,11 +98,6 @@ public class LijiangActivity extends Activity  {
     	setListViewState(STATE_LIST);
     }
     
-    public void showHistory(View target){  		
-    	setListViewState(STATE_HISTORY);
-    }
-
-    
     /**Fill Data into Task List*/
 	private void bindList(List<Alarm> alarms){ 
 	       AlarmAdapter adapter = 
@@ -170,22 +115,14 @@ public class LijiangActivity extends Activity  {
 		switch(stateNum){
 			case STATE_LIST: 
 				alarms = AlarmManager.getInstance().getAllAlarms();
-				//btnHistory.setChecked(false);	
 				setEmptyView(emptyView);
 				bindList(alarms);
 				break;
 			case STATE_EDIT:
 				alarms = AlarmManager.getInstance().getAllAlarms();
-				//btnHistory.setChecked(false);	
 				setEmptyView(emptyView);
 				bindList(alarms);
 				break;
-			/*case STATE_HISTORY:
-				alarms = AlarmManager.getInstance().getHistoryAlarms();
-				btnAlarms.setChecked(false);
-				setEmptyView(null);
-				bindList(alarms);
-				break;*/
 		}
 	}
 	
@@ -203,27 +140,5 @@ public class LijiangActivity extends Activity  {
 		
 		listView.setEmptyView(view);
 	}
-		
-	/*private void createAlarmContextMenu(ContextMenu menu,String title){
-		createContextMenu(menu,title,R.menu.alarmcontext);
-	}
-	
-	private void createHistoryContextMenu(ContextMenu menu,String title){     
-        createContextMenu(menu,title,R.menu.historycontext);
-	}
-	
-	private void createContextMenu(ContextMenu menu,String title,int resouceID){
-		menu.setHeaderTitle(title); 	
-		
-		MenuInflater inflater = getMenuInflater();
-		inflater = getMenuInflater();
-        inflater.inflate(resouceID, menu);
-	}
-	
-	private Alarm getAlarmFromListView(ContextMenu.ContextMenuInfo menuInfo){
-	    AdapterView.AdapterContextMenuInfo info =
-	    	            (AdapterView.AdapterContextMenuInfo) menuInfo;
-	    return (Alarm)info.targetView.getTag();
-	}*/
 
 }
