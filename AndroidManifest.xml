@@ -25,8 +25,7 @@
         </activity>
         <activity android:name=".LijiangMapActivity"></activity>
         <activity android:name=".AddAlarmActivity"></activity>
-        <activity android:name=".LijiangMapActivity">
-        </activity>
+        <activity android:name=".LijiangAboutActivity"></activity>
         <service android:name=".service.LocationService"></service>      
     </application>
 
