@@ -58,6 +58,7 @@ public class ContactProjectionBuilder {
 			if(includeField[index]){
 				projection.add(PHONES_PROJECTION[index]);
 			}
+			index++;
 		}
 			
 		return (String[]) projection.toArray();
