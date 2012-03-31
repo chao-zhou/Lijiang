@@ -30,13 +30,10 @@ public class LijiangActivity extends Activity  {
 	
 	private final int STATE_LIST = AlarmAdapter.ListAlarmViewState;
 	private final int STATE_EDIT = AlarmAdapter.EditAlarmViewState;
-	private final int STATE_HISTORY = -1;
 	
 	
 	private int viewState;
 	private ListView listView = null;
-	//private ToggleButton btnAlarms = null;
-	//private ToggleButton btnHistory = null;
 	private View emptyView = null;
 	private List<Alarm> alarms  = null;
 
@@ -58,10 +55,8 @@ public class LijiangActivity extends Activity  {
     	
     	listView = (ListView)this.findViewById(R.id.alarmList);
     	emptyView = (View)this.findViewById(R.id.alarmListEmpty);
-    	
-    	registerForContextMenu(listView);
     }    
-    
+
     /**Called when the activity is active*/
     @Override
     public void onStart(){
@@ -100,11 +95,6 @@ public class LijiangActivity extends Activity  {
     public void showAlarms(View target){
     	setListViewState(STATE_LIST);
     }
-    
-    public void showHistory(View target){  		
-    	setListViewState(STATE_HISTORY);
-    }
-
     
     /**Fill Data into Task List*/
 	private void bindList(List<Alarm> alarms){ 
