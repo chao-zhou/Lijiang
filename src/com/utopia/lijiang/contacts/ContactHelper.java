@@ -4,16 +4,16 @@ import java.util.ArrayList;
 
 import android.content.Context;
 
-public class ContanctHelper {
+public class ContactHelper {
     
 	private Context mContext = null;
 	  
-	public ContanctHelper(Context context){
+	public ContactHelper(Context context){
 	
 		mContext = context;
 	}
 	
-	public Contact[] getPhoneContacts() {  
+	public Contact[] getContacts() {  
 		
 	ContactProjectionBuilder builder = getProjectionBuilder();
 		
