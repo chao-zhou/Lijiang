@@ -61,7 +61,7 @@ public class ContactProjectionBuilder {
 			index++;
 		}
 			
-		return (String[]) projection.toArray();
+		return (String[]) projection.toArray(new String[projection.size()]);
 	}
 	
 	

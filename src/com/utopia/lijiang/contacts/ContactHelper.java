@@ -26,11 +26,11 @@ public class ContactHelper {
 	}
 	
 	ArrayList<Contact> contacts = new ArrayList<Contact>();
-	while(reader.hasNext()){
+	while(reader.moveToNext()){
 		contacts.add(reader.getContact());		
 	}
 	
-	return (Contact[]) contacts.toArray();
+	return (Contact[]) contacts.toArray(new Contact[contacts.size()]);
 	      
 	}
 
