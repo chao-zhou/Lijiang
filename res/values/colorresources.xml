@@ -5,4 +5,5 @@
  	<drawable name="blue_color">#0000ff</drawable>
  	<drawable name="green_color">#00ff00</drawable> 
  	<drawable name="pressed_color">#4070D1</drawable>
+ 	<drawable name="white">#ffffff</drawable>
 </resources>
