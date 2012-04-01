@@ -3,10 +3,11 @@
 	    android:layout_width="fill_parent"
     	android:layout_height="56dp"
     	android:orientation="horizontal"
-    	android:background="#909090"
+    	android:background="@drawable/bottombar_bg"
     	android:gravity="center" 
     	android:layout_gravity="center"
-    	android:padding="0px">
+    	android:padding="4dp"
+    	android:layout_margin="0dp">
 		<Button
 	        android:id="@+id/btnLocate"
 	        android:layout_width="match_parent"
