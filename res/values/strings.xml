@@ -25,4 +25,7 @@
 	<string name="backText">返回</string>
 	<string name="locatinNearFormat">%s到了</string>
 	<string name="multiLocationNearFormat">你有%s个位置通知</string>
+	<string name="yes">是</string>
+	<string name="no">否</string>
+	<string name="known">知道了</string>
 </resources>
