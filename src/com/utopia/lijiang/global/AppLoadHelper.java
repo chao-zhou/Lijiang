@@ -1,15 +1,15 @@
 package com.utopia.lijiang.global;
 
-import com.utopia.lijiang.R;
-import com.utopia.lijiang.alarm.AlarmManager;
-import com.utopia.lijiang.alarm.SimpleAlarm;
-import com.utopia.lijiang.location.LocationUtil;
-import com.utopia.lijiang.service.LocationService;
-import com.utopia.lijiang.util.NotificationUtil;
-
 import android.content.Context;
 import android.content.Intent;
 import android.location.Location;
+
+import com.utopia.lijiang.R;
+import com.utopia.lijiang.alarm.AlarmManager;
+import com.utopia.lijiang.alarm.LocationAlarm;
+import com.utopia.lijiang.location.LocationUtil;
+import com.utopia.lijiang.service.LocationService;
+import com.utopia.lijiang.util.NotificationUtil;
 
 public class AppLoadHelper {
 
@@ -29,7 +29,7 @@ public class AppLoadHelper {
 	/**Reload Alarm Information from SQLite */
  	private void getAlarmsFromDB(){
  		AlarmManager.getInstance().reset();
- 		AlarmManager.getInstance().load4DB(ctx, SimpleAlarm.class);
+ 		AlarmManager.getInstance().load4DB(ctx, LocationAlarm.class);
  		Status.getCurrentStatus().addObserver(AlarmManager.getInstance());
  	}
  	
