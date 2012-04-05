@@ -1,8 +1,11 @@
 package com.utopia.lijiang;
 
+import java.util.Iterator;
 import java.util.List;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -11,6 +14,7 @@ import android.widget.ListView;
 
 import com.utopia.lijiang.alarm.Alarm;
 import com.utopia.lijiang.alarm.AlarmManager;
+import com.utopia.lijiang.service.LocationService;
 /** Main Activity of the application.
  * When this activity is created, the application's global variables will be initialed.
  * And a location service will be started. 
@@ -35,7 +39,7 @@ public class LijiangActivity extends Activity  {
 	private int viewState;
 	private ListView listView = null;
 	private View emptyView = null;
-	private List<Alarm> alarms  = null;
+	AlarmManager alarmMgr = null;
 
 	/**
 	 * Singleton method, this will be update after this activity is launched
@@ -55,6 +59,8 @@ public class LijiangActivity extends Activity  {
     	
     	listView = (ListView)this.findViewById(R.id.alarmList);
     	emptyView = (View)this.findViewById(R.id.alarmListEmpty);
+    	
+    	alarmMgr = AlarmManager.getInstance();
 
     }    
 
@@ -63,6 +69,8 @@ public class LijiangActivity extends Activity  {
     public void onStart(){
     	Log.d(getString(R.string.debug_tag),"Start LijiangActivity ");
     	super.onStart();
+    	
+    	showAlarmingAlarms();
     	setListViewState(STATE_LIST);
     }
     
@@ -71,6 +79,8 @@ public class LijiangActivity extends Activity  {
     public void onDestroy(){
     	Log.d(getString(R.string.debug_tag),"Destroy LijiangActivity");
     	super.onDestroy();
+    	
+    	alarmMgr.save2DB(this);
     }   
         
     /** Do work after showAddAlarm button is clicked
@@ -110,14 +120,15 @@ public class LijiangActivity extends Activity  {
 	
 	private void setListViewState(int stateNum){
 		viewState = stateNum;
+		List<Alarm> alarms  = null;
 		switch(stateNum){
 			case STATE_LIST: 
-				alarms = AlarmManager.getInstance().getAllAlarms();
+				alarms = alarmMgr.getAllAlarms();
 				setEmptyView(emptyView);
 				bindList(alarms);
 				break;
 			case STATE_EDIT:
-				alarms = AlarmManager.getInstance().getAllAlarms();
+				alarms = alarmMgr.getAllAlarms();
 				setEmptyView(emptyView);
 				bindList(alarms);
 				break;
@@ -139,4 +150,43 @@ public class LijiangActivity extends Activity  {
 		listView.setEmptyView(view);
 	}
 
+	private void refreshList(){
+		setListViewState(getListViewState());
+	}
+	
+	//--------------------------
+	// Show alarming alarms
+	//--------------------------
+	private void showAlarmingAlarms(){
+		Iterator<Alarm> it = alarmMgr.getAlarmingAlarms().iterator();
+		while(it.hasNext()){
+			showAlarmDialog(it.next());
+		}
+		
+		
+	}
+	
+	private void showAlarmDialog(final Alarm alarm){
+		String posStr = getString(R.string.known);
+		String negStr = getString(R.string.no);
+		String msg = String.format(getString(R.string.locatinNearFormat), alarm.getTitle());
+		
+		AlertDialog.Builder builder = new AlertDialog.Builder(this);
+		builder.setMessage(msg)
+		       .setPositiveButton(posStr, new DialogInterface.OnClickListener() {
+		           public void onClick(DialogInterface dialog, int id) {
+		        	   alarm.setActive(false);
+		        	   alarmMgr.getAlarmingAlarms().remove(alarm);
+		        	   LocationService.getLatestInstance().refreshAlarmNotification();
+		        	   refreshList();
+		           }
+		       })
+		      /* .setNegativeButton(negStr, new DialogInterface.OnClickListener() {
+		           public void onClick(DialogInterface dialog, int id) {
+		                dialog.cancel();
+		           }
+		       })*/;
+		AlertDialog alert = builder.create();
+		alert.show();
+	}
 }
