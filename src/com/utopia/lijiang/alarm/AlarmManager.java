@@ -1,11 +1,7 @@
 package com.utopia.lijiang.alarm;
 
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.Iterator;
-import java.util.List;
-import java.util.Observable;
-import java.util.Observer;
 
 import android.content.Context;
 import android.util.Log;
@@ -17,7 +13,7 @@ import com.utopia.lijiang.global.Status;
 /**
  * 
  * */
-public class AlarmManager implements Observer {
+public class AlarmManager extends BaseAlarmManager {
 	
 	private static AlarmManager instance = null;
 	public static AlarmManager getInstance(){
@@ -26,95 +22,6 @@ public class AlarmManager implements Observer {
 		}
 		return instance;
 	}
-	
-	private List<Alarm> alarms = null;
-	private List<Alarm> activeAlarms = null;
-	private List<Alarm> historyAlarms = null;
-	private List<Alarm> removedAlarms = null;
-	private List<AlarmListener> alListeners = null;
-	
-	public AlarmManager(){
-		alarms = new ArrayList<Alarm>();
-		activeAlarms = new ArrayList<Alarm>();
-		historyAlarms = new ArrayList<Alarm>();
-		removedAlarms = new ArrayList<Alarm>();
-		alListeners = new ArrayList<AlarmListener>();
-	}
-
-	public List<Alarm> getAllAlarms(){
-		return alarms;
-	}
-	
-	public List<Alarm> getActiveAlarms(){
-		activeAlarms.clear();
-		for(Alarm alarm : alarms){
-			if(alarm.isActive()){
-				activeAlarms.add(alarm);
-			}
-		}
-		return activeAlarms;
-	}
-	
-	public List<Alarm> getHistoryAlarms(){
-		historyAlarms.clear();
-		for(Alarm alarm : alarms){
-			if(!alarm.isActive()){
-				historyAlarms.add(alarm);
-			}
-		}
-		return historyAlarms;
-	}
-	
-	public void addAlarm(Alarm alarm){
-		alarms.add(alarm);
-	}
-		
-	public int getLocation(Alarm alarm){
-		return alarms.indexOf(alarm);
-	}
-	
-	public Alarm getAlarm(int location){
-		return alarms.get(location);
-	}
-	
-	public Alarm removeAlarm(int location){
-		 Alarm alarm = alarms.remove(location);
-		 removedAlarms.add(alarm);
-		 return alarm;
-	}
-	
-	public boolean removeAlarm(Object object){
-		removedAlarms.add((Alarm) object);
-		return alarms.remove(object);
-	}
-	
-	public int addAlarmListener(AlarmListener al){
-		Log.d("lijiang","add AlarmListener");
-		
-		boolean isAdded = alListeners.add(al);
-		
-		if(isAdded){
-			int lastIndex = alListeners.size() -1; 
-			return lastIndex; 
-		}else{
-			return -1;
-		}
-	}
-	
-	public AlarmListener removeAlarmListener(int location){
-		return alListeners.remove(location);
-	}
-	
-	public boolean removeAlarmListener(Object object){
-		return alListeners.remove(object);
-	}
-	
-	@Override
-	public void update(Observable observable, Object data) {
-		// TODO Auto-generated method stub
-		alarmAllPossible();	
-	}
-	
 	
 	public int alarmAllPossible(){
 		int count = 0;
@@ -144,10 +51,6 @@ public class AlarmManager implements Observer {
 				Log.d("lijiang","Error Message:"+ex.getMessage());
 			}
 		}
-	}
-	
-	public void reset(){
-		alarms.clear();
 	}
 	
 	public <T extends Alarm> void load4DB(Context context, Class<T> clazz){
