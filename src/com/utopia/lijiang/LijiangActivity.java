@@ -55,6 +55,7 @@ public class LijiangActivity extends Activity  {
     	
     	listView = (ListView)this.findViewById(R.id.alarmList);
     	emptyView = (View)this.findViewById(R.id.alarmListEmpty);
+
     }    
 
     /**Called when the activity is active*/
@@ -72,7 +73,6 @@ public class LijiangActivity extends Activity  {
     	super.onDestroy();
     }   
         
-    
     /** Do work after showAddAlarm button is clicked
      * @param target trigger
      * */

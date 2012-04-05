@@ -27,7 +27,7 @@ public class LijiangApp extends Application {
 	@Override
     public void onCreate() {	
 		ctx = getApplicationContext();	
-		new AppLoadHelper(ctx).load();	
+		//new AppLoadHelper(ctx).load();	
 		super.onCreate();
 	}
 	@Override
