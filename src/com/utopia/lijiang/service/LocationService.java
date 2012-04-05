@@ -113,6 +113,6 @@ public class LocationService extends NotificationService {
 	
 	private String createNotificationMessage(Alarm alarm){
 		String format = this.getString(R.string.locatinNearFormat);
-		return String.format(format, alarm.getMessage());
+		return String.format(format, alarm.getTitle());
 	}
 }
