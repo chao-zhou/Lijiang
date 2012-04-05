@@ -57,7 +57,6 @@ public class LocationAlarm implements Alarm{
 		double distance  = getDistance(longitude2,latitude2);
 		
 		if (distance <= Range){
-			setMessage("Near Longitude:"+longitude+" Latidude:"+latitude);
 			return true;
 		}else{
 			return false;

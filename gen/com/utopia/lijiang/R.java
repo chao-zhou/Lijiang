@@ -80,6 +80,7 @@ public final class R {
         public static final int activeOnText=0x7f040014;
         public static final int addLocation=0x7f040001;
         public static final int app_name=0x7f040000;
+        public static final int backText=0x7f040016;
         public static final int baidu_key=0x7f040002;
         public static final int btnAlarms=0x7f040003;
         public static final int btnEditText=0x7f040013;
@@ -94,6 +95,7 @@ public final class R {
         public static final int foreground=0x7f04000b;
         public static final int guide=0x7f04000c;
         public static final int hello=0x7f04000d;
+        public static final int locatinNearFormat=0x7f040017;
         public static final int mapEditTextHint=0x7f04000e;
         public static final int myLocation=0x7f04000f;
         public static final int renew=0x7f040010;

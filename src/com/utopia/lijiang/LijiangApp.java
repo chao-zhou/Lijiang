@@ -13,6 +13,7 @@ import android.content.Context;
  */
 public class LijiangApp extends Application {
 
+	@SuppressWarnings("unused")
 	private Context ctx = null;
 	
 	/**

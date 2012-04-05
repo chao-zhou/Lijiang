@@ -22,4 +22,6 @@
 	<string name="btnEditText">编辑</string>
 	<string name="activeOnText">开启</string>
 	<string name="activeOffText">关闭</string>
+	<string name="backText">返回</string>
+	<string name="locatinNearFormat">%s到了</string>
 </resources>

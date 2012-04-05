@@ -100,7 +100,7 @@ public class LocationService extends NotificationService {
 		alarmListener = new AlarmListener(){
 			@Override
 			public void onAlarm(Alarm alarm){
-				updateNotification(alarm.getMessage());
+				updateNotification(createNotificationMessage(alarm));
 			}
 		};
 		
@@ -110,5 +110,9 @@ public class LocationService extends NotificationService {
 		bindNetLocationListener();
 		bindGPSLocationListener();
 	}
-	 
+	
+	private String createNotificationMessage(Alarm alarm){
+		String format = this.getString(R.string.locatinNearFormat);
+		return String.format(format, alarm.getMessage());
+	}
 }
