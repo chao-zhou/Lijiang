@@ -20,7 +20,6 @@ public class AppLoadHelper {
 	}
 	
 	public void load(){
-		
 		configNotification();
 		getAlarmsFromDB();
 		getLastKnownLocation();	

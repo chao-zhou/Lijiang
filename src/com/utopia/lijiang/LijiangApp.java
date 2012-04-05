@@ -6,8 +6,6 @@ package com.utopia.lijiang;
 import android.app.Application;
 import android.content.Context;
 
-import com.utopia.lijiang.global.AppLoadHelper;
-
 /**Initial global variables in this application. 
  * Like starting services, reading data from SQLite, configuring settings
  * @author chao_zhou
