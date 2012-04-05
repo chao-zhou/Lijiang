@@ -3,17 +3,10 @@
  */
 package com.utopia.lijiang;
 
-import com.utopia.lijiang.alarm.AlarmManager;
-import com.utopia.lijiang.alarm.SimpleAlarm;
-import com.utopia.lijiang.global.Status;
-import com.utopia.lijiang.location.LocationUtil;
-import com.utopia.lijiang.service.LocationService;
-import com.utopia.lijiang.util.NotificationUtil;
-
 import android.app.Application;
 import android.content.Context;
-import android.content.Intent;
-import android.location.Location;
+
+import com.utopia.lijiang.global.AppLoadHelper;
 
 /**Initial global variables in this application. 
  * Like starting services, reading data from SQLite, configuring settings
@@ -32,15 +25,9 @@ public class LijiangApp extends Application {
 	}
 
 	@Override
-    public void onCreate() {
-	
-		ctx = getApplicationContext();
-		
-		configNotification();
-		getAlarmsFromDB();
-		getLastKnownLocation();	
-		startLocationService();
-		
+    public void onCreate() {	
+		ctx = getApplicationContext();	
+		new AppLoadHelper(ctx).load();	
 		super.onCreate();
 	}
 	@Override
@@ -48,29 +35,5 @@ public class LijiangApp extends Application {
 		super.onTerminate();
 	}
 
- 	/**Reload Alarm Information from SQLite */
- 	private void getAlarmsFromDB(){
- 		AlarmManager.getInstance().reset();
- 		AlarmManager.getInstance().load4DB(ctx, SimpleAlarm.class);
- 		Status.getCurrentStatus().addObserver(AlarmManager.getInstance());
- 	}
- 	
- 	/**Configure Notification's setting*/
-	private void configNotification(){
-	    	NotificationUtil.setIcon(R.drawable.ic_launcher);
-	    	NotificationUtil.setTickerText(ctx.getString(R.string.app_name));
-	}
-	
-	/**Get last known location of device*/
-	private Location getLastKnownLocation(){
-	    	Location loc = LocationUtil.getBestLastKnowLocation(ctx);	
-	    	Status.getCurrentStatus().setLocation(loc);	
-	    	return loc;
-	}
-	
-	/**Start Location Service*/
-	private void startLocationService(){
-	    	Intent intent = new Intent(ctx,LocationService.class);
-	    	ctx.startService(intent);  
-	}
+ 
 }
