@@ -1,7 +1,9 @@
 package com.utopia.lijiang.alarm;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
 
 import android.content.Context;
 import android.util.Log;
@@ -22,26 +24,23 @@ public class AlarmManager extends BaseAlarmManager {
 		}
 		return instance;
 	}
-	
+		
 	public int alarmAllPossible(){
-		int count = 0;
-		Iterator<Alarm> it = alarms.iterator();
+		ArrayList<Alarm> alarms = new ArrayList<Alarm>();
+		Iterator<Alarm> it = alarms.iterator();	
 		while(it.hasNext()){
 			Alarm alarm = it.next();
 			if(alarm.isActive()
 			&& alarm.shouldAlarm(Status.getCurrentStatus())){
-				try{
-					alarm(alarm);
-					count++;
-				}catch(Exception ex){
-					Log.d("lijiang","Error Message:"+ex.getMessage());
-				}
+				alarms.add(alarm);
 			}
 		}
-		return count;
+		
+		alarm((Alarm[])alarms.toArray());
+		return alarms.size();
 	}
 	
-	public void alarm(Alarm alarm){
+	public void alarm(Alarm[] alarm){
 		Iterator<AlarmListener> it = alListeners.iterator();
 		while(it.hasNext()){
 			AlarmListener al = it.next();
@@ -52,6 +51,11 @@ public class AlarmManager extends BaseAlarmManager {
 			}
 		}
 	}
+	
+	
+	//---------------------------------------
+	// Load/Save alarms to Database
+	//---------------------------------------
 	
 	public <T extends Alarm> void load4DB(Context context, Class<T> clazz){
 		DBHelper helper = getDBHelper(context);		

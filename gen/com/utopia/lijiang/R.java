@@ -97,6 +97,7 @@ public final class R {
         public static final int hello=0x7f04000d;
         public static final int locatinNearFormat=0x7f040017;
         public static final int mapEditTextHint=0x7f04000e;
+        public static final int multiLocationNearFormat=0x7f040018;
         public static final int myLocation=0x7f04000f;
         public static final int renew=0x7f040010;
         public static final int searching=0x7f040011;

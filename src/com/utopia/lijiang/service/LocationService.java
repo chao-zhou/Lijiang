@@ -48,15 +48,6 @@ public class LocationService extends NotificationService {
 	@Override
 	public int onStartCommand(Intent intent, int flags, int startId) {
 		Log.d(getString(R.string.debug_tag),"Start LocationService");
-		
-	/*	String msg = "No Location Info"; 
-		Location lastLocation = Status.getCurrentStatus().getLocation();
-	    if(lastLocation != null){
-	    	msg = LocationUtil.getLocationMessage(lastLocation);
-	    }
-		
-	    toForegroud(msg);*/
-	    
 	    return START_STICKY;
 	}
 	
@@ -99,8 +90,8 @@ public class LocationService extends NotificationService {
 	private void bindListener(){
 		alarmListener = new AlarmListener(){
 			@Override
-			public void onAlarm(Alarm alarm){
-				updateNotification(createNotificationMessage(alarm));
+			public void onAlarm(Alarm[] alarms){
+				updateNotification(createNotificationMessage(alarms));
 			}
 		};
 		
@@ -111,8 +102,16 @@ public class LocationService extends NotificationService {
 		bindGPSLocationListener();
 	}
 	
-	private String createNotificationMessage(Alarm alarm){
-		String format = this.getString(R.string.locatinNearFormat);
-		return String.format(format, alarm.getTitle());
+	private String createNotificationMessage(Alarm[] alarms){
+		String format  = null;
+		
+		if(alarms.length == 0){
+			format = this.getString(R.string.locatinNearFormat);
+			return String.format(format, alarms[0].getTitle());
+		}
+		
+		format = this.getString(R.string.multiLocationNearFormat);
+		return String.format(format, alarms.length);
+		
 	}
 }

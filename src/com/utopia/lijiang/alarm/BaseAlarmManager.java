@@ -16,7 +16,7 @@ public abstract class BaseAlarmManager implements Observer{
 	protected List<AlarmListener> alListeners = null;
 	
 	public abstract int alarmAllPossible();
-	public abstract void alarm(Alarm alarm);
+	public abstract void alarm(Alarm[] alarm);
 	
 	
 	public BaseAlarmManager(){
