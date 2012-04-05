@@ -24,20 +24,25 @@ public class AlarmManager extends BaseAlarmManager {
 		}
 		return instance;
 	}
-		
-	public int alarmAllPossible(){
-		ArrayList<Alarm> alarms = new ArrayList<Alarm>();
+
+	public List<Alarm> getAlarmingAlarms(){
+		ArrayList<Alarm> alarmingAlarms = new ArrayList<Alarm>();
 		Iterator<Alarm> it = alarms.iterator();	
 		while(it.hasNext()){
 			Alarm alarm = it.next();
 			if(alarm.isActive()
 			&& alarm.shouldAlarm(Status.getCurrentStatus())){
-				alarms.add(alarm);
+				alarmingAlarms.add(alarm);
 			}
 		}
 		
-		alarm((Alarm[])alarms.toArray());
-		return alarms.size();
+		return alarmingAlarms;
+	}
+	
+	public int alarmAllPossible(){
+		List<Alarm> alarmingAlamrs = getAlarmingAlarms();
+		alarm(alarmingAlamrs.toArray(new Alarm[alarmingAlamrs.size()]));
+		return alarmingAlamrs.size();
 	}
 	
 	public void alarm(Alarm[] alarm){

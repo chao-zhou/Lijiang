@@ -1,5 +1,7 @@
 package com.utopia.lijiang.service;
 
+import java.util.List;
+
 import android.content.Intent;
 import android.location.LocationManager;
 import android.os.IBinder;
@@ -26,6 +28,7 @@ public class LocationService extends NotificationService {
 	LocationManager locationManager = null;
 	LocationListener gpsListener = null;
 	LocationListener networkListener = null;
+	AlarmManager alarmManager = null;
 	AlarmListener alarmListener = null;
 	
 	public static LocationService getLatestInstance(){
@@ -62,7 +65,6 @@ public class LocationService extends NotificationService {
 		Log.d(getString(R.string.debug_tag),"Destroy LocationService");
 	}
 
-	
 	public void bindNetLocationListener(){
 		 locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER,minTime,minMeters,networkListener);
 	}
@@ -79,10 +81,16 @@ public class LocationService extends NotificationService {
 		locationManager.removeUpdates(gpsListener);
 	}
 	
+	public void refreshAlarmNotification(){
+		List<Alarm> alarms = alarmManager.getAlarmingAlarms();
+		updateAlarmNotification(alarms);
+	}
+	
 	private void initialVariables(){
 		locationManager = (LocationManager)getSystemService(LOCATION_SERVICE);
 		gpsListener = new LocationListener();
 		networkListener = new LocationListener();
+		alarmManager = AlarmManager.getInstance();
 		instance = this;
 		
 	}
@@ -91,21 +99,33 @@ public class LocationService extends NotificationService {
 		alarmListener = new AlarmListener(){
 			@Override
 			public void onAlarm(Alarm[] alarms){
-				updateNotification(createNotificationMessage(alarms));
+				updateAlarmNotification(alarms);
 			}
 		};
 		
-		AlarmManager.getInstance().addAlarmListener(alarmListener);
+		alarmManager.addAlarmListener(alarmListener);
 		
 		//Read preferences and to decide which locating listener to bind
 		bindNetLocationListener();
 		bindGPSLocationListener();
 	}
 	
+	private void updateAlarmNotification(Alarm[] alarms){
+		String msg = createNotificationMessage(alarms);
+		updateNotification(msg);
+	}
+	
+	private void updateAlarmNotification(List<Alarm> alarms){
+		updateAlarmNotification(alarms.toArray(new Alarm[alarms.size()]));
+	}
+	
 	private String createNotificationMessage(Alarm[] alarms){
-		String format  = null;
-		
+		String format  = null;	
 		if(alarms.length == 0){
+			return null;
+		}
+		
+		if(alarms.length == 1){
 			format = this.getString(R.string.locatinNearFormat);
 			return String.format(format, alarms[0].getTitle());
 		}

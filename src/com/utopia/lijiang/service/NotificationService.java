@@ -15,6 +15,8 @@ import android.util.Log;
  * */
 public class NotificationService extends Service {
 
+	final static int id = R.string.foreground;
+	
 	@Override
 	public IBinder onBind(Intent arg0) {
 		// TODO Auto-generated method stub
@@ -23,9 +25,14 @@ public class NotificationService extends Service {
 
 	public void updateNotification(String msg){
 		Log.d(getString(R.string.debug_tag),"Update Notification Message:"+msg);
-			
+		
+		if(msg == null){
+			NotificationUtil.cancelNotification(this, id);
+			return;
+		}
+		
 		Notification notification = createNotification(msg);
-		NotificationUtil.updateNotification(this, R.string.foreground, notification);
+		NotificationUtil.updateNotification(this, id, notification);
 	}
 	
 	private PendingIntent getContentIntent(){
