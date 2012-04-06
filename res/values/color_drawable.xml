@@ -6,4 +6,5 @@
  	<drawable name="green_color">#00ff00</drawable> 
  	<drawable name="pressed_color">#4070D1</drawable>
  	<drawable name="white">#ffffff</drawable>
+ 	<drawable name="divideline">#a9a9a9</drawable>
 </resources>
