@@ -3,44 +3,32 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="horizontal">
-<Button  
-    android:id="@+id/alarmDelete"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-	android:layout_margin="8dp"
-	android:focusable="false"
-	android:text="Del"	
-	android:textSize="12sp"
-    android:layout_weight="0.0"/>
 <RelativeLayout
      android:layout_width="match_parent"
 	 android:layout_height="match_parent"
+	 android:layout_marginLeft="10dp"
+	 android:gravity="center"
 	 android:layout_weight="1.0">
 <TextView
+    	style="@style/alarm_item_title"
 	    android:id="@+id/alarmTitle" 
-	    android:layout_width="match_parent"
-	    android:layout_height="wrap_content"
-	    android:text="Alarm Title"
-	    android:layout_weight="1.0"
-	    android:gravity="center_vertical"
-	    android:textSize="24sp"/>  
+	    android:text="Alarm Title"/>  
 <TextView
+    style="@style/alarm_item_message"
     android:id="@+id/alarmMessage"
     android:layout_below="@id/alarmTitle"
-    android:layout_width="match_parent"
-	android:layout_height="wrap_content"
 	android:text= "Alarm message"
-	android:layout_weight="1.0"
-	android:gravity="center_vertical"
-	android:textSize="18sp"/>  
+	/>   
 </RelativeLayout>
-
 <TextView
+    style="@style/alarm_item_distance"
     android:id="@+id/alarmDistance"
- 	android:layout_width="wrap_content"
-    android:layout_height="match_parent"
 	android:text= "~100m"
-	android:layout_weight="0.0"
-	android:gravity="center"
-	android:textSize="18sp"/>    
+	/>    
+<Button  
+    style="@style/alarm_item_button"
+    android:id="@+id/alarmDelete"
+	android:layout_margin="8dp"
+	android:text="删除"
+    android:background="@drawable/delete_button_bg"/>
 </LinearLayout>

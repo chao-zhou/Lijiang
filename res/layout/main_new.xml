@@ -8,12 +8,12 @@
 	<RelativeLayout
 	    android:id="@+id/logo"
 	    android:layout_width="fill_parent"
-        android:layout_height="60dp"
+        android:layout_height="55dp"
         android:layout_weight="0.0" 
     	android:background="@drawable/header_bar_bg">
     <Button
-	    android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+	    android:layout_width="50dp"
+        android:layout_height="50dp"
         android:layout_margin="10dp"
         android:layout_marginRight="20dp"
         android:text="@string/btnEditText" 
@@ -29,8 +29,7 @@
         android:textColor="#ffffff"
         android:layout_centerInParent="true"
         android:text="@string/taskBarText"
-     />
-	
+     	/>
 	</RelativeLayout> 
 	<ListView 
 		android:id="@+id/alarmList"
@@ -40,7 +39,7 @@
 		android:layout_weight="1.0"
 		android:fadeScrollbars="false"
 		android:divider="@drawable/divideline"
-		android:dividerHeight="2dp"
+		android:dividerHeight="1dp"
 		/>
 	 <ViewStub 
         android:id="@+id/alarmListEmpty" 

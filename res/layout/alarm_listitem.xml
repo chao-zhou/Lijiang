@@ -12,39 +12,25 @@
 <TextView
     	style="@style/alarm_item_title"
 	    android:id="@+id/alarmTitle" 
-	    android:textColor="#3f3f3f"
 	    android:text="Alarm Title"/>  
 <TextView
+    style="@style/alarm_item_message"
     android:id="@+id/alarmMessage"
     android:layout_below="@id/alarmTitle"
-    android:layout_width="match_parent"
-	android:layout_height="wrap_content"
 	android:text= "Alarm message"
-	android:layout_weight="1.0"
-	android:gravity="center_vertical"
-	android:textColor="#656565"
-	android:textSize="14sp"/>  
+	/>  
 </RelativeLayout>
-
 <TextView
+    style="@style/alarm_item_distance"
     android:id="@+id/alarmDistance"
- 	android:layout_width="wrap_content"
-    android:layout_height="match_parent"
 	android:text= "~100m"
-	android:layout_weight="0.0"
-	android:gravity="center"
-	android:textSize="18sp"/>    
-    
+	/>     
 <ToggleButton  
+    style="@style/alarm_item_button"
     android:id="@+id/alarmActive"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
 	android:layout_margin="8dp"
 	android:focusable="false"
-	android:text=" >> "
 	android:textOn="@string/activeOffText"
 	android:textOff="@string/activeOnText"	
-	android:textSize="12sp"
-    android:layout_weight="0.0"
-    android:gravity="center"/>
+	/>
 </LinearLayout>
