@@ -104,7 +104,7 @@ public class LocationAlarm implements Alarm{
 	public boolean shouldAlarm(Status status) {
 		// TODO Auto-generated method stub
 		Location loc = status.getLocation();
-		return isNear(loc.getLongitude(),loc.getLatitude());
+		return loc == null?false:isNear(loc.getLongitude(),loc.getLatitude());
 	}
 
 	@Override
