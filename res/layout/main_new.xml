@@ -3,31 +3,45 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:orientation="vertical"
-    android:background="@drawable/white"
-    android:padding="0dp" >
-	<LinearLayout
+    android:padding="0dp" 
+    android:background="@drawable/mainBackgroundColor">
+	<RelativeLayout
 	    android:id="@+id/logo"
 	    android:layout_width="fill_parent"
-        android:layout_height="40dp"
+        android:layout_height="60dp"
         android:layout_weight="0.0" 
-        android:background="#909090"
-    	android:orientation="vertical">
-	<Button
+    	android:background="@drawable/header_bar_bg">
+    <Button
 	    android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/btnEditText"
+        android:layout_margin="10dp"
+        android:layout_marginRight="20dp"
+        android:text="@string/btnEditText" 
+        android:textSize="14sp" 
+        android:textColor="#ffffff"
         android:onClick="showEditView"
+        android:background="@drawable/edit_button_bg"
 	    />
-	</LinearLayout> 
+	<TextView 
+	    android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="18sp" 
+        android:textColor="#ffffff"
+        android:layout_centerInParent="true"
+        android:text="@string/taskBarText"
+     />
+	
+	</RelativeLayout> 
 	<ListView 
 		android:id="@+id/alarmList"
 		android:layout_width="fill_parent" 
 		android:layout_height="fill_parent"
 		android:gravity="center"
 		android:layout_weight="1.0"
-		android:layout_marginTop="4dp"
-		android:layout_marginBottom="4dp"
-		android:fadeScrollbars="false"/>
+		android:fadeScrollbars="false"
+		android:divider="@drawable/divideline"
+		android:dividerHeight="2dp"
+		/>
 	 <ViewStub 
         android:id="@+id/alarmListEmpty" 
         android:layout_width="fill_parent" 
