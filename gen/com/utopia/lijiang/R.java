@@ -14,28 +14,34 @@ public final class R {
         public static final int alarm_item=0x7f060000;
     }
     public static final class drawable {
-        public static final int add=0x7f020000;
-        public static final int alarm_item=0x7f020001;
-        public static final int blue_color=0x7f020010;
-        public static final int bottombar_bg=0x7f020002;
-        public static final int default_color=0x7f02000e;
-        public static final int delete_button_bg=0x7f020003;
-        public static final int divideline=0x7f020014;
-        public static final int edit_button_bg=0x7f020004;
-        public static final int green_color=0x7f020011;
-        public static final int header_bar_bg=0x7f020005;
-        public static final int ic_launcher=0x7f020006;
-        public static final int ic_launcher512=0x7f020007;
-        public static final int mainBackgroundColor=0x7f020015;
-        public static final int marker_rounded_blue=0x7f020008;
-        public static final int marker_rounded_grey=0x7f020009;
-        public static final int marker_rounded_red=0x7f02000a;
-        public static final int pop=0x7f02000b;
-        public static final int pop2=0x7f02000c;
-        public static final int pressed_color=0x7f020012;
-        public static final int red_color=0x7f02000f;
-        public static final int welcome2=0x7f02000d;
-        public static final int white=0x7f020013;
+        public static final int about_us_button=0x7f020000;
+        public static final int about_us_button_bg=0x7f020001;
+        public static final int add=0x7f020002;
+        public static final int add_pos_button=0x7f020003;
+        public static final int add_pos_button_bg=0x7f020004;
+        public static final int alarm_item=0x7f020005;
+        public static final int blue_color=0x7f020016;
+        public static final int bottombar_bg=0x7f020006;
+        public static final int default_color=0x7f020014;
+        public static final int delete_button_bg=0x7f020007;
+        public static final int divideline=0x7f02001a;
+        public static final int edit_button_bg=0x7f020008;
+        public static final int green_color=0x7f020017;
+        public static final int header_bar_bg=0x7f020009;
+        public static final int ic_launcher=0x7f02000a;
+        public static final int ic_launcher512=0x7f02000b;
+        public static final int mainBackgroundColor=0x7f02001b;
+        public static final int marker_rounded_blue=0x7f02000c;
+        public static final int marker_rounded_grey=0x7f02000d;
+        public static final int marker_rounded_red=0x7f02000e;
+        public static final int pop=0x7f02000f;
+        public static final int pop2=0x7f020010;
+        public static final int pressed_color=0x7f020018;
+        public static final int red_color=0x7f020015;
+        public static final int task_list_button=0x7f020011;
+        public static final int task_list_button_bg=0x7f020012;
+        public static final int welcome2=0x7f020013;
+        public static final int white=0x7f020019;
     }
     public static final class id {
         public static final int addAlarmMsg=0x7f080001;

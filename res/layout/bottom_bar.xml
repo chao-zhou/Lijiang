@@ -8,29 +8,36 @@
     	android:layout_gravity="center"
     	android:padding="4dp"
     	android:layout_margin="0dp">
-		<Button
+		<ImageButton
 	        android:id="@+id/btnLocate"
-	        android:layout_width="match_parent"
-	        android:layout_height="match_parent"
-	        android:text="@string/btnLocate"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
 	        android:onClick="showAddAlarmActivity" 
 	        android:layout_weight="1.0" 
-	        android:layout_margin="0px"/>
-		<ToggleButton
+	        android:layout_margin="5dp"
+	        android:scaleType="centerInside"
+	      	android:src="@drawable/add_pos_button"
+	        android:background="@android:color/transparent"/>
+		<ImageButton
 	        android:id="@+id/btnAlarms"
-	        android:layout_width="match_parent"
-	        android:layout_height="match_parent"
-	        android:textOn="@string/btnAlarms"
-	        android:textOff="@string/btnAlarms" 
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
 	        android:onClick="showAlarms"
 	        android:layout_weight="1.0"
-	        android:layout_margin="0px"/>
-		<Button
+	        android:layout_margin="5dp"
+	        android:scaleType="centerInside" 
+	        android:src="@drawable/task_list_button"
+	        android:background="@android:color/transparent"
+	        />
+		<ImageButton
 	        android:id="@+id/btnAbout" 
-	        android:layout_width="match_parent"
-	        android:layout_height="match_parent"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
 	        android:text="..."
 	        android:onClick="showAbout"
 	        android:layout_weight="1.0"
-	        android:layout_margin="0px"/>
+	        android:layout_margin="5dp"
+	        android:scaleType="centerInside"
+	        android:src="@drawable/about_us_button"
+	        android:background="@android:color/transparent"/>
 </LinearLayout>
