@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<TableLayout  xmlns:android="http://schemas.android.com/apk/res/android"
 	    android:layout_width="fill_parent"
     	android:layout_height="56dp"
     	android:orientation="horizontal"
@@ -8,9 +8,10 @@
     	android:layout_gravity="center"
     	android:padding="4dp"
     	android:layout_margin="0dp">
+    <TableRow>
 		<ImageButton
 	        android:id="@+id/btnLocate"
-	        android:layout_width="wrap_content"
+	        android:layout_width="0dip"
 	        android:layout_height="wrap_content"
 	        android:onClick="showAddAlarmActivity" 
 	        android:layout_weight="1.0" 
@@ -20,7 +21,7 @@
 	        android:background="@drawable/menu_bar_button_bg"/>
 		<ImageButton
 	        android:id="@+id/btnAlarms"
-	        android:layout_width="wrap_content"
+	        android:layout_width="0dip"
 	        android:layout_height="wrap_content"
 	        android:onClick="showAlarms"
 	        android:layout_weight="1.0"
@@ -31,7 +32,7 @@
 	        />
 		<ImageButton
 	        android:id="@+id/btnAbout" 
-	        android:layout_width="wrap_content"
+	        android:layout_width="0dip"
 	        android:layout_height="wrap_content"
 	        android:text="..."
 	        android:onClick="showAbout"
@@ -40,4 +41,5 @@
 	        android:scaleType="centerInside"
 	        android:src="@drawable/about_us_button"
 	        android:background="@drawable/menu_bar_button_bg"/>
-</LinearLayout>
+	</TableRow>
+</TableLayout >
