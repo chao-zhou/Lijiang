@@ -14,20 +14,20 @@
 	        android:layout_height="wrap_content"
 	        android:onClick="showAddAlarmActivity" 
 	        android:layout_weight="1.0" 
-	        android:layout_margin="5dp"
+	        android:layout_margin="2dp"
 	        android:scaleType="centerInside"
 	      	android:src="@drawable/add_pos_button"
-	        android:background="@android:color/transparent"/>
+	        android:background="@drawable/menu_bar_button_bg"/>
 		<ImageButton
 	        android:id="@+id/btnAlarms"
 	        android:layout_width="wrap_content"
 	        android:layout_height="wrap_content"
 	        android:onClick="showAlarms"
 	        android:layout_weight="1.0"
-	        android:layout_margin="5dp"
+	        android:layout_margin="2dp"
 	        android:scaleType="centerInside" 
 	        android:src="@drawable/task_list_button"
-	        android:background="@android:color/transparent"
+	        android:background="@drawable/menu_bar_button_bg"
 	        />
 		<ImageButton
 	        android:id="@+id/btnAbout" 
@@ -36,8 +36,8 @@
 	        android:text="..."
 	        android:onClick="showAbout"
 	        android:layout_weight="1.0"
-	        android:layout_margin="5dp"
+	        android:layout_margin="2dp"
 	        android:scaleType="centerInside"
 	        android:src="@drawable/about_us_button"
-	        android:background="@android:color/transparent"/>
+	        android:background="@drawable/menu_bar_button_bg"/>
 </LinearLayout>
