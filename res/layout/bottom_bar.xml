@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<TableLayout  xmlns:android="http://schemas.android.com/apk/res/android"
+<com.utopia.lijiang.widget.MenuBarLayout  
+    	xmlns:android="http://schemas.android.com/apk/res/android"
 	    android:layout_width="fill_parent"
     	android:layout_height="56dp"
     	android:orientation="horizontal"
@@ -34,7 +35,6 @@
 	        android:id="@+id/btnAbout" 
 	        android:layout_width="0dip"
 	        android:layout_height="wrap_content"
-	        android:text="..."
 	        android:onClick="showAbout"
 	        android:layout_weight="1.0"
 	        android:layout_margin="2dp"
@@ -42,4 +42,4 @@
 	        android:src="@drawable/about_us_button"
 	        android:background="@drawable/menu_bar_button_bg"/>
 	</TableRow>
-</TableLayout >
+</com.utopia.lijiang.widget.MenuBarLayout>

@@ -59,15 +59,16 @@ public final class R {
         public static final int btnFirstLocate=0x7f080006;
         public static final int btnHistory=0x7f080010;
         public static final int btnLocate=0x7f08000a;
-        public static final int deleteAlarm=0x7f080015;
-        public static final int deleteHistory=0x7f080017;
+        public static final int deleteAlarm=0x7f080016;
+        public static final int deleteHistory=0x7f080018;
         public static final int logo=0x7f08000d;
         public static final int mapView=0x7f080008;
-        public static final int map_bubbleImage=0x7f080014;
-        public static final int popAddress=0x7f080013;
-        public static final int popName=0x7f080012;
-        public static final int popuptext=0x7f080011;
-        public static final int renewHistory=0x7f080016;
+        public static final int map_bubbleImage=0x7f080015;
+        public static final int menubar=0x7f080011;
+        public static final int popAddress=0x7f080014;
+        public static final int popName=0x7f080013;
+        public static final int popuptext=0x7f080012;
+        public static final int renewHistory=0x7f080017;
         public static final int searchPositionName=0x7f080009;
     }
     public static final class layout {
@@ -80,9 +81,10 @@ public final class R {
         public static final int load=0x7f030006;
         public static final int main=0x7f030007;
         public static final int main_new=0x7f030008;
-        public static final int popview=0x7f030009;
-        public static final int popview2=0x7f03000a;
-        public static final int test=0x7f03000b;
+        public static final int main_tab=0x7f030009;
+        public static final int popview=0x7f03000a;
+        public static final int popview2=0x7f03000b;
+        public static final int test=0x7f03000c;
     }
     public static final class menu {
         public static final int alarmcontext=0x7f070000;

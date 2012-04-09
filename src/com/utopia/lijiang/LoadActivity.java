@@ -35,7 +35,7 @@ public class LoadActivity extends Activity {
 	}
 	
 	private void startLijiangActivty(){
-		 Intent mainIntent = new Intent(this, LijiangActivity.class);
+		 Intent mainIntent = new Intent(this, MainActivity.class);
 		 this.startActivity(mainIntent);
 	    
 	}

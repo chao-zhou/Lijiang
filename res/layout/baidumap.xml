@@ -9,26 +9,33 @@
 	android:layout_width="fill_parent" 
 	android:layout_height="fill_parent" 
 	android:clickable="true" />
- <LinearLayout
+ <RelativeLayout
    android:layout_width="fill_parent"
-   android:layout_height="wrap_content"
+   android:layout_height="55dp"
    android:orientation="horizontal"
-   android:layout_alignParentTop="true">
+   android:layout_alignParentTop="true"
+   android:gravity="center"
+   android:background="@drawable/header_bar_bg">
   	<EditText
   	 android:id="@+id/searchPositionName"
-  	 android:layout_width="match_parent"
- 	 android:layout_height="match_parent"
+  	 android:layout_width="200dp"
+ 	 android:layout_height="wrap_content"
  	 android:layout_weight="1.0"
+ 	 android:textSize="12sp"
  	 android:singleLine="true"
+ 	 android:layout_margin="8dp"
  	 android:hint="@string/mapEditTextHint"
  	 android:imeOptions="actionSearch"/>"
     <Button
      android:layout_width="wrap_content"
-  	 android:layout_height="match_parent"
+  	 android:layout_height="wrap_content"
   	 android:text=" @ "
-  	 android:layout_weight="0.0"
-  	 android:onClick="searchPosition"/>
- </LinearLayout>
+  	 android:layout_weight="1.0"
+  	 android:layout_margin="8dp"
+  	 android:onClick="searchPosition"
+  	 android:layout_toRightOf="@id/searchPositionName"
+  	/>
+ </RelativeLayout>
  <LinearLayout
    android:layout_width="wrap_content"
    android:layout_height="wrap_content"
