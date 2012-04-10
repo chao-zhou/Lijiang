@@ -5,7 +5,7 @@
 	  <item name="android:layout_height">wrap_content</item>
 	  <item name="android:layout_weight">1.0</item>
 	  <item name="android:gravity">center_vertical</item>
-	  <item name="android:textSize">18sp</item>
+	  <item name="android:textSize">14sp</item>
 	  <item name="android:textColor">#3f3f3f</item>
 	</style>
 	<style name="alarm_item_message" parent="@android:style/Widget.TextView">
@@ -13,7 +13,7 @@
 	  <item name="android:layout_height">wrap_content</item>
 	  <item name="android:layout_weight">1.0</item>
 	  <item name="android:gravity">center_vertical</item>
-	  <item name="android:textSize">14sp</item>
+	  <item name="android:textSize">12sp</item>
 	  <item name="android:textColor">#656565</item>
 	</style>
 	<style name="alarm_item_distance" parent="@android:style/Widget.TextView">
@@ -21,14 +21,14 @@
 	  <item name="android:layout_height">match_parent</item>
 	  <item name="android:layout_weight">0.0</item>
 	  <item name="android:gravity">center</item>
-	  <item name="android:textSize">18sp</item>
+	  <item name="android:textSize">14sp</item>
 	</style>
 	<style name="alarm_item_button" parent="@android:style/Widget.Button">
-	  <item name="android:layout_width">54dp</item>
-	  <item name="android:layout_height">55dp</item>
+	  <item name="android:layout_width">49dp</item>
+	  <item name="android:layout_height">50dp</item>
 	  <item name="android:layout_weight">0.0</item>
 	  <item name="android:gravity">center</item>
-	  <item name="android:textSize">14sp</item>
+	  <item name="android:textSize">12sp</item>
 	  <item name="android:textColor">#3f3f3f</item>
 	  <item name="android:focusable">false</item>
 	</style>
