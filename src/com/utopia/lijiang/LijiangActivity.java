@@ -88,7 +88,8 @@ public class LijiangActivity extends Activity  {
      * */
     public void showAddAlarmActivity(View target){
    	 //Just test Map 
-     this.startActivity(new Intent(this,LijiangMapActivity.class));
+     //this.startActivity(new Intent(this,LijiangMapActivity.class));
+    	MainActivity.getInstance().setCurrentTab(MainActivity.ADD_POSITION_TAB_INDEX);
     }
     
     public void showEditView(View target){

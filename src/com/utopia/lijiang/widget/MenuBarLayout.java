@@ -25,6 +25,10 @@ public class MenuBarLayout extends TableLayout implements getButtons {
 	} 
 	
 	public void setButtonSelected(int index, boolean selected) {
+		if(selected){
+			deSelectectOldView();
+		}
+		
 		selectedView = buttons.get(index);
 		selectedView.setSelected(selected);
 	}

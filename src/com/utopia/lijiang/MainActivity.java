@@ -16,27 +16,32 @@ import com.utopia.lijiang.widget.OnMenuBarSelectListener;
 
 public class MainActivity extends TabActivity {
 	
-	final int ANIMATIION_DURATION = 300;
-	
+	public final static int ADD_POSITION_TAB_INDEX = 0;
+	final static int ANIMATIION_DURATION = 300;	
+	static MainActivity instance = null;
+		
 	View lastView = null;
 	MenuBarLayout menuBar = null;
 	TabHost tabHost = null;
-	 
+	
+	public static MainActivity getInstance(){
+		return instance;
+	}
+	
 	public void onCreate(Bundle savedInstanceState) {
 	    super.onCreate(savedInstanceState);
 	    setContentView(R.layout.main_tab);
 	   
+	    instance = this;
+	    
 	    tabHost = getTabHost();  
 	    menuBar = (MenuBarLayout)this.findViewById(R.id.menubar);
 	   
 	    addTab(this,LijiangMapActivity.class,"Position","postion");
 	    addTab(this,LijiangActivity.class,"Alarms","alarms");    
 	    
-	 
 	    setCurrentTab(1);
-	    menuBar.setButtonSelected(1, true);
 	    
-	   
 	    tabHost.setOnTabChangedListener(new OnTabChangeListener(){
 
 			@Override
@@ -56,10 +61,10 @@ public class MainActivity extends TabActivity {
 			}}); 
 	}
 
-
-	private void setCurrentTab(int index){
+	public void setCurrentTab(int index){
 		   lastView = tabHost.getCurrentView();
 		   tabHost.setCurrentTab(index);
+		   menuBar.setButtonSelected(index, true);
 		   
 		   //Is first view
 		   if(lastView == null){
