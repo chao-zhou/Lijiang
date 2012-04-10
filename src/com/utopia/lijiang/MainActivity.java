@@ -1,6 +1,7 @@
 package com.utopia.lijiang;
 
 import android.app.TabActivity;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -17,7 +18,6 @@ public class MainActivity extends TabActivity {
 	
 	final int ANIMATIION_DURATION = 300;
 	
-	int lastTabIndex = 0;
 	View lastView = null;
 	MenuBarLayout menuBar = null;
 	TabHost tabHost = null;
@@ -26,23 +26,14 @@ public class MainActivity extends TabActivity {
 	    super.onCreate(savedInstanceState);
 	    setContentView(R.layout.main_tab);
 	   
-	    tabHost = getTabHost();  // The activity TabHost
+	    tabHost = getTabHost();  
 	    menuBar = (MenuBarLayout)this.findViewById(R.id.menubar);
 	   
-	    TabHost.TabSpec spec;  // Resusable TabSpec for each tab
-	    Intent intent;  // Reusable Intent for each tab
- 
-	    intent = new Intent().setClass(this, LijiangMapActivity.class);
-	    spec = tabHost.newTabSpec("postion").setIndicator("Position").setContent(intent);
-	    tabHost.addTab(spec);
+	    addTab(this,LijiangMapActivity.class,"Position","postion");
+	    addTab(this,LijiangActivity.class,"Alarms","alarms");    
 	    
-	    intent = new Intent().setClass(this, LijiangActivity.class);
-	    spec = tabHost.newTabSpec("artists").setIndicator("Artists").setContent(intent);
-	    tabHost.addTab(spec);   
-	    
-	    tabHost.setCurrentTab(1);
-	    lastTabIndex = 1;
-	    lastView = tabHost.getCurrentView();
+	 
+	    setCurrentTab(1);
 	    menuBar.setButtonSelected(1, true);
 	    
 	   
@@ -50,7 +41,6 @@ public class MainActivity extends TabActivity {
 
 			@Override
 			public void onTabChanged(String tabId) {
-				// TODO Auto-generated method stub
 				 View currentView = tabHost.getCurrentView();
 				 lastView.setAnimation(outToLeftAnimation());
 			     currentView.setAnimation(inFromRightAnimation());
@@ -62,14 +52,28 @@ public class MainActivity extends TabActivity {
 
 			@Override
 			public void onSelected(int index, View v) {
-				// TODO Auto-generated method stub
-				lastTabIndex = tabHost.getCurrentTab();
-				lastView = tabHost.getCurrentView();
-				tabHost.setCurrentTab(index);	
+				setCurrentTab(index);
 			}}); 
 	}
+
+
+	private void setCurrentTab(int index){
+		   lastView = tabHost.getCurrentView();
+		   tabHost.setCurrentTab(index);
+		   
+		   //Is first view
+		   if(lastView == null){
+			   lastView = tabHost.getCurrentView(); 
+		   }
+	}
 	
-	public Animation inFromRightAnimation() {
+	private void addTab(Context ctx, Class<?> cls,String indicator, String tag) {
+		Intent intent = new Intent().setClass(ctx, cls);
+		TabHost.TabSpec spec = tabHost.newTabSpec(tag).setIndicator(indicator).setContent(intent);
+	    tabHost.addTab(spec);
+	}
+		
+	private Animation inFromRightAnimation() {
 
 		    Animation inFromRight = new TranslateAnimation(
 		            Animation.RELATIVE_TO_PARENT, +1.0f,
@@ -81,7 +85,7 @@ public class MainActivity extends TabActivity {
 		    return inFromRight;
 	}
 
-	public Animation outToLeftAnimation() {
+	private Animation outToLeftAnimation() {
 		    Animation outtoLeft = new TranslateAnimation(
 		            Animation.RELATIVE_TO_PARENT, 0.0f,
 		            Animation.RELATIVE_TO_PARENT, -1.0f,

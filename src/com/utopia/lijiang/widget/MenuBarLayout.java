@@ -59,21 +59,35 @@ public class MenuBarLayout extends TableLayout implements getButtons {
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
-				if(selectedView == null || selectedView != v){
-					if(selectedView != null){
-						selectedView.setSelected(false);
-					}
-					
-					selectedView = v;
-					selectedView.setSelected(true);
-					
-					if(selectListener != null){
-						selectListener.onSelected(Integer.parseInt(v.getTag().toString()), v);
-					}
+				if(isNewViewClicked(v)){
+					deSelectectOldView();
+					selectedView(v);
+					fireSelectedListener(v);
 				}				
 			}			
 		};
 	}
 
+	private Boolean isNewViewClicked(View v){
+		return selectedView == null || selectedView != v;
+	}
 	
+	private void deSelectectOldView(){
+		if(selectedView == null){
+			return;
+		}
+		
+		selectedView.setSelected(false);
+	}
+	
+	private void selectedView(View v){
+		selectedView = v;
+		selectedView.setSelected(true);
+	}
+	
+	private void fireSelectedListener(View v){
+		if(selectListener != null){
+			selectListener.onSelected(Integer.parseInt(v.getTag().toString()), v);
+		}
+	}
 }
