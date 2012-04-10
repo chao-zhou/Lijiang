@@ -3,8 +3,8 @@
 	<corners android:radius="5dp"
 	    	android:topLeftRadius="0dp"
 	    	android:bottomRightRadius="0dp"/>
-    <solid  android:color="#80f4f4f4"/>
-	<stroke android:color="#50B8B8B6" 
+    <solid  android:color="@color/map_button_background"/>
+	<stroke android:color="@color/map_button_border" 
 	    	android:width="1px"/>
 
 </shape>

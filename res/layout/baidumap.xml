@@ -19,21 +19,25 @@
   	<EditText
   	 android:id="@+id/searchPositionName"
   	 android:layout_width="200dp"
- 	 android:layout_height="wrap_content"
+ 	 android:layout_height="40dp"
  	 android:layout_weight="1.0"
  	 android:textSize="12sp"
  	 android:singleLine="true"
- 	 android:layout_margin="8dp"
+ 	 android:layout_marginTop="8dp"
  	 android:hint="@string/mapEditTextHint"
  	 android:imeOptions="actionSearch"/>"
-    <Button
-     android:layout_width="wrap_content"
-  	 android:layout_height="wrap_content"
+    <ImageButton
+     android:layout_width="45dp"
+  	 android:layout_height="34dp"
   	 android:text=" @ "
+  	 android:src="@drawable/show_my_pos_fg"
+  	 android:scaleType="centerInside"
   	 android:layout_weight="1.0"
-  	 android:layout_margin="8dp"
+  	 android:layout_margin="9dp"
   	 android:onClick="searchPosition"
   	 android:layout_toRightOf="@id/searchPositionName"
+  	 android:background="@drawable/show_my_pos_bg"
+  	 android:padding="2dp"
   	/>
  </RelativeLayout>
  <LinearLayout
@@ -42,7 +46,7 @@
    android:orientation="horizontal"
    android:layout_alignParentRight="true"
    android:layout_alignParentBottom="true"
-   android:padding="8dp">
+   android:layout_margin="8dp">
  <Button  
      android:layout_width="40dp"
   	 android:layout_height="30dp"
@@ -60,11 +64,15 @@
   	 android:background="@drawable/zoom_out_button_bg"
   	 android:textSize="18sp"/>
   </LinearLayout>
-   <Button  
-     android:layout_width="wrap_content"
-  	 android:layout_height="wrap_content"
+  <ImageButton  
+     android:layout_width="40dp"
+  	 android:layout_height="40dp"
   	 android:text="list"
+  	 android:src="@drawable/show_more_fg"
+  	 android:background="@drawable/show_more_bg"
+  	 android:scaleType="centerInside"
   	 android:layout_alignParentLeft="true"
   	 android:layout_alignParentBottom="true"
-  	 android:onClick="showLocationList"/>
+  	 android:onClick="showLocationList"
+  	 android:layout_margin="8dp"/>
 </RelativeLayout>
