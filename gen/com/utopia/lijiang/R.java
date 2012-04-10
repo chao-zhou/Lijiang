@@ -11,7 +11,9 @@ public final class R {
     public static final class attr {
     }
     public static final class color {
-        public static final int alarm_item=0x7f060000;
+        public static final int alarm_item=0x7f050002;
+        public static final int map_button_background=0x7f050000;
+        public static final int map_button_border=0x7f050001;
     }
     public static final class drawable {
         public static final int about_us_button=0x7f020000;
@@ -20,29 +22,35 @@ public final class R {
         public static final int add_pos_button=0x7f020003;
         public static final int add_pos_button_bg=0x7f020004;
         public static final int alarm_item=0x7f020005;
-        public static final int blue_color=0x7f020017;
+        public static final int blue_color=0x7f02001d;
         public static final int bottombar_bg=0x7f020006;
-        public static final int default_color=0x7f020015;
+        public static final int default_color=0x7f02001b;
         public static final int delete_button_bg=0x7f020007;
-        public static final int divideline=0x7f02001b;
+        public static final int divideline=0x7f020021;
         public static final int edit_button_bg=0x7f020008;
-        public static final int green_color=0x7f020018;
+        public static final int green_color=0x7f02001e;
         public static final int header_bar_bg=0x7f020009;
         public static final int ic_launcher=0x7f02000a;
         public static final int ic_launcher512=0x7f02000b;
-        public static final int mainBackgroundColor=0x7f02001c;
+        public static final int mainBackgroundColor=0x7f020022;
         public static final int marker_rounded_blue=0x7f02000c;
         public static final int marker_rounded_grey=0x7f02000d;
         public static final int marker_rounded_red=0x7f02000e;
         public static final int menu_bar_button_bg=0x7f02000f;
         public static final int pop=0x7f020010;
         public static final int pop2=0x7f020011;
-        public static final int pressed_color=0x7f020019;
-        public static final int red_color=0x7f020016;
-        public static final int task_list_button=0x7f020012;
-        public static final int task_list_button_bg=0x7f020013;
-        public static final int welcome2=0x7f020014;
-        public static final int white=0x7f02001a;
+        public static final int pressed_color=0x7f02001f;
+        public static final int red_color=0x7f02001c;
+        public static final int show_more_bg=0x7f020012;
+        public static final int show_more_fg=0x7f020013;
+        public static final int show_my_pos_bg=0x7f020014;
+        public static final int show_my_pos_fg=0x7f020015;
+        public static final int task_list_button=0x7f020016;
+        public static final int task_list_button_bg=0x7f020017;
+        public static final int welcome2=0x7f020018;
+        public static final int white=0x7f020020;
+        public static final int zoom_in_button_bg=0x7f020019;
+        public static final int zoom_out_button_bg=0x7f02001a;
     }
     public static final class id {
         public static final int addAlarmMsg=0x7f080001;
@@ -91,35 +99,35 @@ public final class R {
         public static final int historycontext=0x7f070001;
     }
     public static final class string {
-        public static final int activeOffText=0x7f050015;
-        public static final int activeOnText=0x7f050014;
-        public static final int addLocation=0x7f050001;
-        public static final int app_name=0x7f050000;
-        public static final int backText=0x7f050016;
-        public static final int baidu_key=0x7f050002;
-        public static final int btnAlarms=0x7f050003;
-        public static final int btnEditText=0x7f050013;
-        public static final int btnFirstLocate=0x7f050004;
-        public static final int btnHistory=0x7f050005;
-        public static final int btnLocate=0x7f050006;
-        public static final int cancel=0x7f050007;
-        public static final int customLocation=0x7f050008;
-        public static final int dbVersion=0x7f050012;
-        public static final int debug_tag=0x7f050009;
-        public static final int delete=0x7f05000a;
-        public static final int foreground=0x7f05000b;
-        public static final int guide=0x7f05000c;
-        public static final int hello=0x7f05000d;
-        public static final int known=0x7f05001b;
-        public static final int locatinNearFormat=0x7f050017;
-        public static final int mapEditTextHint=0x7f05000e;
-        public static final int multiLocationNearFormat=0x7f050018;
-        public static final int myLocation=0x7f05000f;
-        public static final int no=0x7f05001a;
-        public static final int renew=0x7f050010;
-        public static final int searching=0x7f050011;
-        public static final int taskBarText=0x7f05001c;
-        public static final int yes=0x7f050019;
+        public static final int activeOffText=0x7f060015;
+        public static final int activeOnText=0x7f060014;
+        public static final int addLocation=0x7f060001;
+        public static final int app_name=0x7f060000;
+        public static final int backText=0x7f060016;
+        public static final int baidu_key=0x7f060002;
+        public static final int btnAlarms=0x7f060003;
+        public static final int btnEditText=0x7f060013;
+        public static final int btnFirstLocate=0x7f060004;
+        public static final int btnHistory=0x7f060005;
+        public static final int btnLocate=0x7f060006;
+        public static final int cancel=0x7f060007;
+        public static final int customLocation=0x7f060008;
+        public static final int dbVersion=0x7f060012;
+        public static final int debug_tag=0x7f060009;
+        public static final int delete=0x7f06000a;
+        public static final int foreground=0x7f06000b;
+        public static final int guide=0x7f06000c;
+        public static final int hello=0x7f06000d;
+        public static final int known=0x7f06001b;
+        public static final int locatinNearFormat=0x7f060017;
+        public static final int mapEditTextHint=0x7f06000e;
+        public static final int multiLocationNearFormat=0x7f060018;
+        public static final int myLocation=0x7f06000f;
+        public static final int no=0x7f06001a;
+        public static final int renew=0x7f060010;
+        public static final int searching=0x7f060011;
+        public static final int taskBarText=0x7f06001c;
+        public static final int yes=0x7f060019;
     }
     public static final class style {
         public static final int alarm_item_button=0x7f040003;
