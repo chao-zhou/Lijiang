@@ -69,6 +69,9 @@ public abstract class LijiangOverlayActivity extends BaiduMapActivity implements
 	public void update(Observable observable, Object data) {
 		// TODO Auto-generated method stub
 		Location loc = Status.getCurrentStatus().getLocation();
+		if(loc == null)
+			return;
+		
 		GeoPoint pt = new GeoPoint((int)loc.getLatitude(), (int)loc.getLongitude());
 		String title = this.getString(R.string.myLocation);
 		String message = pt.getLatitudeE6()+":"+pt.getLongitudeE6();
