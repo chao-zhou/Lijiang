@@ -41,17 +41,24 @@
    android:layout_height="wrap_content"
    android:orientation="horizontal"
    android:layout_alignParentRight="true"
-   android:layout_alignParentBottom="true">
+   android:layout_alignParentBottom="true"
+   android:padding="8dp">
  <Button  
-     android:layout_width="wrap_content"
-  	 android:layout_height="wrap_content"
+     android:layout_width="40dp"
+  	 android:layout_height="30dp"
   	 android:text="+"
-  	 android:onClick="zoomIn"/>
+  	 android:onClick="zoomIn"
+  	 android:gravity="center"
+  	 android:background="@drawable/zoom_in_button_bg"
+  	 android:textSize="18sp"/>"
   <Button  
-     android:layout_width="wrap_content"
-  	 android:layout_height="wrap_content"
+     android:layout_width="40dp"
+  	 android:layout_height="30dp"
   	 android:text="-"
-  	 android:onClick="zoomOut"/>
+  	 android:gravity="center"
+  	 android:onClick="zoomOut"
+  	 android:background="@drawable/zoom_out_button_bg"
+  	 android:textSize="18sp"/>
   </LinearLayout>
    <Button  
      android:layout_width="wrap_content"
