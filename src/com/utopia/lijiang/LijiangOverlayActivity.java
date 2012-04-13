@@ -32,6 +32,8 @@ public abstract class LijiangOverlayActivity extends BaiduMapActivity implements
 	TextView popName = null;
 	TextView popAddress = null;
 	Button popSave = null;
+	View showDetailIndicator = null;
+	View detailView = null;
 	
 	BaiduItemizedOverlay userOverlay = null;
 	BaiduItemizedOverlay searchOverlay = null;
@@ -97,7 +99,10 @@ public abstract class LijiangOverlayActivity extends BaiduMapActivity implements
 		mMapView.updateViewLayout(mPopView,
                 new MapView.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT,
                 		item.getPoint(), 0,-30,MapView.LayoutParams.BOTTOM_CENTER));
+		
+		setPopViewToSummary();
 		mPopView.setVisibility(View.VISIBLE);
+		
 		return true;
 	}
 
@@ -106,6 +111,17 @@ public abstract class LijiangOverlayActivity extends BaiduMapActivity implements
 		// TODO Auto-generated method stub
 		Log.d("lijiang","onTapping");
 		mPopView.setVisibility(View.GONE);
+	}
+	
+	
+	public void setPopViewToSummary(){
+		showDetailIndicator.setVisibility(View.VISIBLE);
+		detailView.setVisibility(View.GONE);
+	}
+	
+	public void setPopViewToDetail(){
+		showDetailIndicator.setVisibility(View.GONE);
+		detailView.setVisibility(View.VISIBLE);
 	}
 	
 	protected void initialMapView(){
@@ -131,6 +147,8 @@ public abstract class LijiangOverlayActivity extends BaiduMapActivity implements
 		mPopView=super.getLayoutInflater().inflate(R.layout.popview2, null);
 		popName=(TextView)mPopView.findViewById(R.id.popName);
 		popAddress=(TextView)mPopView.findViewById(R.id.popAddress);
+		showDetailIndicator = (View)mPopView.findViewById(R.id.popShowDetail);
+		detailView = (View)mPopView.findViewById(R.id.popDetail);
 		
 		mMapView.addView(mPopView,
                 new MapView.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT,

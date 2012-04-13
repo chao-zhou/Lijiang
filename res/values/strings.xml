@@ -29,4 +29,5 @@
 	<string name="no">否</string>
 	<string name="known">知道了</string>
 	<string name="taskBarText">任务列表</string>
+	<string name="addPositionText">定位此地址</string>
 </resources>

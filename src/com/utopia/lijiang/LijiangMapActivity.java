@@ -52,6 +52,10 @@ public class LijiangMapActivity extends LijiangOverlayActivity {
 		return R.layout.baidumap;
 	}
 	
+	public void showDetails(View target){
+		setPopViewToDetail();
+	}
+	
 	public void addAlarm(View target){
 		 String title = popName.getText().toString();
 		 String message = popAddress.getText().toString();
