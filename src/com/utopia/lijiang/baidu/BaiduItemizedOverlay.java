@@ -85,12 +85,13 @@ public class BaiduItemizedOverlay extends ItemizedOverlay<OverlayItem>{
 			String title = overLayItem.getTitle();
 			Point point = projection.toPixels(overLayItem.getPoint(), null); 
 
-			Paint paintText = new Paint(Paint.ANTI_ALIAS_FLAG|Paint.DEV_KERN_TEXT_FLAG);
+//			Hide Text
+			/*Paint paintText = new Paint(Paint.ANTI_ALIAS_FLAG|Paint.DEV_KERN_TEXT_FLAG);
 			paintText.setTypeface(Typeface.DEFAULT_BOLD);
 			paintText.setFakeBoldText(true); 
 			paintText.setColor(Color.BLACK);
 			paintText.setTextSize(16f);
-			canvas.drawText(title, point.x-15, point.y+18, paintText); 
+			canvas.drawText(title, point.x-15, point.y+18, paintText); */
 			
 			//Draw number
 			if(isShowNumber){	
