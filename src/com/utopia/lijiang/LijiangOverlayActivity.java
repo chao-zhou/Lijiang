@@ -132,9 +132,9 @@ public abstract class LijiangOverlayActivity extends BaiduMapActivity implements
 	    customOverlay = 
 	    		new BaiduLongPressItemizedOverlay(LijiangOverlayActivity.this,this.getResources().getDrawable(R.drawable.marker_rounded_grey));
 		searchOverlay = 
-				new BaiduItemizedOverlay(LijiangOverlayActivity.this,getResources().getDrawable(R.drawable.marker_rounded_red));		  
+				new BaiduItemizedOverlay(LijiangOverlayActivity.this,getResources().getDrawable(R.drawable.marker_rounded_blue));		  
 		userOverlay = 
-				new BaiduItemizedOverlay(LijiangOverlayActivity.this,getResources().getDrawable(R.drawable.marker_rounded_blue));
+				new BaiduItemizedOverlay(LijiangOverlayActivity.this,getResources().getDrawable(R.drawable.marker_rounded_red));
 		
 		mMapView.getOverlays().add(customOverlay);
 		mMapView.getOverlays().add(searchOverlay);
