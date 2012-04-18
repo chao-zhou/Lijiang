@@ -23,10 +23,12 @@ public class BaiduItemizedOverlay extends ItemizedOverlay<OverlayItem>{
 	final int markerWidth = 40;
 	final int markerHeight = 50;
 	
+	public Boolean isShowNumber;
+	
 	protected BaiduMapActivity activity = null;
 	protected List<OverlayItem> items = null;
 	protected Drawable marker;
-	protected Boolean isShowNumber;
+	
 	
 	public BaiduItemizedOverlay(BaiduMapActivity activity,Drawable marker){
 		this(activity,marker,null);
@@ -38,7 +40,7 @@ public class BaiduItemizedOverlay extends ItemizedOverlay<OverlayItem>{
 		this.activity = activity;
 		this.marker = marker;
 		this.items = items;
-		this.isShowNumber = true;
+		this.isShowNumber = false;
 		
 		if(this.items == null){
 			this.items = new ArrayList<OverlayItem>();	
