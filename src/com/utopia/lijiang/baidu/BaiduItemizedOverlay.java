@@ -20,8 +20,8 @@ import com.baidu.mapapi.Projection;
 
 public class BaiduItemizedOverlay extends ItemizedOverlay<OverlayItem>{
 
-	final int markerWidth = 40;
-	final int markerHeight = 50;
+	public static final int MARKER_WIDTH = 50;
+	public static final int MARKER_HEIGHT = 55;
 	
 	public Boolean isShowNumber;
 	
@@ -51,7 +51,7 @@ public class BaiduItemizedOverlay extends ItemizedOverlay<OverlayItem>{
 	}
 
 	private void configMarker() {
-		this.marker.setBounds(0, 0, markerWidth, markerHeight);
+		this.marker.setBounds(0, 0, MARKER_WIDTH, MARKER_HEIGHT);
 		this.marker.setDither(true);
 		this.marker.setFilterBitmap(true);
 	}
@@ -88,36 +88,37 @@ public class BaiduItemizedOverlay extends ItemizedOverlay<OverlayItem>{
 			Paint paintText = new Paint(Paint.ANTI_ALIAS_FLAG|Paint.DEV_KERN_TEXT_FLAG);
 			paintText.setTypeface(Typeface.DEFAULT_BOLD);
 			paintText.setFakeBoldText(true); 
-			paintText.setColor(Color.BLUE);
-			paintText.setTextSize(20f);
-			canvas.drawText(title, point.x-10, point.y+18, paintText); 
+			paintText.setColor(Color.BLACK);
+			paintText.setTextSize(16f);
+			canvas.drawText(title, point.x-15, point.y+18, paintText); 
 			
 			//Draw number
 			if(isShowNumber){	
-				Point markStartPoint = getMarkerStartPoint(point);
+//				Point markStartPoint = getMarkerStartPoint(point);
 		        Paint numberPaint=new Paint(Paint.ANTI_ALIAS_FLAG|Paint.DEV_KERN_TEXT_FLAG);  
 		        numberPaint.setColor(Color.WHITE);  
 		        numberPaint.setTypeface(Typeface.DEFAULT_BOLD); 
 		        
 		        int number = index +1;
 		        if(number/10 == 0){
-		        	numberPaint.setTextSize(20f);  
-		        	canvas.drawText(String.valueOf(number), point.x - 6, markStartPoint.y+27, numberPaint);
+		        	numberPaint.setTextSize(19f);  
+		        	canvas.drawText(String.valueOf(number), point.x-5, point.y-26, numberPaint);
 		        }
 		        else{
 		        	numberPaint.setTextSize(17f);  
-		        	canvas.drawText(String.valueOf(number), point.x - 11, markStartPoint.y+27, numberPaint);
+		        	canvas.drawText(String.valueOf(number), point.x-10, point.y-26, numberPaint);
 		        }
 			}
 		}
 	
 	}
 
+	@SuppressWarnings("unused")
 	private Point getMarkerStartPoint(Point point){
 		Point pt = new Point();
 		//In draw() we used boundCenterBottom(marker); so use this to find start point
-		int x = point.x - this.markerWidth/2; //this.marker.getIntrinsicWidth()/2;
-		int y = point.y - this.markerHeight;//this.marker.getIntrinsicHeight();
+		int x = point.x - BaiduItemizedOverlay.MARKER_WIDTH/2; //this.marker.getIntrinsicWidth()/2;
+		int y = point.y - BaiduItemizedOverlay.MARKER_HEIGHT;//this.marker.getIntrinsicHeight();
 		pt.set(x, y);
 		
 		return pt;	
