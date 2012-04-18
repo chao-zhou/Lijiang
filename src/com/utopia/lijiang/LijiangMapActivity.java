@@ -1,7 +1,9 @@
 package com.utopia.lijiang;
 
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.KeyEvent;
@@ -75,6 +77,22 @@ public class LijiangMapActivity extends LijiangOverlayActivity {
 	
 	public void zoomOut(View target){
 		mMapView.getController().zoomOut();
+	}
+	
+	public void showCurrentLocation(View target){
+		if(!showCurrentLocation()){
+			AlertDialog.Builder builder = new AlertDialog.Builder(this);
+			builder.setMessage(getString(R.string.canNotFindPostion))
+			       .setCancelable(true)
+			       .setPositiveButton(getString(R.string.known), new DialogInterface.OnClickListener(){
+					@Override
+					public void onClick(DialogInterface dialog, int id) {
+						// TODO Auto-generated method stub
+						dialog.cancel();
+					}})
+					.create()
+					.show();
+		}
 	}
 	
 	public void showLocationList(View target){

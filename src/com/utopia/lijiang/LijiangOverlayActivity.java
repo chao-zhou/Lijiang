@@ -47,7 +47,6 @@ public abstract class LijiangOverlayActivity extends BaiduMapActivity implements
 		super.onCreate(savedInstanceState);
 	    
 		initialMapView();
-	    locateCurrentCenter();
 		//Listen Status' change
 	    Status.getCurrentStatus().addObserver(this);
 	}
@@ -76,26 +75,11 @@ public abstract class LijiangOverlayActivity extends BaiduMapActivity implements
 	
 	@Override
 	public void update(Observable observable, Object data) {
-		// TODO Auto-generated method stub
-		Location loc = Status.getCurrentStatus().getLocation();
-		if(loc == null)
-			return;
-		
-		GeoPoint pt = new GeoPoint((int)loc.getLatitude(), (int)loc.getLongitude());
-		String title = this.getString(R.string.myLocation);
-		String message = pt.getLatitudeE6()+":"+pt.getLongitudeE6();
-		OverlayItem item = new OverlayItem(pt,title,message);
-		
-		List<OverlayItem> items = new ArrayList<OverlayItem>();
-		items.add(item);
-		userOverlay.setItems(items);
-		
-		//mMapView.getController().setCenter(item.getPoint());
+		showCurrentLocation();
 	}
 	
 	@Override
 	public boolean onTapped(int i, OverlayItem item) {
-		// TODO Auto-generated method stub
 		Log.d("lijiang","onTapped");
 		popName.setText(item.getTitle());
 		popAddress.setText(item.getSnippet());
@@ -169,11 +153,25 @@ public abstract class LijiangOverlayActivity extends BaiduMapActivity implements
 		mPopView.setVisibility(View.GONE);
 	}
 	
-	protected void locateCurrentCenter(){
+	protected Boolean showCurrentLocation(){
 	    Location loc = Status.getCurrentStatus().getLocation();
-	    if(loc !=null){
-	    	GeoPoint pt = new GeoPoint((int)loc.getLatitude(), (int)loc.getLongitude());
-	    	mMapView.getController().setCenter(pt);
+	    if(loc ==null){
+	    	return false;
 	    }
+	    
+		GeoPoint pt = new GeoPoint((int)loc.getLatitude(), (int)loc.getLongitude());
+		String title = this.getString(R.string.myLocation);
+		String message = pt.getLatitudeE6()+":"+pt.getLongitudeE6();
+		OverlayItem item = new OverlayItem(pt,title,message);
+		
+		List<OverlayItem> items = new ArrayList<OverlayItem>();
+		items.add(item);
+		userOverlay.setItems(items);
+		
+		mMapView.getController().setCenter(pt);
+		
+		return true;
 	}
+	
+	
 }
