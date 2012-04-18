@@ -105,7 +105,7 @@ public abstract class LijiangOverlayActivity extends BaiduMapActivity implements
 		mMapView.getController().setCenter(item.getPoint());	
 		mMapView.updateViewLayout(mPopView,
                 new MapView.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT,
-                		item.getPoint(), 0,-30,MapView.LayoutParams.BOTTOM_CENTER));
+                		item.getPoint(), 0, 0-BaiduItemizedOverlay.MARKER_HEIGHT, MapView.LayoutParams.BOTTOM_CENTER));
 		
 		setPopViewToSummary();
 		mPopView.setVisibility(View.VISIBLE);
