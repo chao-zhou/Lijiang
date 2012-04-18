@@ -129,18 +129,25 @@ public abstract class LijiangOverlayActivity extends BaiduMapActivity implements
 	    mMapView.setBuiltInZoomControls(false);
 	    mMapView.setDrawOverlayWhenZooming(true);
 	    
-	    customOverlay = 
+	    initialOverlays();
+	    
+	    attachPopView();
+	}
+
+	private void initialOverlays() {
+		customOverlay = 
 	    		new BaiduLongPressItemizedOverlay(LijiangOverlayActivity.this,this.getResources().getDrawable(R.drawable.marker_rounded_grey));
 		searchOverlay = 
-				new BaiduItemizedOverlay(LijiangOverlayActivity.this,getResources().getDrawable(R.drawable.marker_rounded_blue));		  
+				new BaiduItemizedOverlay(LijiangOverlayActivity.this,getResources().getDrawable(R.drawable.marker_rounded_blue));
+		searchOverlay.isShowNumber = true;
+		
 		userOverlay = 
 				new BaiduItemizedOverlay(LijiangOverlayActivity.this,getResources().getDrawable(R.drawable.marker_rounded_red));
 		
+		mMapView.getOverlays().clear();
 		mMapView.getOverlays().add(customOverlay);
 		mMapView.getOverlays().add(searchOverlay);
 		mMapView.getOverlays().add(userOverlay);
-	    
-	    attachPopView();
 	}
 	
 	protected void attachPopView(){
