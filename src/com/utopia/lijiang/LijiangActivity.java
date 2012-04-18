@@ -6,7 +6,6 @@ import java.util.List;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -169,6 +168,7 @@ public class LijiangActivity extends Activity  {
 	
 	private void showAlarmDialog(final Alarm alarm){
 		String posStr = getString(R.string.known);
+		@SuppressWarnings("unused")
 		String negStr = getString(R.string.no);
 		String msg = String.format(getString(R.string.locatinNearFormat), alarm.getTitle());
 		
