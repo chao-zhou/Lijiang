@@ -1,2 +1,4 @@
 bin/
 
+gen/com/utopia/lijiang/R.java
+gen/com/utopia/lijiang/BuildConfig.java

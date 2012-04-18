@@ -25,16 +25,15 @@
  	 android:singleLine="true"
  	 android:layout_marginTop="8dp"
  	 android:hint="@string/mapEditTextHint"
- 	 android:imeOptions="actionSearch"/>"
+ 	 android:imeOptions="actionSearch"/>
     <ImageButton
      android:layout_width="45dp"
   	 android:layout_height="34dp"
-  	 android:text=" @ "
   	 android:src="@drawable/show_my_pos_fg"
   	 android:scaleType="centerInside"
   	 android:layout_weight="1.0"
   	 android:layout_margin="9dp"
-  	 android:onClick="searchPosition"
+  	 android:onClick="showCurrentLocation"
   	 android:layout_toRightOf="@id/searchPositionName"
   	 android:background="@drawable/show_my_pos_bg"
   	 android:padding="2dp"
@@ -67,7 +66,6 @@
   <ImageButton  
      android:layout_width="40dp"
   	 android:layout_height="40dp"
-  	 android:text="list"
   	 android:src="@drawable/show_more_fg"
   	 android:background="@drawable/show_more_bg"
   	 android:scaleType="centerInside"

@@ -47,9 +47,15 @@ public abstract class LijiangOverlayActivity extends BaiduMapActivity implements
 		super.onCreate(savedInstanceState);
 	    
 		initialMapView();
-	    locateCurrentCenter();
 		//Listen Status' change
 	    Status.getCurrentStatus().addObserver(this);
+	}
+	
+	@Override
+	protected void onResume() {
+		// TODO Auto-generated method stub
+		super.onResume();
+		initialOverlays();
 	}
 	
 	@Override
@@ -69,26 +75,11 @@ public abstract class LijiangOverlayActivity extends BaiduMapActivity implements
 	
 	@Override
 	public void update(Observable observable, Object data) {
-		// TODO Auto-generated method stub
-		Location loc = Status.getCurrentStatus().getLocation();
-		if(loc == null)
-			return;
-		
-		GeoPoint pt = new GeoPoint((int)loc.getLatitude(), (int)loc.getLongitude());
-		String title = this.getString(R.string.myLocation);
-		String message = pt.getLatitudeE6()+":"+pt.getLongitudeE6();
-		OverlayItem item = new OverlayItem(pt,title,message);
-		
-		List<OverlayItem> items = new ArrayList<OverlayItem>();
-		items.add(item);
-		userOverlay.setItems(items);
-		
-		//mMapView.getController().setCenter(item.getPoint());
+		showCurrentLocation();
 	}
 	
 	@Override
 	public boolean onTapped(int i, OverlayItem item) {
-		// TODO Auto-generated method stub
 		Log.d("lijiang","onTapped");
 		popName.setText(item.getTitle());
 		popAddress.setText(item.getSnippet());
@@ -98,7 +89,7 @@ public abstract class LijiangOverlayActivity extends BaiduMapActivity implements
 		mMapView.getController().setCenter(item.getPoint());	
 		mMapView.updateViewLayout(mPopView,
                 new MapView.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT,
-                		item.getPoint(), 0,-30,MapView.LayoutParams.BOTTOM_CENTER));
+                		item.getPoint(), 0, 0-BaiduItemizedOverlay.MARKER_HEIGHT, MapView.LayoutParams.BOTTOM_CENTER));
 		
 		setPopViewToSummary();
 		mPopView.setVisibility(View.VISIBLE);
@@ -128,19 +119,25 @@ public abstract class LijiangOverlayActivity extends BaiduMapActivity implements
 		mMapView =(MapView)findViewById(R.id.mapView);
 	    mMapView.setBuiltInZoomControls(false);
 	    mMapView.setDrawOverlayWhenZooming(true);
-	    
-	    customOverlay = 
+
+	    initialOverlays();
+	    attachPopView();
+	}
+
+	private void initialOverlays() {
+		customOverlay = 
 	    		new BaiduLongPressItemizedOverlay(LijiangOverlayActivity.this,this.getResources().getDrawable(R.drawable.marker_rounded_grey));
 		searchOverlay = 
-				new BaiduItemizedOverlay(LijiangOverlayActivity.this,getResources().getDrawable(R.drawable.marker_rounded_red));		  
-		userOverlay = 
 				new BaiduItemizedOverlay(LijiangOverlayActivity.this,getResources().getDrawable(R.drawable.marker_rounded_blue));
+		searchOverlay.isShowNumber = true;
 		
+		userOverlay = 
+				new BaiduItemizedOverlay(LijiangOverlayActivity.this,getResources().getDrawable(R.drawable.marker_rounded_red));
+		
+		mMapView.getOverlays().clear();
 		mMapView.getOverlays().add(customOverlay);
 		mMapView.getOverlays().add(searchOverlay);
 		mMapView.getOverlays().add(userOverlay);
-	    
-	    attachPopView();
 	}
 	
 	protected void attachPopView(){
@@ -156,11 +153,25 @@ public abstract class LijiangOverlayActivity extends BaiduMapActivity implements
 		mPopView.setVisibility(View.GONE);
 	}
 	
-	protected void locateCurrentCenter(){
+	protected Boolean showCurrentLocation(){
 	    Location loc = Status.getCurrentStatus().getLocation();
-	    if(loc !=null){
-	    	GeoPoint pt = new GeoPoint((int)loc.getLatitude(), (int)loc.getLongitude());
-	    	mMapView.getController().setCenter(pt);
+	    if(loc ==null){
+	    	return false;
 	    }
+	    
+		GeoPoint pt = new GeoPoint((int)loc.getLatitude(), (int)loc.getLongitude());
+		String title = this.getString(R.string.myLocation);
+		String message = pt.getLatitudeE6()+":"+pt.getLongitudeE6();
+		OverlayItem item = new OverlayItem(pt,title,message);
+		
+		List<OverlayItem> items = new ArrayList<OverlayItem>();
+		items.add(item);
+		userOverlay.setItems(items);
+		
+		mMapView.getController().setCenter(pt);
+		
+		return true;
 	}
+	
+	
 }

@@ -14,10 +14,10 @@
     <string name="foreground">lijiang_foreground</string>
 	<string name="guide">如何定位\n方法1.在地图上搜索\n方法2.长按地图上的某个地点\n\n然后点击选定目标即可\n</string>
 	<string name="hello">Hello World, LijiangActivity2!</string>
-	<string name="mapEditTextHint">请输入地名...</string>
+	<string name="mapEditTextHint">请输入地名&#8230;</string>
 	<string name="myLocation">我的当前位置</string>
 	<string name="renew">重新选取</string>
-	<string name="searching">搜索中...</string>
+	<string name="searching">搜索中&#8230;</string>
 	<string name="dbVersion">1</string>
 	<string name="btnEditText">编辑</string>
 	<string name="activeOnText">开启</string>
@@ -30,4 +30,5 @@
 	<string name="known">知道了</string>
 	<string name="taskBarText">任务列表</string>
 	<string name="addPositionText">定位此地址</string>
+	<string name="canNotFindPostion">无法定位你的位置，请检查是否打开了定位功能</string>
 </resources>
