@@ -53,6 +53,13 @@ public abstract class LijiangOverlayActivity extends BaiduMapActivity implements
 	}
 	
 	@Override
+	protected void onResume() {
+		// TODO Auto-generated method stub
+		super.onResume();
+		initialOverlays();
+	}
+	
+	@Override
 	protected void onDestroy() {
 		// TODO Auto-generated method stub
 		super.onDestroy();
@@ -128,9 +135,8 @@ public abstract class LijiangOverlayActivity extends BaiduMapActivity implements
 		mMapView =(MapView)findViewById(R.id.mapView);
 	    mMapView.setBuiltInZoomControls(false);
 	    mMapView.setDrawOverlayWhenZooming(true);
-	    
+
 	    initialOverlays();
-	    
 	    attachPopView();
 	}
 
