@@ -31,4 +31,5 @@
 	<string name="taskBarText">任务列表</string>
 	<string name="addPositionText">定位此地址</string>
 	<string name="canNotFindPostion">无法定位你的位置，请检查是否打开了定位功能</string>
+	<string name="howto">如何定位</string>
 </resources>
