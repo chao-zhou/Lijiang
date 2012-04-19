@@ -44,8 +44,12 @@ public class MenuBarLayout extends TableLayout implements getButtons {
 	private void getButtons(){
 		buttons = new ArrayList<View>();
 		ViewGroup tableRow = (ViewGroup)getChildAt(0);
-		for(int index =0 ; index< tableRow.getChildCount();index++){
-			buttons.add(tableRow.getChildAt(index));	
+		View view = null;
+		for(int index =0 ; index< tableRow.getChildCount();index++){	
+			view = tableRow.getChildAt(index);
+			if(view.isFocusable()){
+				buttons.add(view);	
+			}
 		}
 	}
 
