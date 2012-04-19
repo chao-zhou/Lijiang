@@ -17,12 +17,13 @@ import com.utopia.lijiang.widget.OnMenuBarSelectListener;
 public class MainActivity extends TabActivity {
 	
 	public final static int ADD_POSITION_TAB_INDEX = 0;
-	final static int ANIMATIION_DURATION = 300;	
+	final static int ANIMATIION_DURATION = 450;	
 	static MainActivity instance = null;
 		
 	View lastView = null;
 	MenuBarLayout menuBar = null;
 	TabHost tabHost = null;
+	int currentTabId,lastTabId;
 	
 	public static MainActivity getInstance(){
 		return instance;
@@ -46,11 +47,26 @@ public class MainActivity extends TabActivity {
 
 			@Override
 			public void onTabChanged(String tabId) {
-				 View currentView = tabHost.getCurrentView();
+				if(currentTabId > lastTabId){
+					MoveIntoFromLeft();
+				}else
+				{
+					MoveIntoFromRight();
+				}
+			}
+	    	
+			private void MoveIntoFromLeft(){
+				View currentView = tabHost.getCurrentView();
 				 lastView.setAnimation(outToLeftAnimation());
 			     currentView.setAnimation(inFromRightAnimation());
 			}
-	    	
+			
+			private void MoveIntoFromRight(){
+				View currentView = tabHost.getCurrentView();
+				 lastView.setAnimation(outToRightAnimation());
+			     currentView.setAnimation(inFromLeftAnimation());
+			}
+			
 	    });
 	    
 	    menuBar.setOnMenuBarSelectListener(new OnMenuBarSelectListener(){
@@ -63,6 +79,9 @@ public class MainActivity extends TabActivity {
 
 	public void setCurrentTab(int index){
 		   lastView = tabHost.getCurrentView();
+		   lastTabId = currentTabId;
+		   
+		   currentTabId = index;
 		   tabHost.setCurrentTab(index);
 		   menuBar.setButtonSelected(index, true);
 		   
@@ -78,6 +97,18 @@ public class MainActivity extends TabActivity {
 	    tabHost.addTab(spec);
 	}
 		
+	private Animation inFromLeftAnimation() {
+
+	    Animation inFromRight = new TranslateAnimation(
+	            Animation.RELATIVE_TO_PARENT, -1.0f,
+	            Animation.RELATIVE_TO_PARENT, 0.0f,
+	            Animation.RELATIVE_TO_PARENT, 0.0f,
+	            Animation.RELATIVE_TO_PARENT, 0.0f);
+	    inFromRight.setDuration(ANIMATIION_DURATION);
+	    inFromRight.setInterpolator(new AccelerateInterpolator());
+	    return inFromRight;
+}
+	
 	private Animation inFromRightAnimation() {
 
 		    Animation inFromRight = new TranslateAnimation(
@@ -100,4 +131,15 @@ public class MainActivity extends TabActivity {
 		    outtoLeft.setInterpolator(new AccelerateInterpolator());
 		    return outtoLeft;
 	}
+	
+	private Animation outToRightAnimation() {
+	    Animation outtoLeft = new TranslateAnimation(
+	            Animation.RELATIVE_TO_PARENT, 0.0f,
+	            Animation.RELATIVE_TO_PARENT, +1.0f,
+	            Animation.RELATIVE_TO_PARENT, 0.0f,
+	            Animation.RELATIVE_TO_PARENT, 0.0f);
+	    outtoLeft.setDuration(ANIMATIION_DURATION);
+	    outtoLeft.setInterpolator(new AccelerateInterpolator());
+	    return outtoLeft;
+}
 }
