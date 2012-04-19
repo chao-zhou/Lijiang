@@ -34,6 +34,10 @@
 	    android:layout_below="@+id/howto_center_pic"
 	    android:layout_centerHorizontal="true"
 	    android:onClick="showAddAlarmActivity"
-	    android:text="@string/btnFirstLocate" />
-	
+	    android:text="@string/btnFirstLocate"
+	    android:textSize="14sp"
+	    android:textStyle="bold"
+	    android:textColor="#ffffff"
+	    android:padding="10dp"
+	    android:background="@drawable/add_positon_button_bg" />
 </RelativeLayout>
