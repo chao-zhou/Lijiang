@@ -56,6 +56,7 @@ public abstract class LijiangOverlayActivity extends BaiduMapActivity implements
 		// TODO Auto-generated method stub
 		super.onResume();
 		initialOverlays();
+		hidePopView();
 	}
 	
 	@Override
@@ -175,5 +176,9 @@ public abstract class LijiangOverlayActivity extends BaiduMapActivity implements
 		return true;
 	}
 	
+	protected void hidePopView()
+	{
+		mPopView.setVisibility(View.GONE);
+	}
 	
 }
