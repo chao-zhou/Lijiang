@@ -7,9 +7,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.view.animation.AccelerateInterpolator;
-import android.view.animation.Animation;
-import android.view.animation.TranslateAnimation;
+import android.view.animation.AnimationUtils;
 import android.widget.TabHost;
 import android.widget.TabHost.OnTabChangeListener;
 
@@ -50,10 +48,10 @@ public class MainActivity extends TabActivity {
 			@Override
 			public void onTabChanged(String tabId) {
 				if(currentTabId > lastTabId){
-					MoveIntoFromLeft();
+					MoveRightToLeft();
 				}else
 				{
-					MoveIntoFromRight();
+					MoveLeftToRigt();
 				}
 			}	
 			
@@ -115,65 +113,19 @@ public class MainActivity extends TabActivity {
 				.show();
 	}
 	
-	
 	/*
 	 * Animation 
 	 */	
-	private void MoveIntoFromLeft(){
+	private void MoveLeftToRigt(){
 		View currentView = tabHost.getCurrentView();
-		 lastView.setAnimation(outToLeftAnimation());
-	     currentView.setAnimation(inFromRightAnimation());
+		 lastView.setAnimation(AnimationUtils.loadAnimation(this, R.anim.out_left_right));
+	     currentView.setAnimation(AnimationUtils.loadAnimation(this, R.anim.in_left_right));
 	}
 	
-	private void MoveIntoFromRight(){
+	private void MoveRightToLeft(){
 		View currentView = tabHost.getCurrentView();
-		 lastView.setAnimation(outToRightAnimation());
-	     currentView.setAnimation(inFromLeftAnimation());
+		 lastView.setAnimation(AnimationUtils.loadAnimation(this, R.anim.out_right_left));
+	     currentView.setAnimation(AnimationUtils.loadAnimation(this, R.anim.in_right_left));
 	}
 	
-	private Animation inFromLeftAnimation() {
-
-	    Animation inFromRight = new TranslateAnimation(
-	            Animation.RELATIVE_TO_PARENT, -1.0f,
-	            Animation.RELATIVE_TO_PARENT, 0.0f,
-	            Animation.RELATIVE_TO_PARENT, 0.0f,
-	            Animation.RELATIVE_TO_PARENT, 0.0f);
-	    inFromRight.setDuration(ANIMATIION_DURATION);
-	    inFromRight.setInterpolator(new AccelerateInterpolator());
-	    return inFromRight;
-}
-	
-	private Animation inFromRightAnimation() {
-
-		    Animation inFromRight = new TranslateAnimation(
-		            Animation.RELATIVE_TO_PARENT, +1.0f,
-		            Animation.RELATIVE_TO_PARENT, 0.0f,
-		            Animation.RELATIVE_TO_PARENT, 0.0f,
-		            Animation.RELATIVE_TO_PARENT, 0.0f);
-		    inFromRight.setDuration(ANIMATIION_DURATION);
-		    inFromRight.setInterpolator(new AccelerateInterpolator());
-		    return inFromRight;
-	}
-
-	private Animation outToLeftAnimation() {
-		    Animation outtoLeft = new TranslateAnimation(
-		            Animation.RELATIVE_TO_PARENT, 0.0f,
-		            Animation.RELATIVE_TO_PARENT, -1.0f,
-		            Animation.RELATIVE_TO_PARENT, 0.0f,
-		            Animation.RELATIVE_TO_PARENT, 0.0f);
-		    outtoLeft.setDuration(ANIMATIION_DURATION);
-		    outtoLeft.setInterpolator(new AccelerateInterpolator());
-		    return outtoLeft;
-	}
-	
-	private Animation outToRightAnimation() {
-	    Animation outtoLeft = new TranslateAnimation(
-	            Animation.RELATIVE_TO_PARENT, 0.0f,
-	            Animation.RELATIVE_TO_PARENT, +1.0f,
-	            Animation.RELATIVE_TO_PARENT, 0.0f,
-	            Animation.RELATIVE_TO_PARENT, 0.0f);
-	    outtoLeft.setDuration(ANIMATIION_DURATION);
-	    outtoLeft.setInterpolator(new AccelerateInterpolator());
-	    return outtoLeft;
-}
 }
