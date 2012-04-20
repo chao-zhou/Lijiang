@@ -1,7 +1,9 @@
 package com.utopia.lijiang;
 
+import android.app.AlertDialog;
 import android.app.TabActivity;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -53,19 +55,7 @@ public class MainActivity extends TabActivity {
 				{
 					MoveIntoFromRight();
 				}
-			}
-	    	
-			private void MoveIntoFromLeft(){
-				View currentView = tabHost.getCurrentView();
-				 lastView.setAnimation(outToLeftAnimation());
-			     currentView.setAnimation(inFromRightAnimation());
-			}
-			
-			private void MoveIntoFromRight(){
-				View currentView = tabHost.getCurrentView();
-				 lastView.setAnimation(outToRightAnimation());
-			     currentView.setAnimation(inFromLeftAnimation());
-			}
+			}	
 			
 	    });
 	    
@@ -96,7 +86,51 @@ public class MainActivity extends TabActivity {
 		TabHost.TabSpec spec = tabHost.newTabSpec(tag).setIndicator(indicator).setContent(intent);
 	    tabHost.addTab(spec);
 	}
-		
+	
+	
+	/*
+	 * Pass the Back Press event to parent
+	 * @see android.app.Activity#onBackPressed()
+	 */
+	@Override
+	public void onBackPressed() {
+		showExitNotification();
+	}
+
+	private void showExitNotification(){
+		AlertDialog.Builder builder = new AlertDialog.Builder(this);
+		builder.setMessage(getString(R.string.exit_warning))
+		       .setCancelable(true)
+		       .setPositiveButton(getString(R.string.yes), new DialogInterface.OnClickListener(){
+				@Override
+				public void onClick(DialogInterface dialog, int id) {
+					MainActivity.this.finish();
+				}})
+				.setNegativeButton(getString(R.string.no),  new DialogInterface.OnClickListener(){
+				@Override
+				public void onClick(DialogInterface dialog, int id) {
+					dialog.cancel();
+				}})
+				.create()
+				.show();
+	}
+	
+	
+	/*
+	 * Animation 
+	 */	
+	private void MoveIntoFromLeft(){
+		View currentView = tabHost.getCurrentView();
+		 lastView.setAnimation(outToLeftAnimation());
+	     currentView.setAnimation(inFromRightAnimation());
+	}
+	
+	private void MoveIntoFromRight(){
+		View currentView = tabHost.getCurrentView();
+		 lastView.setAnimation(outToRightAnimation());
+	     currentView.setAnimation(inFromLeftAnimation());
+	}
+	
 	private Animation inFromLeftAnimation() {
 
 	    Animation inFromRight = new TranslateAnimation(
