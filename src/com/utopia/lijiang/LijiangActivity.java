@@ -39,7 +39,7 @@ public class LijiangActivity extends Activity  {
 	private ListView listView = null;
 	private View emptyView = null;
 	AlarmManager alarmMgr = null;
-
+	
 	/**
 	 * Singleton method, this will be update after this activity is launched
 	 * @return The Latest showed LijiangActivity
@@ -81,7 +81,26 @@ public class LijiangActivity extends Activity  {
     	
     	alarmMgr.save2DB(this);
     }   
-        
+       
+   
+    /*
+	 * Pass the Back Press event to parent
+	 * @see android.app.Activity#onBackPressed()
+	 */
+	@Override
+	public void onBackPressed() {
+		if(viewState == STATE_EDIT){
+			setListViewState(STATE_LIST);
+			return;
+		}
+		
+		Activity parent = this.getParent();
+		if(parent != null){
+			parent.onBackPressed();
+		}
+	}
+    
+   
     /** Do work after showAddAlarm button is clicked
      * @param target trigger
      * */
@@ -154,6 +173,7 @@ public class LijiangActivity extends Activity  {
 		setListViewState(getListViewState());
 	}
 	
+
 	//--------------------------
 	// Show alarming alarms
 	//--------------------------
