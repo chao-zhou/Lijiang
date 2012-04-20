@@ -1,5 +1,6 @@
 package com.utopia.lijiang;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
@@ -40,6 +41,24 @@ public class LijiangMapActivity extends LijiangOverlayActivity {
 	    initialSearch();
 	}
 
+	/*
+	 * Pass the Back Press event to parent
+	 * @see android.app.Activity#onBackPressed()
+	 */
+	@Override
+	public void onBackPressed() {
+		
+		if(mPopView.getVisibility() == View.VISIBLE){
+			mPopView.setVisibility(View.GONE);
+			return;
+		}
+		
+		Activity parent = this.getParent();
+		if(parent != null){
+			parent.onBackPressed();
+		}
+	}
+	
 	public void searchPosition(View targer){
 		String poiName = getPostionName();
 		if(poiName.length()>0){
