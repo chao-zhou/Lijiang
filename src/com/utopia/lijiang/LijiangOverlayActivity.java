@@ -142,6 +142,8 @@ public abstract class LijiangOverlayActivity extends BaiduMapActivity implements
 	
 	protected void attachPopView(){
 		mPopView=super.getLayoutInflater().inflate(R.layout.popview2, null);
+		mPopView.setVisibility(View.GONE);
+		
 		popName=(TextView)mPopView.findViewById(R.id.popName);
 		popAddress=(TextView)mPopView.findViewById(R.id.popAddress);
 		showDetailIndicator = (View)mPopView.findViewById(R.id.popShowDetail);
