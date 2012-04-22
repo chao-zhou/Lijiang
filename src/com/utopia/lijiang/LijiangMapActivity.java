@@ -1,5 +1,7 @@
 package com.utopia.lijiang;
 
+import java.util.ArrayList;
+
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
@@ -18,6 +20,7 @@ import android.widget.Toast;
 
 import com.baidu.mapapi.MKAddrInfo;
 import com.baidu.mapapi.MKDrivingRouteResult;
+import com.baidu.mapapi.MKPoiInfo;
 import com.baidu.mapapi.MKPoiResult;
 import com.baidu.mapapi.MKSearch;
 import com.baidu.mapapi.MKSearchListener;
@@ -155,7 +158,15 @@ public class LijiangMapActivity extends LijiangOverlayActivity {
 						return;
 					}
 					
-					searchOverlay.setData(res.getAllPoi());
+					ArrayList<MKPoiInfo> poiInfos = res.getAllPoi();
+					if(poiInfos == null){
+						Toast.makeText(LijiangMapActivity.this, 
+								LijiangMapActivity.this.getString(R.string.empty_pos_rslt), 
+								100);
+						return;
+					}
+	
+					searchOverlay.setData(poiInfos);
 					mMapView.invalidate();
 					progressDialog.cancel();
 				}

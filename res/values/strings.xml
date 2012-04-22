@@ -33,4 +33,6 @@
 	<string name="canNotFindPostion">无法定位你的位置，请检查是否打开了定位功能</string>
 	<string name="howto">如何定位</string>
 	<string name="exit_warning">确定要退出程序吗？</string>
+	<string name="empty_pos_rslt">没有合适的查询结果</string>
+	
 </resources>
