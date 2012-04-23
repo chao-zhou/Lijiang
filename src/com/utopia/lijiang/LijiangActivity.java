@@ -62,18 +62,17 @@ public class LijiangActivity extends Activity  {
     	alarmMgr = AlarmManager.getInstance();
 
     }    
-
-    /**Called when the activity is active*/
+ 
     @Override
-    public void onStart(){
-    	Log.d(getString(R.string.debug_tag),"Start LijiangActivity ");
-    	super.onStart();
+	protected void onResume() {
+    	Log.d(getString(R.string.debug_tag),"Resume LijiangActivity ");
+    	super.onResume();
     	
     	showAlarmingAlarms();
     	setListViewState(STATE_LIST);
-    }
-    
-    /**Called when the activity is finished*/
+	}
+
+	/**Called when the activity is finished*/
     @Override
     public void onDestroy(){
     	Log.d(getString(R.string.debug_tag),"Destroy LijiangActivity");
