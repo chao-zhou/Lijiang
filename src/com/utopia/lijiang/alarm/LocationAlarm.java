@@ -66,7 +66,7 @@ public class LocationAlarm implements Alarm{
 	public double getDistance(){
 		Location loc = Status.getCurrentStatus().getLocation();
 		if( loc == null){
-			return 0;
+			return -1;
 		}	
 		return getDistance(loc.getLongitude(),loc.getLatitude());
 	}
