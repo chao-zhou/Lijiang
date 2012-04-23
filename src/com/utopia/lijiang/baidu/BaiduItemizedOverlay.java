@@ -82,6 +82,7 @@ public class BaiduItemizedOverlay extends ItemizedOverlay<OverlayItem>{
 		Projection projection = mapView.getProjection(); 
 		for (int index = size() - 1; index >= 0; index--) { 
 			OverlayItem overLayItem = getItem(index);
+			@SuppressWarnings("unused")
 			String title = overLayItem.getTitle();
 			Point point = projection.toPixels(overLayItem.getPoint(), null); 
 

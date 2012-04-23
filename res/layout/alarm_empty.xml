@@ -1,20 +1,43 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical" 
-    android:gravity="center" 
-    android:layout_gravity="center">
-	<TextView 
+    android:background="@drawable/mainBackgroundColor">
+	<TextView
+	    android:layout_width="wrap_content"
+	    android:layout_height="wrap_content"
+	    android:layout_above="@+id/howto_center_pic"
+	    android:layout_alignLeft="@+id/howto_center_pic"
+	    android:textSize="18sp"
+	    android:textStyle="bold"
+	    android:textColor="#333333"
+	    android:text="@string/howto" />
+	<ImageView 
+	    android:id="@+id/howto_center_pic"
 	    android:layout_width="wrap_content"
     	android:layout_height="wrap_content"
-    	android:text="@string/guide"/>
+    	android:src="@drawable/howto_center_pic"
+    	android:adjustViewBounds="true"
+    	android:layout_marginLeft="10dp"
+    	android:layout_marginRight="10dp"
+    	android:layout_marginTop="10dp"
+    	android:layout_marginBottom="15dp"
+    	android:scaleType="centerInside"
+    	android:layout_centerInParent="true"
+    	android:background="@drawable/simple_border"
+    	android:padding="6dp"
+	/>
 	<Button
 	    android:id="@+id/btnFirstLocate"
 	    android:layout_width="wrap_content"
-    	android:layout_height="wrap_content"
-    	android:text="@string/btnFirstLocate"
-    	android:onClick="showAddAlarmActivity"
-    />
-	
-</LinearLayout>
+	    android:layout_height="wrap_content"
+	    android:layout_below="@+id/howto_center_pic"
+	    android:layout_centerHorizontal="true"
+	    android:onClick="showAddAlarmActivity"
+	    android:text="@string/btnFirstLocate"
+	    android:textSize="14sp"
+	    android:textStyle="bold"
+	    android:textColor="#ffffff"
+	    android:padding="10dp"
+	    android:background="@drawable/add_positon_button_bg" />
+</RelativeLayout>

@@ -1,5 +1,8 @@
 package com.utopia.lijiang;
 
+import java.util.ArrayList;
+
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
@@ -17,6 +20,7 @@ import android.widget.Toast;
 
 import com.baidu.mapapi.MKAddrInfo;
 import com.baidu.mapapi.MKDrivingRouteResult;
+import com.baidu.mapapi.MKPoiInfo;
 import com.baidu.mapapi.MKPoiResult;
 import com.baidu.mapapi.MKSearch;
 import com.baidu.mapapi.MKSearchListener;
@@ -40,6 +44,24 @@ public class LijiangMapActivity extends LijiangOverlayActivity {
 	    initialSearch();
 	}
 
+	/*
+	 * Pass the Back Press event to parent
+	 * @see android.app.Activity#onBackPressed()
+	 */
+	@Override
+	public void onBackPressed() {
+		
+		if(mPopView.getVisibility() == View.VISIBLE){
+			mPopView.setVisibility(View.GONE);
+			return;
+		}
+		
+		Activity parent = this.getParent();
+		if(parent != null){
+			parent.onBackPressed();
+		}
+	}
+	
 	public void searchPosition(View targer){
 		String poiName = getPostionName();
 		if(poiName.length()>0){
@@ -136,7 +158,15 @@ public class LijiangMapActivity extends LijiangOverlayActivity {
 						return;
 					}
 					
-					searchOverlay.setData(res.getAllPoi());
+					ArrayList<MKPoiInfo> poiInfos = res.getAllPoi();
+					if(poiInfos == null){
+						Toast.makeText(LijiangMapActivity.this, 
+								LijiangMapActivity.this.getString(R.string.empty_pos_rslt), 
+								100);
+						return;
+					}
+	
+					searchOverlay.setData(poiInfos);
 					mMapView.invalidate();
 					progressDialog.cancel();
 				}
