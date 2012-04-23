@@ -87,8 +87,8 @@ public class LijiangMapActivity extends LijiangOverlayActivity {
 		 Intent i = new Intent(this,AddAlarmActivity.class);
 		 i.putExtra(AddAlarmActivity.ALARM_TITLE, title);
 		 i.putExtra(AddAlarmActivity.ALARM_MESSAGE, message);
-		 i.putExtra(AddAlarmActivity.ALARM_LONGITUDEE6, tappedPoint.getLongitudeE6());
-		 i.putExtra(AddAlarmActivity.ALARM_LATITUDEE6, tappedPoint.getLatitudeE6());
+		 i.putExtra(AddAlarmActivity.ALARM_LONGITUDEE6, (double)tappedPoint.getLongitudeE6()/1E6);
+		 i.putExtra(AddAlarmActivity.ALARM_LATITUDEE6, (double)tappedPoint.getLatitudeE6()/1E6);
 		 
 		 this.startActivity(i);
 	}
