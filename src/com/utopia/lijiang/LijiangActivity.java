@@ -12,6 +12,7 @@ import android.view.View;
 import android.widget.ListView;
 
 import com.utopia.lijiang.alarm.Alarm;
+import com.utopia.lijiang.alarm.AlarmListener;
 import com.utopia.lijiang.alarm.AlarmManager;
 import com.utopia.lijiang.service.LocationService;
 /** Main Activity of the application.
@@ -38,6 +39,7 @@ public class LijiangActivity extends Activity  {
 	private int viewState;
 	private ListView listView = null;
 	private View emptyView = null;
+	private AlarmListener alarmListener = null;
 	AlarmManager alarmMgr = null;
 	
 	/**
@@ -60,7 +62,14 @@ public class LijiangActivity extends Activity  {
     	emptyView = (View)this.findViewById(R.id.alarmListEmpty);
     	
     	alarmMgr = AlarmManager.getInstance();
+    	alarmListener = new AlarmListener(){
 
+			@Override
+			public void onAlarm(Alarm[] alarms) {
+				showAlarmingAlarms();
+			}};
+			
+    	alarmMgr.addAlarmListener(alarmListener);
     }    
  
     @Override
