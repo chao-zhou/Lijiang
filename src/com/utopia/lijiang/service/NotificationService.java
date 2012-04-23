@@ -1,15 +1,15 @@
 package com.utopia.lijiang.service;
 
-import com.utopia.lijiang.LijiangActivity;
-import com.utopia.lijiang.R;
-import com.utopia.lijiang.util.NotificationUtil;
-
 import android.app.Notification;
 import android.app.PendingIntent;
 import android.app.Service;
 import android.content.Intent;
 import android.os.IBinder;
 import android.util.Log;
+
+import com.utopia.lijiang.MainActivity;
+import com.utopia.lijiang.R;
+import com.utopia.lijiang.util.NotificationUtil;
 
 /** A service contain method for send notification
  * */
@@ -36,7 +36,7 @@ public class NotificationService extends Service {
 	}
 	
 	private PendingIntent getContentIntent(){
-		 Intent i = new Intent(this,LijiangActivity.class); 
+		 Intent i = new Intent(this,MainActivity.class); 
 	     PendingIntent contentIntent = PendingIntent.getActivity(this,0,i,PendingIntent.FLAG_CANCEL_CURRENT);
 	     return contentIntent;
 	}
