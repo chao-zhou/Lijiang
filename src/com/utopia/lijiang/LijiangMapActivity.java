@@ -29,8 +29,8 @@ import com.baidu.mapapi.MKWalkingRouteResult;
 import com.utopia.lijiang.view.SafeProgressDialog;
 
 public class LijiangMapActivity extends LijiangOverlayActivity {
-	MKSearch mSearch = null;
-	MKPoiResult searchResult = null;
+	public static MKSearch mSearch = null;
+	public static MKPoiResult searchResult = null;
 	EditText poiNameEditText = null;
 	InputMethodManager imm = null;
 	ProgressDialog progressDialog = null;
@@ -119,7 +119,13 @@ public class LijiangMapActivity extends LijiangOverlayActivity {
 	}
 	
 	public void showLocationList(View target){
+		if(searchResult == null){
+			poiNameEditText.requestFocus();
+			return;
+		}
 		
+		Intent intent = new Intent(this, PoiListActivity.class);
+		this.startActivityForResult(intent, 0);
 	}
 	
 	private String getPostionName(){

@@ -37,16 +37,12 @@
             android:name=".MainActivity"
             android:launchMode="singleInstance"> 
         </activity>	 		
-        <activity
-            android:label="@string/app_name"
-            android:name=".LijiangActivity"
-            android:launchMode="singleInstance"> 
-        </activity>
+        <activity android:name=".LijiangActivity"></activity>
         <activity android:name=".LijiangMapActivity"></activity>
         <activity android:name=".AddAlarmActivity"></activity>
-        <activity android:name=".LijiangMapActivity">
-        </activity>
-        <service android:name=".service.LocationService"></service>      
+        <activity android:name=".LijiangMapActivity"></activity>
+        <service android:name=".service.LocationService"></service>
+        <activity android:name=".PoiListActivity"></activity>      
     </application>
     
 </manifest>
