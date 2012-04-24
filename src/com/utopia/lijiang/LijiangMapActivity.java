@@ -30,6 +30,7 @@ import com.utopia.lijiang.view.SafeProgressDialog;
 
 public class LijiangMapActivity extends LijiangOverlayActivity {
 	MKSearch mSearch = null;
+	MKPoiResult searchResult = null;
 	EditText poiNameEditText = null;
 	InputMethodManager imm = null;
 	ProgressDialog progressDialog = null;
@@ -131,6 +132,46 @@ public class LijiangMapActivity extends LijiangOverlayActivity {
 		}
 	}
 	
+	public void showPreviousPagePoiResualt(View target){
+		if(searchResult == null){
+			poiNameEditText.requestFocus();
+			return;
+		}
+		
+		int currentPage = searchResult.getPageIndex();
+		int previousPage = currentPage-1;	
+		if(previousPage>0){
+			mSearch.goToPoiPage(previousPage);
+		}
+	}
+
+	public void showNextPagePoiResualt(View target){
+		if(searchResult == null){
+			poiNameEditText.requestFocus();
+			return;
+		}
+		
+		int maxPages = searchResult.getNumPages();
+		int currentPage = searchResult.getPageIndex();
+		int nextPage = currentPage+1;
+		if(nextPage<maxPages){
+			mSearch.goToPoiPage(nextPage);
+		}
+	}
+	
+	private void showSearchResult() {
+		ArrayList<MKPoiInfo> poiInfos = searchResult.getAllPoi();	
+		if(poiInfos == null){
+			Toast.makeText(LijiangMapActivity.this, 
+					LijiangMapActivity.this.getString(R.string.empty_pos_rslt), 
+					100);
+			return;
+		}
+
+		searchOverlay.setData(poiInfos);
+		mMapView.invalidate();
+	}
+	
 	private void initialProgressDialog(){
 		//progressDialog = new ProgressDialog(this);
 		progressDialog = new SafeProgressDialog(this,MAX_SEARCHING_SECOND);
@@ -150,24 +191,15 @@ public class LijiangMapActivity extends LijiangOverlayActivity {
 				public void onGetDrivingRouteResult(MKDrivingRouteResult arg0,int arg1) {}
 
 				@Override
-				public void onGetPoiResult(MKPoiResult res, int type, int error) {
-					// TODO Auto-generated method stub
-					if (error != 0 || res == null) {
+				public void onGetPoiResult(MKPoiResult res, int type, int error) {					
+					searchResult = res;					
+					if (error != 0 || searchResult == null) {
 						progressDialog.hide();
 						Toast.makeText(LijiangMapActivity.this, "Error or Empty", Toast.LENGTH_LONG).show();
 						return;
 					}
 					
-					ArrayList<MKPoiInfo> poiInfos = res.getAllPoi();
-					if(poiInfos == null){
-						Toast.makeText(LijiangMapActivity.this, 
-								LijiangMapActivity.this.getString(R.string.empty_pos_rslt), 
-								100);
-						return;
-					}
-	
-					searchOverlay.setData(poiInfos);
-					mMapView.invalidate();
+					showSearchResult();
 					progressDialog.cancel();
 				}
 
