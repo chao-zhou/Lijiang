@@ -133,6 +133,10 @@ public class LijiangActivity extends Activity  {
     	setListViewState(STATE_LIST);
     }
     
+    public void refreshList(){
+		setListViewState(getListViewState());
+	}
+    
     /**Fill Data into Task List*/
 	private void bindList(List<Alarm> alarms){ 
 	       AlarmAdapter adapter = 
@@ -175,10 +179,6 @@ public class LijiangActivity extends Activity  {
 		}
 		
 		listView.setEmptyView(view);
-	}
-
-	private void refreshList(){
-		setListViewState(getListViewState());
 	}
 	
 
