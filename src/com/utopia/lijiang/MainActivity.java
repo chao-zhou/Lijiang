@@ -1,6 +1,6 @@
 package com.utopia.lijiang;
 
-import java.util.Iterator;
+import java.util.List;
 
 import android.app.AlertDialog;
 import android.app.TabActivity;
@@ -32,6 +32,7 @@ public class MainActivity extends TabActivity {
 	int currentTabId,lastTabId;
 	AlarmListener alarmListener = null;
 	AlarmManager alarmMgr = null;
+	AlertDialog alert = null;
 	
 	public static MainActivity getInstance(){
 		return instance;
@@ -52,6 +53,10 @@ public class MainActivity extends TabActivity {
 	@Override
 	public void onResume(){
 		super.onResume();
+		if(alert !=null){
+			alert.cancel();
+		}
+		//Should Hide last dialog fisrt
 	   	showAlarmingAlarms();
 	}
 	
@@ -122,13 +127,11 @@ public class MainActivity extends TabActivity {
 	}
 	
 	private void showAlarmingAlarms(){
-		Iterator<Alarm> it = alarmMgr.getAlarmingAlarms().iterator();
-		while(it.hasNext()){
-			showAlarmDialog(it.next());
-		}	
-	}
+		if(alarmMgr.getAlarmingAlarms().size() < 1){
+			return;
+		}
 		
-	private void showAlarmDialog(final Alarm alarm){
+		final Alarm alarm = alarmMgr.getAlarmingAlarms().get(0);
 		String posStr = getString(R.string.known);
 		@SuppressWarnings("unused")
 		String negStr = getString(R.string.no);
@@ -138,22 +141,23 @@ public class MainActivity extends TabActivity {
 		builder.setMessage(msg)
 			      .setPositiveButton(posStr, new DialogInterface.OnClickListener() {
 			          public void onClick(DialogInterface dialog, int id) {
-			        	  alarm.setActive(false);
-			        	  alarmMgr.save2DB(MainActivity.this);
-			        	  
-			        	  alarmMgr.getAlarmingAlarms().remove(alarm);
-			        	  LocationService.getLatestInstance().refreshAlarmNotification();
-			        	  LijiangActivity.getLatestInstance().refreshList();
-			        	  
+			        	  inactiveAlarm(alarm);
+			        	  refreshStatus();	
+			        	  showAlarmingAlarms();
 			           }
-			       })
-			      /* .setNegativeButton(negStr, new DialogInterface.OnClickListener() {
-			           public void onClick(DialogInterface dialog, int id) {
-			                dialog.cancel();
-			           }
-			       })*/;
-			AlertDialog alert = builder.create();
+			       });
+			alert = builder.create();
 			alert.show();
+	}
+	
+	private void inactiveAlarm(Alarm alarm){
+		alarm.setActive(false);
+   	  	alarmMgr.save2DB(MainActivity.this); 
+	}
+	
+	private void refreshStatus(){
+		LocationService.getLatestInstance().refreshAlarmNotification();
+    	LijiangActivity.getLatestInstance().refreshList();
 	}
 	
 	/*
