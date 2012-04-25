@@ -1,5 +1,7 @@
 package com.utopia.lijiang;
 
+import java.util.Iterator;
+
 import android.app.AlertDialog;
 import android.app.TabActivity;
 import android.content.Context;
@@ -11,6 +13,10 @@ import android.view.animation.AnimationUtils;
 import android.widget.TabHost;
 import android.widget.TabHost.OnTabChangeListener;
 
+import com.utopia.lijiang.alarm.Alarm;
+import com.utopia.lijiang.alarm.AlarmListener;
+import com.utopia.lijiang.alarm.AlarmManager;
+import com.utopia.lijiang.service.LocationService;
 import com.utopia.lijiang.widget.MenuBarLayout;
 import com.utopia.lijiang.widget.OnMenuBarSelectListener;
 
@@ -24,6 +30,8 @@ public class MainActivity extends TabActivity {
 	MenuBarLayout menuBar = null;
 	TabHost tabHost = null;
 	int currentTabId,lastTabId;
+	AlarmListener alarmListener = null;
+	AlarmManager alarmMgr = null;
 	
 	public static MainActivity getInstance(){
 		return instance;
@@ -32,39 +40,51 @@ public class MainActivity extends TabActivity {
 	public void onCreate(Bundle savedInstanceState) {
 	    super.onCreate(savedInstanceState);
 	    setContentView(R.layout.main_tab);
-	   
-	    instance = this;
 	    
-	    tabHost = getTabHost();  
-	    menuBar = (MenuBarLayout)this.findViewById(R.id.menubar);
-	   
-	    addTab(this,LijiangMapActivity.class,"Position","postion");
-	    addTab(this,LijiangActivity.class,"Alarms","alarms");    
+	    instance = this;
+	    initialTabs();
+	    initialMenuBar();
+	    initialAlarmListener();
 	    
 	    setCurrentTab(1);
-	    
-	    tabHost.setOnTabChangedListener(new OnTabChangeListener(){
-
-			@Override
-			public void onTabChanged(String tabId) {
-				if(currentTabId > lastTabId){
-					MoveRightToLeft();
-				}else
-				{
-					MoveLeftToRigt();
-				}
-			}	
-			
-	    });
-	    
-	    menuBar.setOnMenuBarSelectListener(new OnMenuBarSelectListener(){
-
-			@Override
-			public void onSelected(int index, View v) {
-				setCurrentTab(index);
-			}}); 
 	}
 
+	@Override
+	public void onResume(){
+		super.onResume();
+	   	showAlarmingAlarms();
+	}
+	
+	/*
+	 *  Tab
+	 */	
+	private void initialTabs(){
+		  tabHost = getTabHost();  
+		  addTab(this,LijiangMapActivity.class,"Position","postion");
+		  addTab(this,LijiangActivity.class,"Alarms","alarms");       
+		  tabHost.setOnTabChangedListener(new OnTabChangeListener(){
+				@Override
+				public void onTabChanged(String tabId) {
+					if(currentTabId > lastTabId){
+						MoveRightToLeft();
+					}else
+					{
+						MoveLeftToRigt();
+					}
+				}	
+		    });
+	} 
+	
+	private void initialMenuBar(){
+		  menuBar = (MenuBarLayout)this.findViewById(R.id.menubar);
+		  menuBar.setOnMenuBarSelectListener(new OnMenuBarSelectListener(){
+
+				@Override
+				public void onSelected(int index, View v) {
+					setCurrentTab(index);
+				}}); 
+	}
+	
 	public void setCurrentTab(int index){
 		   lastView = tabHost.getCurrentView();
 		   lastTabId = currentTabId;
@@ -85,6 +105,56 @@ public class MainActivity extends TabActivity {
 	    tabHost.addTab(spec);
 	}
 	
+	//--------------------------
+	// Show alarming alarms
+	//--------------------------
+	
+	private void initialAlarmListener(){
+		alarmMgr = AlarmManager.getInstance();
+    	alarmListener = new AlarmListener(){
+
+			@Override
+			public void onAlarm(Alarm[] alarms) {
+				showAlarmingAlarms();
+			}};
+			
+    	alarmMgr.addAlarmListener(alarmListener);
+	}
+	
+	private void showAlarmingAlarms(){
+		Iterator<Alarm> it = alarmMgr.getAlarmingAlarms().iterator();
+		while(it.hasNext()){
+			showAlarmDialog(it.next());
+		}	
+	}
+		
+	private void showAlarmDialog(final Alarm alarm){
+		String posStr = getString(R.string.known);
+		@SuppressWarnings("unused")
+		String negStr = getString(R.string.no);
+		String msg = String.format(getString(R.string.locatinNearFormat), alarm.getTitle());
+			
+		AlertDialog.Builder builder = new AlertDialog.Builder(this);
+		builder.setMessage(msg)
+			      .setPositiveButton(posStr, new DialogInterface.OnClickListener() {
+			          public void onClick(DialogInterface dialog, int id) {
+			        	  alarm.setActive(false);
+			        	  alarmMgr.save2DB(MainActivity.this);
+			        	  
+			        	  alarmMgr.getAlarmingAlarms().remove(alarm);
+			        	  LocationService.getLatestInstance().refreshAlarmNotification();
+			        	  LijiangActivity.getLatestInstance().refreshList();
+			        	  
+			           }
+			       })
+			      /* .setNegativeButton(negStr, new DialogInterface.OnClickListener() {
+			           public void onClick(DialogInterface dialog, int id) {
+			                dialog.cancel();
+			           }
+			       })*/;
+			AlertDialog alert = builder.create();
+			alert.show();
+	}
 	
 	/*
 	 * Pass the Back Press event to parent

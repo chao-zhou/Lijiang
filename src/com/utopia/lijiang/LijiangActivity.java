@@ -39,8 +39,7 @@ public class LijiangActivity extends Activity  {
 	private int viewState;
 	private ListView listView = null;
 	private View emptyView = null;
-	private AlarmListener alarmListener = null;
-	AlarmManager alarmMgr = null;
+	private AlarmManager alarmMgr = null;
 	
 	/**
 	 * Singleton method, this will be update after this activity is launched
@@ -58,26 +57,19 @@ public class LijiangActivity extends Activity  {
     	super.onCreate(savedInstanceState);     	
     	setContentView(R.layout.main_new);
     	
+    	instance = this;
+    	
     	listView = (ListView)this.findViewById(R.id.alarmList);
     	emptyView = (View)this.findViewById(R.id.alarmListEmpty);
-    	
     	alarmMgr = AlarmManager.getInstance();
-    	alarmListener = new AlarmListener(){
-
-			@Override
-			public void onAlarm(Alarm[] alarms) {
-				showAlarmingAlarms();
-			}};
-			
-    	alarmMgr.addAlarmListener(alarmListener);
+    	
+    	
     }    
  
     @Override
 	protected void onResume() {
     	Log.d(getString(R.string.debug_tag),"Resume LijiangActivity ");
     	super.onResume();
-    	
-    	showAlarmingAlarms();
     	setListViewState(STATE_LIST);
 	}
 
@@ -90,7 +82,6 @@ public class LijiangActivity extends Activity  {
     	alarmMgr.save2DB(this);
     }   
        
-   
     /*
 	 * Pass the Back Press event to parent
 	 * @see android.app.Activity#onBackPressed()
@@ -180,42 +171,5 @@ public class LijiangActivity extends Activity  {
 		
 		listView.setEmptyView(view);
 	}
-	
 
-	//--------------------------
-	// Show alarming alarms
-	//--------------------------
-	private void showAlarmingAlarms(){
-		Iterator<Alarm> it = alarmMgr.getAlarmingAlarms().iterator();
-		while(it.hasNext()){
-			showAlarmDialog(it.next());
-		}
-		
-		
-	}
-	
-	private void showAlarmDialog(final Alarm alarm){
-		String posStr = getString(R.string.known);
-		@SuppressWarnings("unused")
-		String negStr = getString(R.string.no);
-		String msg = String.format(getString(R.string.locatinNearFormat), alarm.getTitle());
-		
-		AlertDialog.Builder builder = new AlertDialog.Builder(this);
-		builder.setMessage(msg)
-		       .setPositiveButton(posStr, new DialogInterface.OnClickListener() {
-		           public void onClick(DialogInterface dialog, int id) {
-		        	   alarm.setActive(false);
-		        	   alarmMgr.getAlarmingAlarms().remove(alarm);
-		        	   LocationService.getLatestInstance().refreshAlarmNotification();
-		        	   refreshList();
-		           }
-		       })
-		      /* .setNegativeButton(negStr, new DialogInterface.OnClickListener() {
-		           public void onClick(DialogInterface dialog, int id) {
-		                dialog.cancel();
-		           }
-		       })*/;
-		AlertDialog alert = builder.create();
-		alert.show();
-	}
 }
