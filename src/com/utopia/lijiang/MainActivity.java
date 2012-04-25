@@ -53,10 +53,11 @@ public class MainActivity extends TabActivity {
 	@Override
 	public void onResume(){
 		super.onResume();
+		//Should Hide last dialog first
 		if(alert !=null){
 			alert.cancel();
 		}
-		//Should Hide last dialog fisrt
+		
 	   	showAlarmingAlarms();
 	}
 	
