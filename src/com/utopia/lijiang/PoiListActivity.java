@@ -63,7 +63,7 @@ public class PoiListActivity extends ListActivity {
 	protected void onListItemClick(ListView l, View v, int position, long id) {
 		// TODO Auto-generated method stub
 		super.onListItemClick(l, v, position, id);
-		mapActivity.centerPoint = poiInfos.get(position).pt;
+		mapActivity.onTapped(position);
 		this.finish();
 	}
 

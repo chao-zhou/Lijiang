@@ -18,7 +18,6 @@ import android.widget.TextView;
 import android.widget.TextView.OnEditorActionListener;
 import android.widget.Toast;
 
-import com.baidu.mapapi.GeoPoint;
 import com.baidu.mapapi.MKAddrInfo;
 import com.baidu.mapapi.MKDrivingRouteResult;
 import com.baidu.mapapi.MKPoiInfo;
@@ -27,6 +26,7 @@ import com.baidu.mapapi.MKSearch;
 import com.baidu.mapapi.MKSearchListener;
 import com.baidu.mapapi.MKTransitRouteResult;
 import com.baidu.mapapi.MKWalkingRouteResult;
+import com.baidu.mapapi.OverlayItem;
 import com.utopia.lijiang.view.SafeProgressDialog;
 
 public class LijiangMapActivity extends LijiangOverlayActivity {
@@ -38,13 +38,22 @@ public class LijiangMapActivity extends LijiangOverlayActivity {
 	public  MKSearch mSearch = null;
 	public  MKPoiResult searchResult = null;
 	public  GetPoiResultListener getPoiResListener= null;	
-	public  GeoPoint centerPoint = null; 
 	
 	EditText poiNameEditText = null;
 	InputMethodManager imm = null;
 	ProgressDialog progressDialog = null;
 	
+	private boolean openedPoiListActivityMark = false; 
+	private boolean openProcessDialogMark = false;
+	
+	private boolean shouldSaveMapStateAndReset(){
+		boolean rslt = openedPoiListActivityMark || openProcessDialogMark;
+		openedPoiListActivityMark = false;
+		openProcessDialogMark =false;
 		
+		return rslt;
+	}
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
@@ -57,6 +66,17 @@ public class LijiangMapActivity extends LijiangOverlayActivity {
 	    instance = this;
 	}
 
+	@Override
+	protected void onResume(){	
+		if(shouldSaveMapStateAndReset()){
+			super.onResume(false);
+		}
+		else{ //clear map
+			super.onResume(true);
+			clearSearchResult();
+		}
+	}
+	
 	/*
 	 * Pass the Back Press event to parent
 	 * @see android.app.Activity#onBackPressed()
@@ -74,31 +94,35 @@ public class LijiangMapActivity extends LijiangOverlayActivity {
 		}
 	}
 	
-	public void searchPosition(View targer){
-		String poiName = getPostionName();
-		if(poiName.length()>0){
-			progressDialog.show();
-			mSearch.poiSearchInCity(CURRENT_CITY,poiName);
-		}	
-	}
-	
 	@Override
 	protected int getConentViewId() {
 		// TODO Auto-generated method stub
 		return R.layout.baidumap;
 	}
 	
-	@Override
-	protected void onResume(){	
-		super.onResume();	
-		if(searchResult != null){
-			showSearchResult();
-		}
-		
-		if(centerPoint != null){
-			this.setCenter(centerPoint);
-		}
+	
+	
+	public void searchPosition(View targer){
+		String poiName = getPostionName();
+		if(poiName.length()>0){
+			progressDialog.show();
+			openProcessDialogMark = true;
+			mSearch.poiSearchInCity(CURRENT_CITY,poiName);
+		}	
 	}
+	
+	public void clearSearchResult(){
+		mSearch = null;
+		searchResult = null;
+		getPoiResListener= null;	
+		
+		initialSearch();
+	}
+	
+	public void onTapped(int index){
+		OverlayItem item = this.searchOverlay.getItem(index);
+		this.onTapped(index, item);
+	} 
 	
 	public void showDetails(View target){
 		setPopViewToDetail();
@@ -147,20 +171,12 @@ public class LijiangMapActivity extends LijiangOverlayActivity {
 			return;
 		}
 		
+		openedPoiListActivityMark = true;
 		Intent intent = new Intent(this, PoiListActivity.class);
 		this.startActivityForResult(intent, 0);
+		
 	}
-	
-	private String getPostionName(){
-		return poiNameEditText.getText().toString().trim();
-	}
-	
-	private void hideIME(View v){
-		if(imm.isActive(v)){
-			imm.hideSoftInputFromWindow(v.getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
-		}
-	}
-	
+		
 	public void showPreviousPagePoiResualt(View target){
 		if(searchResult == null){
 			poiNameEditText.requestFocus();
@@ -187,6 +203,18 @@ public class LijiangMapActivity extends LijiangOverlayActivity {
 		if(nextPage<maxPages){
 			mSearch.goToPoiPage(nextPage);
 			startBMapManager();
+		}
+	}
+	
+	
+	
+	private String getPostionName(){
+		return poiNameEditText.getText().toString().trim();
+	}
+	
+	private void hideIME(View v){
+		if(imm.isActive(v)){
+			imm.hideSoftInputFromWindow(v.getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
 		}
 	}
 	
