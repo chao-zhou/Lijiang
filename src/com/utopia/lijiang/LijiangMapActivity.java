@@ -18,6 +18,7 @@ import android.widget.TextView;
 import android.widget.TextView.OnEditorActionListener;
 import android.widget.Toast;
 
+import com.baidu.mapapi.GeoPoint;
 import com.baidu.mapapi.MKAddrInfo;
 import com.baidu.mapapi.MKDrivingRouteResult;
 import com.baidu.mapapi.MKPoiInfo;
@@ -29,11 +30,20 @@ import com.baidu.mapapi.MKWalkingRouteResult;
 import com.utopia.lijiang.view.SafeProgressDialog;
 
 public class LijiangMapActivity extends LijiangOverlayActivity {
-	public static MKSearch mSearch = null;
-	public static MKPoiResult searchResult = null;
+	private static LijiangMapActivity instance = null;
+	public static LijiangMapActivity getInstance(){
+		return instance;
+	}
+	
+	public  MKSearch mSearch = null;
+	public  MKPoiResult searchResult = null;
+	public  GetPoiResultListener getPoiResListener= null;	
+	public  GeoPoint centerPoint = null; 
+	
 	EditText poiNameEditText = null;
 	InputMethodManager imm = null;
 	ProgressDialog progressDialog = null;
+	
 		
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -43,6 +53,8 @@ public class LijiangMapActivity extends LijiangOverlayActivity {
 		initialProgressDialog();
 	    initialSearchInput();
 	    initialSearch();
+	    
+	    instance = this;
 	}
 
 	/*
@@ -51,7 +63,6 @@ public class LijiangMapActivity extends LijiangOverlayActivity {
 	 */
 	@Override
 	public void onBackPressed() {
-		
 		if(mPopView.getVisibility() == View.VISIBLE){
 			mPopView.setVisibility(View.GONE);
 			return;
@@ -75,6 +86,18 @@ public class LijiangMapActivity extends LijiangOverlayActivity {
 	protected int getConentViewId() {
 		// TODO Auto-generated method stub
 		return R.layout.baidumap;
+	}
+	
+	@Override
+	protected void onResume(){	
+		super.onResume();	
+		if(searchResult != null){
+			showSearchResult();
+		}
+		
+		if(centerPoint != null){
+			this.setCenter(centerPoint);
+		}
 	}
 	
 	public void showDetails(View target){
@@ -148,6 +171,7 @@ public class LijiangMapActivity extends LijiangOverlayActivity {
 		int previousPage = currentPage-1;	
 		if(previousPage>0){
 			mSearch.goToPoiPage(previousPage);
+			startBMapManager();
 		}
 	}
 
@@ -162,6 +186,7 @@ public class LijiangMapActivity extends LijiangOverlayActivity {
 		int nextPage = currentPage+1;
 		if(nextPage<maxPages){
 			mSearch.goToPoiPage(nextPage);
+			startBMapManager();
 		}
 	}
 	
@@ -203,9 +228,17 @@ public class LijiangMapActivity extends LijiangOverlayActivity {
 						progressDialog.hide();
 						Toast.makeText(LijiangMapActivity.this, "Error or Empty", Toast.LENGTH_LONG).show();
 						return;
+					}	
+					showSearchResult();
+					
+					//If it trigger by other activity, so, this activity should be paused 
+					//And BMapManager was started manually, should be close;
+					if(LijiangMapActivity.this.isPaused() 
+							&&getPoiResListener != null){
+						getPoiResListener.onGetPoiResult(res, type, error);
+						LijiangMapActivity.this.stopBMapManager();
 					}
 					
-					showSearchResult();
 					progressDialog.cancel();
 				}
 

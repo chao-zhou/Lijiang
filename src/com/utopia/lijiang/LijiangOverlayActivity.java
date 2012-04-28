@@ -171,9 +171,12 @@ public abstract class LijiangOverlayActivity extends BaiduMapActivity implements
 		items.add(item);
 		userOverlay.setItems(items);
 		
-		mMapView.getController().setCenter(pt);
-		
+		setCenter(pt);	
 		return true;
+	}
+	
+	protected void setCenter(GeoPoint pt){
+		mMapView.getController().setCenter(pt);
 	}
 	
 	protected void hidePopView()

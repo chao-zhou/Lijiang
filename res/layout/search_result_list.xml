@@ -3,7 +3,7 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:orientation="vertical"
-    android:background="@drawable/mainBackgroundColor" 
+    android:textColor="#3f3f3f"
     >
     <ListView
         android:id="@android:id/list"
@@ -20,24 +20,34 @@
     	android:layout_height="wrap_content"
 	    >
 	    <TextView
+	        android:id="@+id/searchRsltPageInfo"
 	        android:layout_width="wrap_content"
     		android:layout_height="wrap_content"
     		android:layout_centerInParent="true"
     		android:textColor="#3f3f3f"
-    		android:text="1/1"/>
+    		android:text="1/1"
+    		android:textSize="24sp"/>
 	     <Button
+	        android:id="@+id/searchRsltPrePage"
 	        android:layout_alignParentLeft="true"
 	        android:layout_centerVertical="true"
 	        android:layout_width="40dp"
     		android:layout_height="40dp"
-    		android:onClick="showPreviousPagePoiResualt"
-    		android:text="-" />
+    		android:background="#ffffff"
+    		android:onClick="prePage"
+    		android:text="-" 
+    		android:textSize="32sp"
+    		android:textStyle="bold"/>
 	    <Button
+	        android:id="@+id/searchRsltNextPage"
 	        android:layout_alignParentRight="true"
 	        android:layout_centerVertical="true" 
 	        android:layout_width="40dp"
     		android:layout_height="40dp"
-    		android:onClick="showNextPagePoiResualt"
-    		android:text="+"/>
+    		android:background="#ffffff"
+    		android:onClick="nextPage"
+    		android:text="+"
+    		android:textSize="32sp"
+    		android:textStyle="bold"/>"
 	</RelativeLayout>
 </LinearLayout>

@@ -14,10 +14,19 @@ public abstract class BaiduMapActivity extends MapActivity {
 	public abstract boolean onTapped(int i, OverlayItem item);
 	public abstract void onTapping(GeoPoint pt, MapView v);
 	
-	protected abstract int getConentViewId();
-	
+	protected abstract int getConentViewId();	
 	protected BMapManager mBMapMan = null;	
-
+	
+	private boolean isPaused = false;
+		
+	public void startBMapManager(){
+		mBMapMan.start();
+	}
+	
+	public void stopBMapManager(){
+		mBMapMan.stop();
+	}
+	
 	protected void onCreate(Bundle savedInstanceState) {
 		
 		super.onCreate(savedInstanceState);
@@ -33,12 +42,14 @@ public abstract class BaiduMapActivity extends MapActivity {
 
 	@Override
 	protected void onPause() {
-		mBMapMan.stop();
+		stopBMapManager();
+		isPaused = true;
 		super.onPause();
 	}
 	@Override
 	protected void onResume() {
-		mBMapMan.start();
+		startBMapManager();
+		isPaused = false;
 		super.onResume();
 	}
 
@@ -46,5 +57,9 @@ public abstract class BaiduMapActivity extends MapActivity {
 	protected boolean isRouteDisplayed() {
 		// TODO Auto-generated method stub
 		return false;
+	}
+	
+	protected boolean isPaused(){
+		return isPaused;
 	}
 }
