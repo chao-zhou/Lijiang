@@ -1,20 +1,15 @@
 package com.utopia.lijiang;
 
-import java.util.Iterator;
 import java.util.List;
 
 import android.app.Activity;
-import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.ListView;
 
 import com.utopia.lijiang.alarm.Alarm;
-import com.utopia.lijiang.alarm.AlarmListener;
 import com.utopia.lijiang.alarm.AlarmManager;
-import com.utopia.lijiang.service.LocationService;
 /** Main Activity of the application.
  * When this activity is created, the application's global variables will be initialed.
  * And a location service will be started. 

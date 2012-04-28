@@ -1,7 +1,5 @@
 package com.utopia.lijiang;
 
-import java.util.List;
-
 import android.app.AlertDialog;
 import android.app.TabActivity;
 import android.content.Context;
