@@ -167,7 +167,10 @@ public abstract class LijiangOverlayActivity extends BaiduMapActivity implements
 	    	return false;
 	    }
 	    
-		GeoPoint pt = new GeoPoint((int)loc.getLatitude(), (int)loc.getLongitude());
+	    int latitude = (int)(loc.getLatitude()*1E6);
+	    int longitude = (int)(loc.getLongitude()*1E6); 
+		GeoPoint pt = new GeoPoint(latitude,longitude);
+		
 		String title = this.getString(R.string.myLocation);
 		String message = pt.getLatitudeE6()+":"+pt.getLongitudeE6();
 		OverlayItem item = new OverlayItem(pt,title,message);
