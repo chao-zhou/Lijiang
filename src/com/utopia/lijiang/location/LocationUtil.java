@@ -23,6 +23,11 @@ public class LocationUtil {
 	  * @param deltaSecond	The delta second, to judge location is newer or older
 	  */
   	public static boolean isBetterLocation(Location location, Location currentBestLocation,int deltaSecond) {
+  	  if(location == null){
+  		  return false;
+  	  }
+  		
+  		
   	  if (currentBestLocation == null) {
           // A new location is always better than no location
           return true;
