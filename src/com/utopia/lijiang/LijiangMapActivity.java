@@ -210,6 +210,7 @@ public class LijiangMapActivity extends LijiangOverlayActivity {
 		}
 
 		searchOverlay.setData(poiInfos);
+		this.onTapped(0);
 		mMapView.invalidate();
 	}
 	
