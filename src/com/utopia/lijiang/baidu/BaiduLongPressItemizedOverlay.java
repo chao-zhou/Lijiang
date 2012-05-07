@@ -49,6 +49,11 @@ public class BaiduLongPressItemizedOverlay extends BaiduItemizedOverlay implemen
 
 	@Override
 	public void onLongPress(MotionEvent e) {
+		
+		//ignore two or more point
+		if(e.getPointerCount() > 1)
+			return;
+		
 		// TODO Auto-generated method stub
 		Log.d("lijiang","onLongPress");
 		GeoPoint pt = activity.getMapView().getProjection().fromPixels((int) e.getX(),(int) e.getY());
