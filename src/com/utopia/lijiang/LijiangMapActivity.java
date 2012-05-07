@@ -43,17 +43,6 @@ public class LijiangMapActivity extends LijiangOverlayActivity {
 	InputMethodManager imm = null;
 	ProgressDialog progressDialog = null;
 	
-	private boolean openedPoiListActivityMark = false; 
-	private boolean openProcessDialogMark = false;
-	
-	private boolean shouldSaveMapStateAndReset(){
-		boolean rslt = openedPoiListActivityMark || openProcessDialogMark;
-		openedPoiListActivityMark = false;
-		openProcessDialogMark =false;
-		
-		return rslt;
-	}
-	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
@@ -68,13 +57,7 @@ public class LijiangMapActivity extends LijiangOverlayActivity {
 
 	@Override
 	protected void onResume(){	
-		if(shouldSaveMapStateAndReset()){
-			super.onResume(false);
-		}
-		else{ //clear map
-			super.onResume(true);
-			clearSearchResult();
-		}
+		super.onResume(false);
 	}
 	
 	/*
@@ -106,7 +89,6 @@ public class LijiangMapActivity extends LijiangOverlayActivity {
 		String poiName = getPostionName();
 		if(poiName.length()>0){
 			progressDialog.show();
-			openProcessDialogMark = true;
 			mSearch.poiSearchInCity(CURRENT_CITY,poiName);
 		}	
 	}
@@ -171,7 +153,6 @@ public class LijiangMapActivity extends LijiangOverlayActivity {
 			return;
 		}
 		
-		openedPoiListActivityMark = true;
 		Intent intent = new Intent(this, PoiListActivity.class);
 		this.startActivityForResult(intent, 0);
 		
