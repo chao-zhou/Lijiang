@@ -81,7 +81,7 @@ public abstract class LijiangOverlayActivity extends BaiduMapActivity implements
 	
 	@Override
 	public void update(Observable observable, Object data) {
-		showCurrentLocation();
+		showCurrentLocation(false);
 	}
 	
 	@Override
@@ -162,6 +162,10 @@ public abstract class LijiangOverlayActivity extends BaiduMapActivity implements
 	}
 	
 	protected Boolean showCurrentLocation(){
+		return showCurrentLocation(true);	
+	}
+	
+	protected Boolean showCurrentLocation(Boolean shouldCenter){
 	    Location loc = Status.getCurrentStatus().getLocation();
 	    if(loc ==null){
 	    	return false;
@@ -179,7 +183,9 @@ public abstract class LijiangOverlayActivity extends BaiduMapActivity implements
 		items.add(item);
 		userOverlay.setItems(items);
 		
-		setCenter(pt);	
+		if(shouldCenter){
+			setCenter(pt);	
+		}
 		return true;
 	}
 	
