@@ -51,7 +51,8 @@ public class LijiangMapActivity extends LijiangOverlayActivity {
 		initialProgressDialog();
 	    initialSearchInput();
 	    initialSearch();
-	    
+	   
+	    this.mMapView.getController().setZoom(15);
 	    instance = this;
 	}
 
