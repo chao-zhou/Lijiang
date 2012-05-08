@@ -3,7 +3,7 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:orientation="vertical"
-    android:textColor="#3f3f3f"
+    android:background="@drawable/mainBackgroundColor"
     >
     <ListView
         android:id="@android:id/list"
@@ -12,7 +12,6 @@
     	android:gravity="center"
 		android:layout_weight="1.0"
 		android:fadeScrollbars="false"
-		android:textColor="#3f3f3f"
 		android:divider="@drawable/divideline"
 		android:dividerHeight="1dp" />
 	<RelativeLayout 

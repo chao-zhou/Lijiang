@@ -117,9 +117,9 @@ public class PoiListActivity extends ListActivity {
 				new SimpleAdapter(
 						this,
 						data,
-						android.R.layout.simple_list_item_2,
+						R.layout.poi_item,
 						new String[]{LIST_ITEM_NAME,LIST_ITEM_ADDRESS},
-						new int[]{android.R.id.text1,android.R.id.text2}
+						new int[]{R.id.poiTitle,R.id.poiAddress}
 				);
 		
 		setListAdapter(adapter);
