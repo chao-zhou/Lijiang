@@ -167,7 +167,7 @@ public class LijiangMapActivity extends LijiangOverlayActivity {
 		
 		int currentPage = searchResult.getPageIndex();
 		int previousPage = currentPage-1;	
-		if(previousPage>0){
+		if(previousPage>=0){
 			mSearch.goToPoiPage(previousPage);
 			startBMapManager();
 		}
