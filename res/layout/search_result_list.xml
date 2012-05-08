@@ -12,6 +12,7 @@
     	android:gravity="center"
 		android:layout_weight="1.0"
 		android:fadeScrollbars="false"
+		android:cacheColorHint="#00000000"
 		android:divider="@drawable/divideline"
 		android:dividerHeight="1dp" />
 	<RelativeLayout 

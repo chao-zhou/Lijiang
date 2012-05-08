@@ -39,6 +39,7 @@
 		android:fadeScrollbars="false"
 		android:divider="@drawable/divideline"
 		android:dividerHeight="1dp"
+		android:cacheColorHint="#00000000"
 		/>
 	 <ViewStub 
         android:id="@+id/alarmListEmpty" 
