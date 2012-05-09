@@ -269,7 +269,8 @@ public class LijiangMapActivity extends LijiangOverlayActivity {
 		  @Override
 		  public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
 					// TODO Auto-generated method stub
-					if(actionId !=  EditorInfo.IME_ACTION_SEARCH){
+					if(actionId !=  EditorInfo.IME_ACTION_SEARCH 
+							&& event.getKeyCode() != KeyEvent.KEYCODE_ENTER){
 						return false;
 					}
 					
