@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 import android.app.ListActivity;
+import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -15,11 +16,13 @@ import android.widget.TextView;
 
 import com.baidu.mapapi.MKPoiInfo;
 import com.baidu.mapapi.MKPoiResult;
+import com.utopia.lijiang.view.SafeProgressDialog;
 
 public class PoiListActivity extends ListActivity {
 
 	static final String LIST_ITEM_NAME = "name";
 	static final String LIST_ITEM_ADDRESS = "address";
+	static final int MAX_SEARCHING_SECOND = 1000*5;
 	
 	ArrayList<MKPoiInfo> poiInfos = null;
 	LijiangMapActivity mapActivity = null;
@@ -27,6 +30,7 @@ public class PoiListActivity extends ListActivity {
 	TextView pageInfo = null; 
 	Button nextButton  = null; 
 	Button preButton = null;
+	private SafeProgressDialog progressDialog;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -39,11 +43,14 @@ public class PoiListActivity extends ListActivity {
 		preButton = (Button)this.findViewById(R.id.searchRsltPrePage);
 		mapActivity = LijiangMapActivity.getInstance();
 
+		initialProgressDialog();
+		
 		mapActivity.getPoiResListener = new GetPoiResultListener(){
 
 			@Override
 			public void onGetPoiResult(MKPoiResult res, int type, int error) {
 				refreshAll(res);
+				progressDialog.hide();
 			}
 			
 		};
@@ -71,12 +78,21 @@ public class PoiListActivity extends ListActivity {
 
 	public void nextPage(View target){
 		mapActivity.showNextPagePoiResualt(target);
+		progressDialog.show();
 	}
 	
 	public void prePage(View target){
 		mapActivity.showPreviousPagePoiResualt(target);
+		progressDialog.show();
 	}
 	
+	private void initialProgressDialog(){
+		//progressDialog = new ProgressDialog(this);
+		progressDialog = new SafeProgressDialog(this,MAX_SEARCHING_SECOND);
+		progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+		progressDialog.setMessage(getString(R.string.searching));
+		progressDialog.setCancelable(false);
+	}
 	
 	private int getTotalPageNumber(MKPoiResult res){
 		return res.getNumPages();
@@ -97,13 +113,9 @@ public class PoiListActivity extends ListActivity {
 		nextButton.setEnabled(getCurrentPageNumber(res) < getTotalPageNumber(res));
 	}
 
-
-
 	private CharSequence getPageText(MKPoiResult res) {
 		return String.format("%s/%s", getCurrentPageNumber(res),getTotalPageNumber(res));	
 	}
-
-
 
 	private void fillList(MKPoiResult res){
 		poiInfos = res.getAllPoi();
