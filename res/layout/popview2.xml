@@ -11,14 +11,14 @@
        android:layout_height="wrap_content"  
        android:ellipsize="marquee"
        android:textColor="#000"
-	   android:textSize="16sp"
+	   android:textSize="18sp"
 	   android:textStyle="bold"
        android:singleLine="true"/>
      <ImageView 
        android:id="@+id/popShowDetail"   
        android:background="@drawable/add"   
-       android:layout_width="25dp"   
-       android:layout_height="25dp"
+       android:layout_width="30dp"   
+       android:layout_height="30dp"
        android:scaleType="centerInside"
        android:layout_alignParentRight="true"
        android:onClick="showDetails"
