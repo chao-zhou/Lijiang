@@ -5,7 +5,8 @@
  android:gravity="center_vertical"
  android:padding="6dp"
  android:paddingLeft="10dp"
- android:paddingRight="10dp">  
+ android:paddingRight="10dp"
+ android:onClick="showDetails">  
     <TextView android:id="@+id/popName"   
        android:layout_width="150dp"   
        android:layout_height="wrap_content"  
