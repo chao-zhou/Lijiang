@@ -34,5 +34,6 @@
 	<string name="howto">如何定位</string>
 	<string name="exit_warning">确定要退出程序吗？</string>
 	<string name="empty_pos_rslt">没有合适的查询结果</string>
+	<string name="poiListText">搜索结果列表</string>
 	
 </resources>
