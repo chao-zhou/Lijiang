@@ -50,7 +50,7 @@ public class PoiListActivity extends ListActivity {
 			@Override
 			public void onGetPoiResult(MKPoiResult res, int type, int error) {
 				refreshAll(res);
-				progressDialog.hide();
+				progressDialog.cancel();
 			}
 			
 		};
@@ -122,7 +122,7 @@ public class PoiListActivity extends ListActivity {
 		
 		List<Map<String, String>> data = new ArrayList<Map<String, String>>();
 		for(int index = 0; index<poiInfos.size();index++){
-			data.add(CreateListItemData(poiInfos.get(index)));
+			data.add(CreateListItemData(index+ 1, poiInfos.get(index)));
 		}
 		
 		SimpleAdapter adapter = 
@@ -137,9 +137,9 @@ public class PoiListActivity extends ListActivity {
 		setListAdapter(adapter);
 	}
 
-	private Map<String, String> CreateListItemData(MKPoiInfo poiInfo){
+	private Map<String, String> CreateListItemData(int num,MKPoiInfo poiInfo){
 		Map<String, String> item = new HashMap<String, String>();
-		item.put(LIST_ITEM_NAME,poiInfo.name);
+		item.put(LIST_ITEM_NAME, num +". " + poiInfo.name);
 		item.put(LIST_ITEM_ADDRESS, poiInfo.address);
 		return item;
 	}
