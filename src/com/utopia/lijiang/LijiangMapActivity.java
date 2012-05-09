@@ -237,7 +237,9 @@ public class LijiangMapActivity extends LijiangOverlayActivity {
 					searchResult = res;					
 					if (error != 0 || searchResult == null) {
 						progressDialog.hide();
-						Toast.makeText(LijiangMapActivity.this, "Error or Empty", Toast.LENGTH_LONG).show();
+						Toast.makeText(LijiangMapActivity.this, 
+								LijiangMapActivity.this.getString(R.string.emptySearchResult), 
+								Toast.LENGTH_LONG).show();
 						return;
 					}	
 					showSearchResult();
