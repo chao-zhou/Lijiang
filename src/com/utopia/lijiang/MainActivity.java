@@ -137,7 +137,11 @@ public class MainActivity extends TabActivity {
 		@SuppressWarnings("unused")
 		String negStr = getString(R.string.no);
 		String msg = String.format(getString(R.string.locatinNearFormat), alarm.getTitle());
-			
+		
+		if(alert != null){
+			alert.cancel();
+		}
+		
 		AlertDialog.Builder builder = new AlertDialog.Builder(this);
 		builder.setMessage(msg)
 			      .setPositiveButton(posStr, new DialogInterface.OnClickListener() {
