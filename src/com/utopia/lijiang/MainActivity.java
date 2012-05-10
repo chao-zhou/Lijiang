@@ -45,7 +45,8 @@ public class MainActivity extends TabActivity {
 	    initialMenuBar();
 	    initialAlarmListener();
 	    
-	    setCurrentTab(1);
+	    currentTabId = 1;
+	    
 	}
 
 	@Override
@@ -56,6 +57,7 @@ public class MainActivity extends TabActivity {
 			alert.cancel();
 		}
 		
+		setCurrentTab(currentTabId);
 	   	showAlarmingAlarms();
 	}
 	
