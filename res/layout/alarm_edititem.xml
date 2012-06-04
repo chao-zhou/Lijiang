@@ -29,6 +29,6 @@
     style="@style/alarm_item_button"
     android:id="@+id/alarmDelete"
 	android:layout_margin="8dp"
-	android:text="删除"
-    android:background="@drawable/delete_button_bg"/>
+	android:background="@drawable/button_editlist_background"
+	android:text="删除"/>
 </LinearLayout>
