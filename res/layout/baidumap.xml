@@ -33,7 +33,7 @@
   	 android:layout_margin="9dp"
   	 android:onClick="showCurrentLocation"
   	 android:layout_toRightOf="@id/searchPositionName"
-  	 android:background="@drawable/show_my_pos_bg"
+  	 android:background="@drawable/button_search_background"
   	 android:padding="2dp"
   	/>
  </RelativeLayout>
