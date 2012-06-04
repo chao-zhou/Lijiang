@@ -10,16 +10,17 @@
         android:layout_height="55dp"
         android:layout_weight="0.0" 
     	android:background="@drawable/header_bar_bg">
-    <Button
+    <ToggleButton
 	    android:layout_width="50dp"
         android:layout_height="50dp"
         android:layout_margin="10dp"
         android:layout_marginRight="20dp"
-        android:text="@string/btnEditText" 
+        android:textOff="@string/btnEditText"
+        android:textOn="@string/backText" 
         android:textSize="14sp" 
         android:textColor="#ffffff"
         android:onClick="showEditView"
-        android:background="@drawable/edit_button_bg"
+        android:background="@drawable/button_listswitch_background"
 	    />
 	<TextView 
 	    android:layout_width="wrap_content"
