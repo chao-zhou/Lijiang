@@ -30,6 +30,8 @@
     android:id="@+id/alarmActive"
 	android:layout_margin="8dp"
 	android:focusable="false"
+	android:textColor="@color/button_editlist_text"
+	android:background="@drawable/button_editlist_background"
 	android:textOn="@string/activeOffText"
 	android:textOff="@string/activeOnText"	
 	/>
