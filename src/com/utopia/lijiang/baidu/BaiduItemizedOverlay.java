@@ -20,8 +20,8 @@ import com.baidu.mapapi.Projection;
 
 public class BaiduItemizedOverlay extends ItemizedOverlay<OverlayItem>{
 
-	public static final int MARKER_WIDTH = 50;
-	public static final int MARKER_HEIGHT = 55;
+	public static final int MARKER_WIDTH = 22;
+	public static final int MARKER_HEIGHT = 37;
 	
 	public Boolean isShowNumber;
 	
