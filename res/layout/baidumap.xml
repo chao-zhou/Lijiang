@@ -44,22 +44,25 @@
    android:layout_alignParentRight="true"
    android:layout_alignParentBottom="true"
    android:layout_margin="8dp">
- <Button  
+ <ImageButton  
      android:layout_width="40dp"
   	 android:layout_height="30dp"
-  	 android:text="+"
+  	 android:padding="8dp"
+  	 android:src="@drawable/button_zoomin_foreground"
+  	 android:scaleType="centerInside"
   	 android:onClick="zoomIn"
   	 android:gravity="center"
-  	 android:background="@drawable/zoom_in_button_bg"
-  	 android:textSize="18sp"/>"
-  <Button  
+  	 android:background="@drawable/zoom_in_button_bg"/>
+  <ImageButton  
      android:layout_width="40dp"
   	 android:layout_height="30dp"
-  	 android:text="-"
+  	 android:paddingLeft="12dp"
+  	 android:paddingRight="12dp"
+  	 android:src="@drawable/button_zoomout_foreground"
+  	 android:scaleType="centerInside"
   	 android:gravity="center"
   	 android:onClick="zoomOut"
-  	 android:background="@drawable/zoom_out_button_bg"
-  	 android:textSize="18sp"/>
+  	 android:background="@drawable/zoom_out_button_bg"/>
   </LinearLayout>
   <ImageButton  
      android:layout_width="40dp"
