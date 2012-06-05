@@ -26,8 +26,8 @@
  	 android:hint="@string/mapEditTextHint"
  	 android:imeOptions="actionSearch"/>
     <ImageButton
-     android:layout_width="45dp"
-  	 android:layout_height="34dp"
+     android:layout_width="40dp"
+  	 android:layout_height="30dp"
   	 android:src="@drawable/show_my_pos_fg"
   	 android:scaleType="centerInside"
   	 android:layout_margin="9dp"
