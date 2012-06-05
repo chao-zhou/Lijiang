@@ -17,9 +17,9 @@
        android:singleLine="true"/>
      <ImageView 
        android:id="@+id/popShowDetail"   
-       android:background="@drawable/add"   
-       android:layout_width="30dp"   
-       android:layout_height="30dp"
+       android:background="@drawable/button_expand_foreground"   
+       android:layout_width="25dp"   
+       android:layout_height="25dp"
        android:scaleType="centerInside"
        android:layout_alignParentRight="true"
        android:onClick="showDetails"
