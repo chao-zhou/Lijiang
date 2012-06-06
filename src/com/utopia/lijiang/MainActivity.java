@@ -21,6 +21,9 @@ import com.utopia.lijiang.widget.OnMenuBarSelectListener;
 public class MainActivity extends TabActivity {
 	
 	public final static int ADD_POSITION_TAB_INDEX = 0;
+	public final static int ALARM_LIST_TAB_INDEX = 1;
+	public final static int ABOUT_US_TAB_INDEX = 1;
+	
 	final static int ANIMATIION_DURATION = 450;	
 	static MainActivity instance = null;
 		

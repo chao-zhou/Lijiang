@@ -27,6 +27,9 @@ import com.baidu.mapapi.MKSearchListener;
 import com.baidu.mapapi.MKTransitRouteResult;
 import com.baidu.mapapi.MKWalkingRouteResult;
 import com.baidu.mapapi.OverlayItem;
+import com.utopia.lijiang.alarm.Alarm;
+import com.utopia.lijiang.alarm.AlarmManager;
+import com.utopia.lijiang.alarm.LocationAlarm;
 import com.utopia.lijiang.view.SafeProgressDialog;
 
 public class LijiangMapActivity extends LijiangOverlayActivity {
@@ -115,13 +118,20 @@ public class LijiangMapActivity extends LijiangOverlayActivity {
 		 String title = popName.getText().toString();
 		 String message = popAddress.getText().toString();
 		 
-		 Intent i = new Intent(this,AddAlarmActivity.class);
+		 Alarm alarm = new LocationAlarm(title,message,
+				 (double)tappedPoint.getLongitudeE6()/1E6,(double)tappedPoint.getLatitudeE6()/1E6);
+		 AlarmManager.getInstance().addAlarm(alarm);
+		 AlarmManager.getInstance().save2DB(this);
+		 
+		 MainActivity.getInstance().setCurrentTab(MainActivity.ALARM_LIST_TAB_INDEX);
+		 
+		 /*Intent i = new Intent(this,AddAlarmActivity.class);
 		 i.putExtra(AddAlarmActivity.ALARM_TITLE, title);
 		 i.putExtra(AddAlarmActivity.ALARM_MESSAGE, message);
 		 i.putExtra(AddAlarmActivity.ALARM_LONGITUDEE6, (double)tappedPoint.getLongitudeE6()/1E6);
 		 i.putExtra(AddAlarmActivity.ALARM_LATITUDEE6, (double)tappedPoint.getLatitudeE6()/1E6);
 		 
-		 this.startActivity(i);
+		 this.startActivity(i);*/
 	}
 
 	public void zoomIn(View target){
